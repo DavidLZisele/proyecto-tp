@@ -1,0 +1,139 @@
+body 
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:15px;
+}
+h1,h2,h3,p
+{
+    font-size:1.3em;
+    text-align: left;
+    padding-left:15px;
+}
+a
+{
+    text-decoration: none;
+    display:block;
+}
+/* INDEX */
+#index
+{
+    padding:0;
+    text-align: center;
+}
+#index-header
+{
+    font-size:1em;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#index-section
+{
+    font-size:1em;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: aqua;
+}
+.registrate a
+{
+    border:solid 1px royalblue;
+    margin-bottom: 15px;
+    border-radius: 100px;
+    padding: 5px 0;
+    background-color: royalblue;
+    color:white;
+}
+.login a
+{
+    border:solid 1px royalblue;
+    margin-bottom: 15px;
+    border-radius: 100px;
+    padding: 5px;
+    background: white;
+}
+.login a:hover, .registrate a:hover 
+{
+    text-decoration: none;
+    background-color:  darkturquoise;
+    color:white;
+}
+.contenedor-header
+{
+   margin:0 auto;
+}
+
+.bloque-article
+{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; 
+    margin-bottom: 5px;  
+}
+.bloque-article i
+{
+    font-size:1.7em;
+    color:white;
+    line-height: 43px;
+    height: 50px;
+}
+.bloque-article h3
+{
+    font-size:1.5em;
+    color:white;
+}
+.bloque-footer 
+{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    height: 6vh;
+    padding:0;
+}
+.bloque-footer p, .bloque-footer a, .bloque-footer div
+{
+    text-align: center;
+    font-size:0.9em;
+    padding:0;
+    color:grey;
+}
+.bloque-footer p
+{
+    margin: auto 0;
+}
+.bloque-footer p:hover, .bloque-footer a:hover
+{
+    text-decoration: none;
+}
+
+
+
+@media (min-width: 992px)
+{
+    #index
+    {
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    .article-index
+    {
+        line-height: 15px;
+        position: relative;
+        top: 30px;
+    }
+
+}
+
+
+@media (min-width: 1200px)
+{
+    
+}
