@@ -20,6 +20,15 @@ a
     padding:0;
     text-align: center;
 }
+.bloque-nombre-red
+{
+     background-image: url(../img/road-to-the-social.jpg);
+     background-size:cover;
+     background-repeat: no-repeat;
+     height: 50vh;
+     background-position: center;
+}
+
 #index-header
 {
     font-size:1em;
@@ -37,30 +46,29 @@ a
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: aqua;
+    background-color:#333;
 }
 .registrate a
 {
-    border:solid 1px royalblue;
+    border:solid 1px white;
     margin-bottom: 15px;
     border-radius: 100px;
     padding: 5px 0;
-    background-color: royalblue;
-    color:white;
+    background-color:white ;
+    color:#333;
 }
 .login a
 {
-    border:solid 1px royalblue;
+    border:solid 1px white;
     margin-bottom: 15px;
     border-radius: 100px;
     padding: 5px;
-    background: white;
+    background: white ;
+    color:#333;
 }
 .login a:hover, .registrate a:hover 
 {
     text-decoration: none;
-    background-color:  darkturquoise;
-    color:white;
 }
 .contenedor-header
 {
@@ -112,6 +120,8 @@ a
 {
     text-decoration: none;
 }
+
+
 /*---------------------------------------------------*/
 
 /*----------------------LOGIN------------------------*/
@@ -162,7 +172,7 @@ a
 .contenedor-login article form p button
 {
     color:white;
-    background-color: blue;
+    background-color: #333;
 }
 .contenedor-login article svg
 {
@@ -173,36 +183,175 @@ a
 .contenedor-login article div
 {
     text-align: center;
-    border: solid 1px blue;
+    border: solid 1px #333;
     border-radius: 50%;
     padding:15px;
     position: absolute;
     top: -35px;
-    background-color: blue;
+    background-color: #333;
     z-index: 50;
 }
 
 /*---------------------------------------------------*/
+
+/*-------------------Registro------------------------*/
+
+
+.contenedor-registro 
+{
+ padding:0;
+}
+.fondo
+{
+    background-image: url(../img/road-to-the-social.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding:0;
+    height: 50vh;
+    background-position: center;
+}
+.bloque-registro input,
+.bloque-registro label
+{
+ display:block;
+}
+.form-registro
+{
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 50vh;
+    align-items: center;
+}
+.form-registro div 
+{
+    display:flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.form-registro div:last-child
+{
+    display:flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.form-registro div button
+{
+    border:solid 1px #333;
+    border-radius: 100px;
+    padding: 3px 0;
+    background-color: #333;
+    color:white;
+}
+/*---------------------------------------------------*/
+
+/*-------------------------FAQ-----------------------*/
+.contenedor-faq
+{
+    padding:0;
+}
+.header-faq 
+{
+  background-image: url(../img/road-to-the-social.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50vh;
+}
+
+.article-faq div 
+{
+  margin-bottom: 5px;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.article-faq div:first-child
+{
+    margin-top:5px;
+}
+.article-faq div:last-child
+{
+    border-bottom: solid 1px #333;
+    justify-content: space-around;
+}
+.section-faq
+{
+    padding:0;
+}
+/*---------------------------------------------------*/
 @media (min-width: 992px)
 {
-    /*INDEX*/
-    #index
+   
+    /*------------INDEX----------*/
+    .bloque-nombre-red
     {
-        display:flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
+        height: 50vh;
     }
-    .article-index
-    {
-        line-height: 15px;
-        position: relative;
-        top: 30px;
-    }
-
+    /*---------------------------*/
+    
+    /*--------Registro-----------*/
+     .contenedor-registro 
+     {
+         height: 100vh;
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: center;
+     }
+     .fondo
+     {
+         height: 100vh;
+         background-size: cover;
+     }
+      /*---------------------------*/
+      .article-faq
+      {
+          display:flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          height: 50vh;
+      }
+      .article-faq div 
+      {
+          border-bottom: solid 1px #333;
+          border-left:solid 1px #333;
+          margin-bottom:0;
+          margin-top: 0;
+      }
 }
 
 
 @media (min-width: 1200px)
 {
-    
+    /*------------INDEX----------*/
+    #index
+    {
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        height: 100vh;
+        align-items: center;
+    }
+    .bloque-nombre-red
+    {
+        height: 100vh;
+    } 
+    /*---------------------------*/
+
+    .contenedor-faq
+    {
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .header-faq, .article-faq
+    {
+        height: 100vh;
+    }
+    .article-faq div 
+    {
+        border-left:0;
+    }
 }
