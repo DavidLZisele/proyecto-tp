@@ -69,6 +69,10 @@ a
 .login a:hover, .registrate a:hover 
 {
     text-decoration: none;
+    background-color:lightslategray;
+    border: solid 1px #333;
+    color:white;
+    
 }
 .contenedor-header
 {
@@ -133,10 +137,11 @@ a
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: #333;
 }
 .contenedor-login article 
 {
-    border: solid 1px #eaeaea;
+    border: solid 2px #eaeaea;
     height: 50vh;
     display:flex;
     flex-wrap: wrap;
@@ -155,14 +160,23 @@ a
     font-size:0.7em;
     padding-left:60px;
     margin:0;
-    color:grey;
+    color:white;
+    font-weight: bold;
 }
-.contenedor-login article form p input, .contenedor-login article form p button
+.contenedor-login article form p button
 {
     border-radius: 100px;
-    border: solid 1px grey;
+    border: solid 2px black;
     padding: 4px 15px;
-    color:grey;
+    color:black;
+    font-size:0.8em;
+}
+.contenedor-login article form p input
+{
+    border-radius: 100px;
+    border: solid 2px white;
+    padding: 4px 15px;
+    color:black;
     font-size:0.8em;
 }
 .contenedor-login p
@@ -172,23 +186,24 @@ a
 .contenedor-login article form p button
 {
     color:white;
-    background-color: #333;
+    background-color: black;
+    font-weight: bold;
 }
 .contenedor-login article svg
 {
     width: 30px;
-   color:white
+   color: white;
 }
 
 .contenedor-login article div
 {
     text-align: center;
-    border: solid 1px #333;
+    border: solid 2px white;
     border-radius: 50%;
     padding:15px;
     position: absolute;
     top: -35px;
-    background-color: #333;
+    background-color:black;
     z-index: 50;
 }
 
@@ -243,6 +258,14 @@ a
     background-color: #333;
     color:white;
 }
+.form-registro div button:hover
+{
+    text-decoration: none;
+background-color:lightslategray;
+border: solid 1px #333;
+color:white;
+}
+
 /*---------------------------------------------------*/
 
 /*-------------------------FAQ-----------------------*/
