@@ -378,3 +378,18 @@ color:white;
         border-left:0;
     }
 }
+
+
+.bg-nav{
+    background-color: rgb(93, 93, 255);
+    color: gray;
+}
+
+.bg-cmain{
+    background-color: rgb(8, 8, 44);
+}
+
+.bg-like-comm{
+    background-color: black;
+    color: white;
+}
