@@ -1,6 +1,32 @@
+<?php
+    $usuario = ""; 
+    $password ="";
+    $errores = [];
+ if($_POST)
+ {
+    $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "" ;
+    $password = isset($_POST["password"]) ? $_POST["password"] : "" ;
+     if($usuario == "admin" && $password == "admin")
+    {
+        header('Location:http://localhost/proyecto-tp/perfil.html');
+    } else if($usuario == '' && $password != '')
+    {
+        $errores[1] = "Ingrese usuario";
+    }else if($usuario != '' && $password == '')
+    {
+        $errores[2] = "Ingrese contraseña";
+    } else if($usuario == '' && $password == '')
+    {
+        $errores[0] = "Ingrese usuario y contraseña";
+    } else if( $usuario != "admin" || $password != "admin")
+    {
+        $errores[3] = "Usuario o contraseña incorrecta";
+    }
+ }
+ 
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,18 +55,41 @@
                         </path>
                     </svg>
                 </div>
-                <form action="perfil.html" method="POST">
+                <form action="login.php" method="POST">
                     <p class="col-12">
                         <label for="usuario" class="col-12">Usuario</label>
-                        <input type="text" name="usuario" id="usuario" class="col-9">
+                        <input type="text" name="usuario" id="usuario" class="col-9" value="<?= $usuario ?>">
+                         <?php if($usuario == ''&& $password != '' && count($errores)!=0) : ?>
+                          <p class="error">
+                              <?= $errores[1]?>
+                          </p>
+                          <?php endif ; ?>  
+                         
                     </p>
                     <p class="col-12">
                         <label for="password" class="col-12">Contraseña</label>
-                        <input type="password" name="password" id="password" class="col-9">
+                        <input type="password" name="password" id="password" class="col-9" value="<?= $password ?>">
+                        <?php if($password == '' && $usuario != '' && count($errores)!=0) : ?>
+                          <p class="error">
+                              <?= $errores[2]?>
+                          </p>
+                          <?php endif ; ?>  
                     </p>
                     <p class="col-12">
                         <button type="submit" class="col-9">Ingresar</button>
+                        <?php if($usuario != "admin" && $password != "admin" && $usuario != '' && $password != '' && count($errores)!=0) : ?>
+                          <p class="error">
+                              <?= $errores[3]?>
+                          </p>
+                          <?php endif ; ?>  
+                            <?php if($usuario == '' && $password == ''  && count($errores)!=0) : ?>
+                            <p class="error">
+                              <?= $errores[0] ?>
+                          </p>
+                          
+                          <?php endif ; ?>
                     </p>
+
                 </form>
             </article>
 

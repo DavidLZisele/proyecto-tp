@@ -14,6 +14,12 @@ a
     text-decoration: none;
     display:block;
 }
+.error 
+{
+    margin: 0;
+    color:red;
+    font-size: 0.7em;
+}
 /*----------------------INDEX----------------------------*/
 #index
 {
@@ -72,7 +78,6 @@ a
     background-color:lightslategray;
     border: solid 1px #333;
     color:white;
-    
 }
 .contenedor-header
 {
@@ -250,6 +255,11 @@ a
     justify-content: flex-end;
     flex-wrap: wrap;
 }
+.form-registro div p
+{
+   text-align: start;
+   padding-left:200px;
+}
 .form-registro div button
 {
     border:solid 1px #333;
@@ -257,6 +267,7 @@ a
     padding: 3px 0;
     background-color: #333;
     color:white;
+    display: block;
 }
 .form-registro div button:hover
 {
