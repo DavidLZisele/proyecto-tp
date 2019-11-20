@@ -143,6 +143,7 @@ a
     align-items: center;
     height: 100vh;
     background-color: #333;
+    padding:0;
 }
 .contenedor-login article 
 {
@@ -152,7 +153,7 @@ a
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin-top: 0;
+    margin-top: 50px;
     position: relative;
 }
 .contenedor-login article form p
@@ -211,7 +212,15 @@ a
     background-color:black;
     z-index: 50;
 }
-
+.contenedor-login #footer-login{
+    background-color: white;
+    margin-top: auto;
+}
+.contenedor-login #footer-login .bloque-footer
+div p
+{
+    margin: auto;
+}
 /*---------------------------------------------------*/
 
 /*-------------------Registro------------------------*/
@@ -230,6 +239,13 @@ a
     height: 50vh;
     background-position: center;
 }
+.contenedor-registro #registro
+{
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    border-bottom: solid 0.5px;
+}
+
 .bloque-registro input,
 .bloque-registro label
 {
@@ -353,6 +369,12 @@ color:white;
           border-left:solid 1px #333;
           margin-bottom:0;
           margin-top: 0;
+      }
+      .contenedor-registro #registro
+      {
+          padding-top: 0;
+          padding-bottom: 0;
+          border-bottom: none;
       }
 }
 

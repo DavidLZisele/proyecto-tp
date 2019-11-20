@@ -53,7 +53,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Registro</title>
 </head>
 
 <body>
@@ -61,7 +61,7 @@
         <div class="fondo col-lg-8">
 
         </div>
-        <section class="col-lg-4">
+        <section class="col-lg-4" id="registro">
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" class="form-registro">
                 <div class="col-12">
                     <label class="col-6" for="usuario">Usuario</label>
@@ -114,6 +114,27 @@
                 </div>
     </form>
     </section>
+
+    <footer id="footer-registro" class="col-12 col-lg-12 mt-auto">
+            <div class="bloque-footer col-12">
+                 <div class="col-3">
+                    <a class="col-12" href="index.html">Inicio</a>
+                </div>
+                <div class="col-3">
+                    <a class="col-12" href="login.php">LogIn</a>
+                </div>
+                <div class="col-3">
+                    <a href="faq.html" class="col-12">F.A.Q</a>
+                </div>
+                <div class="col-3">
+                    <p>
+                        © 2019 Social.
+                    </p>
+                </div>
+            </div>
+
+    </footer>
+
     </div>
 
 </body>
