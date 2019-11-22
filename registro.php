@@ -122,18 +122,12 @@
 
 <body>
     <div class="container col-12 col-md-12 col-lg-12 col-xl-12 contenedor-registro">
-        <div class="fondo col-lg-12 mb-5 col-xl-7">
+        <div class="fondo col-lg-12 mb-5 mb-xl-0 col-xl-7">
 
         </div>
-<<<<<<< HEAD
         <section class="col-lg-12 col-xl-5">
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" enctype ="multipart/form-data" class="form-registro">
                 <div class="col-12 col-md-6 col-xl-12">
-=======
-        <section class="col-lg-4" id="registro">
-            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" class="form-registro">
-                <div class="col-12">
->>>>>>> 0ae6bf0a067f16c3f931c2b500b2bbcfe63ffe9a
                     <label class="col-6" for="usuario">Usuario</label>
                     <input class="col-6" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
                     <div class="bloque-error-registro  col-12">

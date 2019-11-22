@@ -29,6 +29,7 @@ a
     color:white;
     border-radius:5px;
 }
+
 /*----------------------INDEX----------------------------*/
 #index
 {
@@ -342,9 +343,10 @@ background-color:lightslategray;
 {
     color:white;
     font-size: 1.5em;
-    top: 10px;
-    position: relative;
-    left:-35px;
+    margin-right: 50px;
+    position: absolute;
+    top:10px;
+    margin-left: -70%;
 }
 /*---------------------------------------------------*/
 
@@ -396,7 +398,11 @@ background-color:lightslategray;
     }
     .bloque-boton-registro
     {
-       margin-left: 73%;
+       margin-left: 50%;
+    }
+    .bloque-foto i
+    {
+        margin-left: -50%;
     }
 }
 @media (min-width: 992px)
@@ -436,6 +442,10 @@ background-color:lightslategray;
     {
        margin-left: 51%;
     }
+    .bloque-foto i
+    {
+        margin-left: -60%;
+    }
       /*---------------------------*/
 
       /*-------------FAQ-------------*/
@@ -453,17 +463,12 @@ background-color:lightslategray;
           margin-bottom:0;
           margin-top: 0;
       }
-<<<<<<< HEAD
-      /*---------------------------*/
-
-=======
       .contenedor-registro #registro
       {
           padding-top: 0;
           padding-bottom: 0;
           border-bottom: none;
       }
->>>>>>> 0ae6bf0a067f16c3f931c2b500b2bbcfe63ffe9a
 }
 
 
