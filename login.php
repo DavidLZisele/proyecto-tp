@@ -2,14 +2,36 @@
     $usuario = ""; 
     $password ="";
     $errores = [];
+    $usuarios =[];
+    $user = [];
+    $bandera = 0;
+
  if($_POST)
  {
     $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "" ;
     $password = isset($_POST["password"]) ? $_POST["password"] : "" ;
-     if($usuario == "admin" && $password == "admin")
+    
+    $usuarios_json = file_get_contents("usuarios.json");
+    $usuarios = json_decode($usuarios_json,true);
+
+    $usernames = array_column($usuarios, 'usuario');
+    $index_usuario = array_search($usuario, $usernames);
+     if($index_usuario !== false)
     {
-        header('Location:http://localhost/proyecto-tp/perfil.html');
-    } else if($usuario == '' && $password != '')
+        if(password_verify($password, $usuarios[$index_usuario]["password"]))
+        {
+            $user = $usuarios[$index_usuario];
+            header("Location:http://localhost/proyecto-tp/perfil.php?id=". $usuarios[$index_usuario]["id"]);
+        } else 
+        {
+            $bandera = 1;
+            $errores[2] = "Contraseña incorrecta";
+        }     
+    } else if($index_usuario === false )
+    {
+        $errores[0] = "No se encontro el usuario";
+    } 
+    else if($usuario == '' && $password != '')
     {
         $errores[1] = "Ingrese usuario";
     }else if($usuario != '' && $password == '')
@@ -18,9 +40,6 @@
     } else if($usuario == '' && $password == '')
     {
         $errores[0] = "Ingrese usuario y contraseña";
-    } else if( $usuario != "admin" || $password != "admin")
-    {
-        $errores[3] = "Usuario o contraseña incorrecta";
     }
  }
  
@@ -62,14 +81,14 @@
                          <?php if($usuario == ''&& $password != '' && count($errores)!=0) : ?>
                           <p class="error">
                               <?= $errores[1]?>
-                          </p>
+                         </p>
                           <?php endif ; ?>  
                          
                     </p>
                     <p class="col-12">
                         <label for="password" class="col-12">Contraseña</label>
                         <input type="password" name="password" id="password" class="col-9" value="<?= $password ?>">
-                        <?php if($password == '' && $usuario != '' && count($errores)!=0) : ?>
+                        <?php if( ($password == '' && $usuario != '' || $bandera == 1)  && count($errores)!=0) : ?>
                           <p class="error">
                               <?= $errores[2]?>
                           </p>
@@ -77,12 +96,7 @@
                     </p>
                     <p class="col-12">
                         <button type="submit" class="col-9">Ingresar</button>
-                        <?php if($usuario != "admin" && $password != "admin" && $usuario != '' && $password != '' && count($errores)!=0) : ?>
-                          <p class="error">
-                              <?= $errores[3]?>
-                          </p>
-                          <?php endif ; ?>  
-                            <?php if($usuario == '' && $password == ''  && count($errores)!=0) : ?>
+                            <?php if(($usuario == '' && $password == '' ||  $index_usuario === false ) && count($errores)!=0) : ?>
                             <p class="error">
                               <?= $errores[0] ?>
                           </p>

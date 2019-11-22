@@ -1,3 +1,17 @@
+<?php
+  
+   if($_GET)
+   {
+      $usuarios_json = file_get_contents("usuarios.json");
+      $usuarios = json_decode($usuarios_json,true);
+    
+      $usuarios_nombres = array_column($usuarios, 'id');
+      $index_usuario = array_search($_GET["id"], $usuarios_nombres);
+      $usuario = $usuarios[$index_usuario];   
+   }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,8 +76,10 @@
           <!-- Profile -->
           <div class="w3-card w3-round w3-white">
             <div class="w3-container">
-             <h4 class="w3-center">Sebastián Charles</h4>
-             <p class="w3-center"><img src="img/perfil.jpg" class="w3-square" style="height:150px;width:150px" alt="Avatar"></p>
+             <h4 class="w3-center">
+               <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
+             </h4>
+             <p class="w3-center"><img src="perfiles/<?=$usuario["foto"]?>" class="w3-square" style="height:150px;width:150px" alt="Avatar"></p>
              <hr>
              <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Programador Web Full Stack</p>
              <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Rosario, Argentina</p>

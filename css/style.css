@@ -19,6 +19,15 @@ a
     margin: 0;
     color:red;
     font-size: 0.7em;
+    text-align: start;
+    padding-left:35%;
+}
+.form-registro input
+{
+    background-color:#333;
+    border:solid 1px #333;
+    color:white;
+    border-radius:5px;
 }
 /*----------------------INDEX----------------------------*/
 #index
@@ -183,6 +192,7 @@ a
     padding: 4px 15px;
     color:black;
     font-size:0.8em;
+    border-radius: 5px;
 }
 .contenedor-login p
 {
@@ -235,6 +245,7 @@ a
 {
  display:block;
 }
+
 .form-registro
 {
     display:flex;
@@ -243,40 +254,82 @@ a
     height: 50vh;
     align-items: center;
 }
+
 .form-registro div 
 {
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-.form-registro div:last-child
+.form-registro div:nth-child(7)
 {
     display:flex;
     justify-content: flex-end;
     flex-wrap: wrap;
 }
-.form-registro div p
-{
-   text-align: start;
-   padding-left:200px;
-}
 .form-registro div button
 {
     border:solid 1px #333;
     border-radius: 100px;
-    padding: 3px 0;
+    padding: 4px 0;
     background-color: #333;
     color:white;
     display: block;
+    text-transform: uppercase;
+    font-size:1em;
+    font-weight: bold;
+    line-height: 25px;
+    margin-top: 10px;
 }
 .form-registro div button:hover
 {
     text-decoration: none;
 background-color:lightslategray;
-border: solid 1px #333;
-color:white;
 }
 
+.bloque-p-registro
+{
+    border: solid 1px #333;
+}
+.bloque-foto-perfil .bloque-foto
+{
+    border:solid 1px #333;
+    margin-left: 50%;
+    position: relative;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+.bloque-foto input 
+{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left:0;
+    bottom:0;
+    right:0;
+    top:0;
+    opacity: 0;
+}
+.bloque-foto p
+{
+    text-align: center;
+    line-height: 10px;
+    padding-top: 17px;
+    color:white;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.bloque-foto i
+{
+    color:white;
+    font-size: 1.5em;
+    top: 10px;
+    position: relative;
+    left:-35px;
+}
 /*---------------------------------------------------*/
 
 /*-------------------------FAQ-----------------------*/
@@ -315,6 +368,21 @@ color:white;
     padding:0;
 }
 /*---------------------------------------------------*/
+@media (min-width:768px)
+{
+    .form-registro div:last-child
+    {
+        justify-content: center;
+    }
+    .error 
+    {
+        padding-left: 45%;
+    }
+    .bloque-boton-registro
+    {
+       margin-left: 73%;
+    }
+}
 @media (min-width: 992px)
 {
    
@@ -336,10 +404,25 @@ color:white;
      }
      .fondo
      {
-         height: 100vh;
+         height: 50vh;
          background-size: cover;
      }
+     .form-registro div:last-child
+    {
+        justify-content: flex-end;
+    }
+    .error 
+    {
+        padding-left: 37%;
+        text-align: left;
+    }
+    .bloque-boton-registro
+    {
+       margin-left: 51%;
+    }
       /*---------------------------*/
+
+      /*-------------FAQ-------------*/
       .article-faq
       {
           display:flex;
@@ -354,6 +437,8 @@ color:white;
           margin-bottom:0;
           margin-top: 0;
       }
+      /*---------------------------*/
+
 }
 
 
@@ -373,7 +458,18 @@ color:white;
         height: 100vh;
     } 
     /*---------------------------*/
-
+    /*-------------REGISTRO-------------*/
+    .fondo
+     {
+         height: 100vh;
+         background-size: cover;
+     }
+     .bloque-boton-registro
+    {
+       margin-left: 0%;
+    }
+    /*-----------------------------*/
+     /*-------------FAQ-------------*/
     .contenedor-faq
     {
         display:flex;
@@ -388,6 +484,7 @@ color:white;
     {
         border-left:0;
     }
+     /*---------------------------*/
 }
 
 
