@@ -117,7 +117,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Registro</title>
 </head>
 
 <body>
@@ -125,9 +125,15 @@
         <div class="fondo col-lg-12 mb-5 col-xl-7">
 
         </div>
+<<<<<<< HEAD
         <section class="col-lg-12 col-xl-5">
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" enctype ="multipart/form-data" class="form-registro">
                 <div class="col-12 col-md-6 col-xl-12">
+=======
+        <section class="col-lg-4" id="registro">
+            <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" class="form-registro">
+                <div class="col-12">
+>>>>>>> 0ae6bf0a067f16c3f931c2b500b2bbcfe63ffe9a
                     <label class="col-6" for="usuario">Usuario</label>
                     <input class="col-6" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
                     <div class="bloque-error-registro  col-12">
@@ -213,6 +219,27 @@
                     </div>
     </form>
     </section>
+
+    <footer id="footer-registro" class="col-12 col-lg-12 mt-auto">
+            <div class="bloque-footer col-12">
+                 <div class="col-3">
+                    <a class="col-12" href="index.html">Inicio</a>
+                </div>
+                <div class="col-3">
+                    <a class="col-12" href="login.php">LogIn</a>
+                </div>
+                <div class="col-3">
+                    <a href="faq.html" class="col-12">F.A.Q</a>
+                </div>
+                <div class="col-3">
+                    <p>
+                        © 2019 Social.
+                    </p>
+                </div>
+            </div>
+
+    </footer>
+
     </div>
 
 </body>

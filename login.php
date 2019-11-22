@@ -58,7 +58,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>LogIn</title>
 </head>
 
 <body>
@@ -108,6 +108,25 @@
             </article>
 
         </section>
+        <footer id="footer-login" class="col-12 col-lg-12">
+            <div class="bloque-footer col-12">
+                 <div class="col-3">
+                    <a class="col-12" href="index.html">Inicio</a>
+                </div>
+                <div class="col-3">
+                    <a class="col-12" href="registro.php">Registro</a>
+                </div>
+                <div class="col-3">
+                    <a href="faq.html" class="col-12">F.A.Q</a>
+                </div>
+                <div class="col-3">
+                    <p>
+                        © 2019 Social.
+                    </p>
+                </div>
+            </div>
+
+    </footer>
     </div>
 </body>
 
