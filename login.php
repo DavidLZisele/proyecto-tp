@@ -1,19 +1,26 @@
 <?php
+session_start();
     $usuario = ""; 
     $password ="";
     $errores = [];
-    $usuarios =[];
     $user = [];
     $bandera = 0;
-
- if($_POST)
+    $index_usuario = false;
+    $usuarios_json = file_get_contents("usuarios.json");
+    $usuarios = json_decode($usuarios_json,true);
+    if(isset($_COOKIE["usuario"]))
+    {
+        $user = json_decode($_COOKIE["usuario"],true);
+        $usuario = $user["usuario"];
+        $password = $user["password"];
+        $_SESSION["usuario"] = $user;
+        header("Location:http://localhost/proyecto-tp/perfil.php");
+    } 
+    else if($_POST)
  {
     $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "" ;
     $password = isset($_POST["password"]) ? $_POST["password"] : "" ;
     
-    $usuarios_json = file_get_contents("usuarios.json");
-    $usuarios = json_decode($usuarios_json,true);
-
     $usernames = array_column($usuarios, 'usuario');
     $index_usuario = array_search($usuario, $usernames);
      if($index_usuario !== false)
@@ -21,7 +28,12 @@
         if(password_verify($password, $usuarios[$index_usuario]["password"]))
         {
             $user = $usuarios[$index_usuario];
-            header("Location:http://localhost/proyecto-tp/perfil.php?id=". $usuarios[$index_usuario]["id"]);
+            $_SESSION["usuario"] = $user;
+            if(isset($_POST["recordar"]))
+            {
+                setcookie("usuario", json_encode($user), time() + 60*60*24*365);
+            }
+            header("Location:http://localhost/proyecto-tp/perfil.php");
         } else 
         {
             $bandera = 1;
@@ -94,6 +106,12 @@
                           </p>
                           <?php endif ; ?>  
                     </p>
+                    <p class="col-12 recordar">
+                        <input type="checkbox" name="recordar" id="recordar" value="true"> 
+                        <span>
+                         Recordarme?
+                        </span>
+                    </p>
                     <p class="col-12">
                         <button type="submit" class="col-9">Ingresar</button>
                             <?php if(($usuario == '' && $password == '' ||  $index_usuario === false ) && count($errores)!=0) : ?>
@@ -103,6 +121,7 @@
                           
                           <?php endif ; ?>
                     </p>
+                 
 
                 </form>
             </article>

@@ -1,15 +1,15 @@
 <?php
-  
-   if($_GET)
-   {
-      $usuarios_json = file_get_contents("usuarios.json");
-      $usuarios = json_decode($usuarios_json,true);
-    
-      $usuarios_nombres = array_column($usuarios, 'id');
-      $index_usuario = array_search($_GET["id"], $usuarios_nombres);
-      $usuario = $usuarios[$index_usuario];   
-   }
-    
+session_start();
+$usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
+if($_POST)
+{
+  if(isset($_POST["salir"]))
+  {
+    session_destroy();
+    setcookie("usuario", "", -1);
+    header("Location:http://localhost/proyecto-tp/index.html");
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,6 +82,9 @@
              <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Rosario, Argentina</p>
              <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> 1 Abril, 1998</p>
             </div>
+            <form action="perfil.php" method = "POST">
+              <button type="submit" name="salir">Salir</button>
+            </form>
           </div>
           <br>
           

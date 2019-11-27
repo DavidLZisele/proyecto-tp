@@ -1,4 +1,7 @@
 <?php 
+session_start();
+$usuarios_json = file_get_contents("usuarios.json");
+$usuarios = json_decode($usuarios_json,true);
     $usuario = null;
     $password = null;
     $nombre = null;
@@ -11,7 +14,15 @@
     $index_nombre_email = null ;
     $bandera = 0;
     $foto = [];
-    if($_POST)
+    if(isset($_COOKIE["usuario"]))
+    {
+        $user = json_decode($_COOKIE["usuario"],true);
+        $usuario = $user["usuario"];
+        $password = $user["password"];
+        $_SESSION["usuario"] = $user;
+        header("Location:http://localhost/proyecto-tp/perfil.php");
+    }
+    else if($_POST)
     {
         $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : '';
         $password = isset($_POST["contraseña"]) ? $_POST["contraseña"] : '';
@@ -23,10 +34,6 @@
         $validar_archivo = $foto["error"];
         if(strlen($usuario)>=5 && strlen($password)>=5 && strlen($email)>=5 && strlen($nombre)>=3 && !is_numeric($nombre) && strlen($apellido)>=3 && !is_numeric($apellido)  && ($ext == "jpg" || $ext == "png") && $validar_archivo == 0)
         {
-            
-            $usuarios_json = file_get_contents("usuarios.json");
-            $usuarios = json_decode($usuarios_json,true);
-
             $nombres_usuarios = array_column($usuarios,'usuario');
             $nombres_email = array_column($usuarios,'email');
 
@@ -49,8 +56,13 @@
                 file_put_contents("usuarios.json", $usuarios_json);
 
                 move_uploaded_file($foto["tmp_name"], "perfiles/".(count($usuarios)+1).".".$ext);
-
-                header('Location:http://localhost/proyecto-tp/login.php');
+                $_SESSION["usuario"] = $usuario;
+                if(isset($_POST["recordar"]))
+            {
+                setcookie("usuario", json_encode($user), time() + 60*60*24*365);
+              
+            }
+             header('Location:http://localhost/proyecto-tp/perfil.php');
             } else if($index_nombre_usuario !== false && $index_nombre_email !== false)
             {
                 $bandera = 1;
@@ -201,6 +213,12 @@
                          <?php endif; ?>
                     </div>
                 </div>
+                <div class="col-12 col-md-6 col-xl-12 recordar-registro">
+                        <input type="checkbox" name="recordar" id="recordar" value="true"> 
+                        <span>
+                         Recordarme?
+                        </span>
+                </div>
                 <div class="col-12 col-md-6 col-xl-12 bloque-boton-registro">
                     <button class="col-6" type="submit">Registrarte</button>
                 </div>
@@ -210,7 +228,7 @@
                                 <?= $errores[6] ?>  
                             </p>
                          <?php endif; ?>
-                    </div>
+                </div>
     </form>
     </section>
 

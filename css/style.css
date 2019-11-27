@@ -232,6 +232,20 @@ div p
 {
     margin: auto;
 }
+.recordar 
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    color:white;
+    font-size:0.8em;
+    padding-left: 18%;
+}
+
+.recordar input, .recordar-registro input
+{
+    margin-right: 10px;
+}
 /*---------------------------------------------------*/
 
 /*-------------------Registro------------------------*/
@@ -278,11 +292,12 @@ div p
     justify-content: center;
     flex-wrap: wrap;
 }
-.form-registro div:nth-child(7)
+.form-registro div:nth-child(8)
 {
     display:flex;
     justify-content: flex-end;
     flex-wrap: wrap;
+    margin-top: 0;
 }
 .form-registro div button
 {
@@ -348,6 +363,16 @@ background-color:lightslategray;
     top:10px;
     margin-left: -70%;
 }
+.recordar-registro
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color:#333;
+    font-size:0.8em;
+    padding-left: 25%;
+    margin-bottom: 0;
+}
 /*---------------------------------------------------*/
 
 /*-------------------------FAQ-----------------------*/
@@ -403,6 +428,10 @@ background-color:lightslategray;
     .bloque-foto i
     {
         margin-left: -50%;
+    }
+    .recordar-registro
+    {
+       margin-left: 40%;
     }
 }
 @media (min-width: 992px)
@@ -497,6 +526,10 @@ background-color:lightslategray;
      .bloque-boton-registro
     {
        margin-left: 0%;
+    }
+    .recordar-registro
+    {
+       margin-left: 0;
     }
     /*-----------------------------*/
      /*-------------FAQ-------------*/
