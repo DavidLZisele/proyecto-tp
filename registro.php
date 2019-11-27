@@ -14,6 +14,7 @@ $usuarios = json_decode($usuarios_json,true);
     $index_nombre_email = null ;
     $bandera = 0;
     $foto = [];
+    $id = 0;
     if(isset($_COOKIE["usuario"]))
     {
         $user = json_decode($_COOKIE["usuario"],true);
@@ -42,20 +43,27 @@ $usuarios = json_decode($usuarios_json,true);
 
             if($index_nombre_usuario === false && $index_nombre_email === false)
             {
+                if(count($usuarios) == 0)
+                {
+                    $id = 1;
+                } else 
+                {
+                    $id = end($usuarios)["id"] + 1 ;
+                }
                 $usuario = [
-                     "id" => count($usuarios)+1,
+                     "id" => $id,
                      "usuario" => $usuario,
                      "password" => password_hash($password,PASSWORD_DEFAULT),
                      "nombre" => $nombre,
                      "apellido" => $apellido,
                      "email" => $email,
-                     "foto" => (count($usuarios)+1).".".$ext
+                     "foto" => $id.".".$ext
                 ];
                 $usuarios[] = $usuario;
                 $usuarios_json = json_encode($usuarios);
                 file_put_contents("usuarios.json", $usuarios_json);
 
-                move_uploaded_file($foto["tmp_name"], "perfiles/".(count($usuarios)+1).".".$ext);
+                move_uploaded_file($foto["tmp_name"], "perfiles/".$id.".".$ext);
                 $_SESSION["usuario"] = $usuario;
                 if(isset($_POST["recordar"]))
             {
