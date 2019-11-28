@@ -16,6 +16,10 @@ session_start();
         $_SESSION["usuario"] = $user;
         header("Location:http://localhost/proyecto-tp/perfil.php");
     } 
+    else if(isset($_SESSION["usuario"]))
+    {
+        header("Location:http://localhost/proyecto-tp/perfil.php");
+    }
     else if($_POST)
  {
     $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "" ;
