@@ -8,12 +8,13 @@ session_start();
     $index_usuario = false;
     $usuarios_json = file_get_contents("usuarios.json");
     $usuarios = json_decode($usuarios_json,true);
-    if(isset($_COOKIE["usuario"]))
+    if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
     {
         $user = json_decode($_COOKIE["usuario"],true);
         $usuario = $user["usuario"];
         $password = $user["password"];
         $_SESSION["usuario"] = $user;
+        $_SESSION["index"] = $_COOKIE["index"]; 
         header("Location:http://localhost/proyecto-tp/perfil.php");
     } 
     else if(isset($_SESSION["usuario"]))
@@ -37,6 +38,7 @@ session_start();
             if(isset($_POST["recordar"]))
             {
                 setcookie("usuario", json_encode($user), time() + 60*60*24*365);
+                setcookie("index", $index_usuario, time() + 60*60*24*365);
             }
             header("Location:http://localhost/proyecto-tp/perfil.php");
         } else 
