@@ -1,6 +1,8 @@
 <?php
 session_start();
+$usuarios = json_decode(file_get_contents("usuarios.json"),true);
 $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
+$ext = '';
 if($_POST)
 {
   if(isset($_POST["salir"]))
@@ -8,6 +10,20 @@ if($_POST)
     session_destroy();
     setcookie("usuario", "", -1);
     header("Location:http://localhost/proyecto-tp/index.html");
+  }
+  else if(isset($_POST["boton-foto"]))
+  {
+    $ext = pathinfo($_FILES["cambiarfoto"]["name"],PATHINFO_EXTENSION);
+    if($_FILES["cambiarfoto"]["error"]==0 && ($ext== "jpg" ||$ext== "png") )
+    {
+      $_SESSION["usuario"]["foto"] = $usuario["id"].".".$ext;
+      $usuario = $_SESSION["usuario"];
+      $usuarios[$_SESSION["index"]] = $usuario;
+      file_put_contents("usuarios.json", json_encode($usuarios));
+      move_uploaded_file($_FILES["cambiarfoto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
+      header("Location:http://localhost/proyecto-tp/perfil.php");
+
+    }
   }
 }
 ?>
@@ -75,9 +91,16 @@ if($_POST)
             <div class="w3-container">
              <h4 class="w3-center">
                <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
-             </h4>
-             <p class="w3-center"><img src="perfiles/<?=$usuario["foto"]?>" class="w3-square" style="height:150px;width:150px" alt="Avatar"></p>
-             <hr>
+             </h4>                            
+              <form action="perfil.php" method="POST" enctype="multipart/form-data">
+              <p class="w3-center"><img src="perfiles/<?=$usuario["foto"]?>" class="w3-square" style="height:150px;width:150px" alt="Avatar"></p>
+               <div class="foto-perfil">         
+                 <i class="fa fa-camera" aria-hidden="true"></i>
+                 <input type="file" name="cambiarfoto" id="cambiarfoto">
+                 <button type="submit" name="boton-foto">Cambiar foto</button>
+               </div> 
+              </form>
+            <hr>
              <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Programador Web Full Stack</p>
              <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Rosario, Argentina</p>
              <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> 1 Abril, 1998</p>

@@ -33,6 +33,7 @@ session_start();
         {
             $user = $usuarios[$index_usuario];
             $_SESSION["usuario"] = $user;
+            $_SESSION["index"] = $index_usuario;
             if(isset($_POST["recordar"]))
             {
                 setcookie("usuario", json_encode($user), time() + 60*60*24*365);
