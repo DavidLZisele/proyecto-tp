@@ -414,31 +414,59 @@ background-color:lightslategray;
 
 /*--------------------PERFIL-------------------------*/
 
-.foto-perfil 
+
+.form-perfil 
 {
-    width:51%;
-    height:4vh;
-    position: relative;
-    top:-45px;
-    right:-80px;
-    text-align: center;
+    text-align: left;
+    width: 100%;
+
 }
-.foto-perfil input  
+.form-perfil p
 {
  width: 100%;
- height: 5vh;
- position: absolute;
- left:0;
- right: 0;
- bottom: 0;
- top:0;
- opacity: 0;
 }
-.foto-perfil i 
+.form-perfil p img 
 {
-    display:block;
-    margin-bottom: 15px;
+    width: 100%;
 }
+.foto-perfil 
+{
+    position: relative;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    top:-50px;
+    padding-inline-start: 15px;
+}
+.bloque-foto-perfil, .bloque-boton-perfil
+{
+    width: 50%;
+    text-align: center;
+    padding-top: 5px;
+}
+.bloque-boton-perfil button
+{
+    width: 50%;
+    background-color: transparent;
+    border: solid 1px transparent;
+}
+.bloque-foto-perfil i, .bloque-boton-perfil i
+{
+    font-size:20px;
+    color:blue;
+}
+.foto-perfil input 
+{
+    opacity: 0;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
 /*---------------------------------------------------*/
 @media (min-width:768px)
 {

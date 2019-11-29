@@ -92,13 +92,21 @@ if($_POST)
              <h4 class="w3-center">
                <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
              </h4>                            
-              <form action="perfil.php" method="POST" enctype="multipart/form-data">
-              <p class="w3-center"><img src="perfiles/<?=$usuario["foto"]?>" class="w3-square" style="height:150px;width:150px" alt="Avatar"></p>
-               <div class="foto-perfil">         
-                 <i class="fa fa-camera" aria-hidden="true"></i>
-                 <input type="file" name="cambiarfoto" id="cambiarfoto">
-                 <button type="submit" name="boton-foto">Guardar foto</button>
-               </div> 
+              <form action="perfil.php" method="POST" enctype="multipart/form-data" class="form-perfil">
+              <p class="w3-center">
+                <img src="perfiles/<?=$usuario["foto"]?>" class="w3-square" alt="Avatar">
+              </p>
+               <div class="foto-perfil">
+                 <div class="bloque-foto-perfil">
+                      <i class="fa fa-camera" aria-hidden="true"></i>
+                      <input type="file" name="cambiarfoto" id="cambiarfoto">   
+                 </div>        
+                   <div class="bloque-boton-perfil">
+                        <button type="submit" name="boton-foto">
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                         </button>  
+                   </div>  
+              </div>          
               </form>
             <hr>
              <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Programador Web Full Stack</p>
