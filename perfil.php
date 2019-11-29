@@ -97,7 +97,7 @@ if($_POST)
                <div class="foto-perfil">         
                  <i class="fa fa-camera" aria-hidden="true"></i>
                  <input type="file" name="cambiarfoto" id="cambiarfoto">
-                 <button type="submit" name="boton-foto">Cambiar foto</button>
+                 <button type="submit" name="boton-foto">Guardar foto</button>
                </div> 
               </form>
             <hr>
