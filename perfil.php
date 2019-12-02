@@ -3,6 +3,8 @@ session_start();
 $usuarios = json_decode(file_get_contents("usuarios.json"),true);
 $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
 $ext = '';
+$errores = [];
+$bandera = 0;
 if($_POST)
 {
   if(isset($_POST["salir"]))
@@ -22,7 +24,25 @@ if($_POST)
       file_put_contents("usuarios.json", json_encode($usuarios));
       move_uploaded_file($_FILES["cambiarfoto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
       header("Location:http://localhost/proyecto-tp/perfil.php");
-
+    }
+  } else if(isset($_POST["cambiarcontraseña"]))
+  {
+    if(password_verify($_POST["password1"], $usuario["password"]) && $_POST["password2"] == $_POST["password3"] && strlen($_POST["password3"])>=5 && strlen($_POST["password2"])>=5 && $_POST["password1"] != $_POST["password2"])
+    {
+      $_SESSION["usuario"]["password"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
+      $usuarios[$_SESSION["index"]] = $_SESSION["usuario"];
+      file_put_contents("usuarios.json", json_encode($usuarios));
+      session_destroy();
+      if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
+      {
+        setcookie("usuario",null,-1);
+        setcookie("index",null,-1);
+      }
+      header("Location:http://localhost/proyecto-tp/login.php");
+    } else 
+    {
+      $errores[] = "Error al actualizar la contraseña";
+      $bandera = 1;
     }
   }
 }
@@ -113,9 +133,7 @@ if($_POST)
              <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Rosario, Argentina</p>
              <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> 1 Abril, 1998</p>
             </div>
-            <form action="perfil.php" method = "POST">
-              <button type="submit" name="salir">Salir</button>
-            </form>
+            
           </div>
           <br>
           
@@ -144,6 +162,34 @@ if($_POST)
                  <img src="img/perfil2.jpg" style="width:100%" class="w3-margin-bottom">
                </div>
              </div>
+              </div>
+              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cog fa-fw w3-margin-right" aria-hidden="true"></i>
+ Configuracion</button>
+              <div id="Demo4" class="w3-hide w3-container demo4">
+                  <form action="perfil.php" method = "POST">
+                      <button type="submit" name="salir" class="w3-button w3-block w3-theme-l1 w3-left-align">Salir</button>
+                  </form>
+                  <button onclick="myFunction('Demo5')" class="w3-button w3-block w3-theme-l1 w3-left-align">Cambiar contraseña</button>
+                  <div id="Demo5" class="w3-hide w3-container">
+                     <form action="perfil.php" method = "POST" class="contraseña-form-perfil">
+                         <br>
+                         <input type="password" name="password1" id="password1" placeholder="Contraseña Actual">
+                         <br>
+                         <br>
+                         <input type="password" name="password2" id="password2" placeholder="Nueva Contraseña">
+                         <br>
+                         <br>
+                         <input type="password" name="password3" id="password3" placeholder="Confirmar Contraseña">
+                         <br>
+                         <br>
+                        <button type="submit" name="cambiarcontraseña" class="cambiarcontraseña w3-button ">Confirmar</button>
+                        <?php if($bandera == 1 && count($errores)!=0) : ?>
+                          <p class="error-perfil">
+                            <?= $errores[0] ?>
+                          </p>
+                        <?php endif ; ?>
+                      </form>
+                  </div>
               </div>
             </div>      
           </div>

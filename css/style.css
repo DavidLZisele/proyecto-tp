@@ -467,6 +467,25 @@ background-color:lightslategray;
     bottom: 0;
 }
 
+.demo4
+{
+    background-color: black;
+}
+.cambiarcontraseña
+{
+    width: 65%;
+    background-color: #7d97a5 !important;
+    border: solid 1px  #7d97a5 !important;
+    padding:5px;
+    color:white;
+}
+.error-perfil
+{
+    margin: 0;
+    color:red;
+    font-size: 0.7em;
+    text-align: left;
+}
 /*---------------------------------------------------*/
 @media (min-width:768px)
 {
