@@ -18,8 +18,8 @@ if($_POST)
     $ext = pathinfo($_FILES["cambiarfoto"]["name"],PATHINFO_EXTENSION);
     if($_FILES["cambiarfoto"]["error"]==0 && ($ext== "jpg" ||$ext== "png") )
     {
-      $_SESSION["usuario"]["foto"] = $usuario["id"].".".$ext;
-      $usuario = $_SESSION["usuario"];
+      $usuario["foto"] = $usuario["id"].".".$ext;
+      $_SESSION["usuario"] =$usuario;
       $usuarios[$_SESSION["index"]] = $usuario;
       file_put_contents("usuarios.json", json_encode($usuarios));
       move_uploaded_file($_FILES["cambiarfoto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
@@ -29,8 +29,8 @@ if($_POST)
   {
     if(password_verify($_POST["password1"], $usuario["password"]) && $_POST["password2"] == $_POST["password3"] && strlen($_POST["password3"])>=5 && strlen($_POST["password2"])>=5 && $_POST["password1"] != $_POST["password2"])
     {
-      $_SESSION["usuario"]["password"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
-      $usuarios[$_SESSION["index"]] = $_SESSION["usuario"];
+      $usuario["password"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
+      $usuarios[$_SESSION["index"]] = $usuario;
       file_put_contents("usuarios.json", json_encode($usuarios));
       session_destroy();
       if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
@@ -38,6 +38,7 @@ if($_POST)
         setcookie("usuario",null,-1);
         setcookie("index",null,-1);
       }
+      
       header("Location:http://localhost/proyecto-tp/login.php");
     } else 
     {
