@@ -21,6 +21,10 @@ if($_POST)
       $usuario["foto"] = $usuario["id"].".".$ext;
       $_SESSION["usuario"] =$usuario;
       $usuarios[$_SESSION["index"]] = $usuario;
+      if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
+      {
+        $_COOKIE["usuario"] = json_encode($usuario);
+      }
       file_put_contents("usuarios.json", json_encode($usuarios));
       move_uploaded_file($_FILES["cambiarfoto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
       header("Location:http://localhost/proyecto-tp/perfil.php");
