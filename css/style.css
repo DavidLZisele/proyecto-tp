@@ -295,7 +295,7 @@ div p
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 2px;
+    margin-bottom: 5px;
 }
 .form-registro div:nth-child(8)
 {
