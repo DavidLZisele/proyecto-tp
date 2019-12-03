@@ -211,7 +211,7 @@ $usuarios = json_decode($usuarios_json,true);
                 <div class="col-12 col-md-6 col-xl-12 bloque-foto-perfil">   
                     <div class="bloque-foto col-6">
                         <input class="col-12 foto_perfil" type="file" name="foto" id="foto-perfil-registro" > 
-                        <i class="fa fa-upload" aria-hidden="true"></i>
+                        <i class="fa fa-upload imagen-upload" aria-hidden="true"></i>
                          <p >
                                 Cargar Foto
                          </p>  

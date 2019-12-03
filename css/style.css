@@ -139,8 +139,12 @@ a
 {
     text-decoration: none;
 }
-
-
+#footer-index{
+    position: fixed;
+    bottom: 0px;
+    z-index: 1;
+    background-color: white;
+}
 /*---------------------------------------------------*/
 
 /*----------------------LOGIN------------------------*/
@@ -291,6 +295,7 @@ div p
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 6px;
 }
 .form-registro div:nth-child(8)
 {
@@ -354,7 +359,7 @@ background-color:lightslategray;
     font-weight: bold;
     cursor: pointer;
 }
-.bloque-foto i
+.imagen-upload
 {
     color:white;
     font-size: 1.5em;
@@ -372,6 +377,12 @@ background-color:lightslategray;
     font-size:0.8em;
     padding-left: 25%;
     margin-bottom: 0;
+}
+#footer-registro{
+    position: fixed;
+    bottom: 0px;
+    z-index: 1;
+    background-color: white;
 }
 /*---------------------------------------------------*/
 
@@ -450,7 +461,7 @@ background-color:lightslategray;
     background-color: transparent;
     border: solid 1px transparent;
 }
-.bloque-foto-perfil i, .bloque-boton-perfil i
+.subirfoto,.cargarfoto
 {
     font-size:20px;
     color:blue;

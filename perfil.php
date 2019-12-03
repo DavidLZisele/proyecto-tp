@@ -123,12 +123,12 @@ if($_POST)
               </p>
                <div class="foto-perfil">
                  <div class="bloque-foto-perfil">
-                      <i class="fa fa-camera" aria-hidden="true"></i>
+                      <i class="fa fa-camera cargarfoto" aria-hidden="true"></i>
                       <input type="file" name="cambiarfoto" id="cambiarfoto">   
                  </div>        
                    <div class="bloque-boton-perfil">
                         <button type="submit" name="boton-foto">
-                            <i class="fa fa-upload" aria-hidden="true"></i>
+                            <i class="fa fa-upload subirfoto" aria-hidden="true"></i>
                          </button>  
                    </div>  
               </div>          
