@@ -15,11 +15,11 @@ session_start();
         $password = $user["password"];
         $_SESSION["usuario"] = $user;
         $_SESSION["index"] = $_COOKIE["index"]; 
-        header("Location:http://localhost/proyecto-tp/perfil.php");
+        header("Location:perfil.php");
     } 
     else if(isset($_SESSION["usuario"]))
     {
-        header("Location:http://localhost/proyecto-tp/perfil.php");
+        header("Location:perfil.php");
     }
     else if($_POST)
  {
@@ -40,7 +40,7 @@ session_start();
                 setcookie("usuario", json_encode($user), time() + 60*60*24*365);
                 setcookie("index", $index_usuario, time() + 60*60*24*365);
             }
-            header("Location:http://localhost/proyecto-tp/perfil.php");
+            header("Location:perfil.php");
         } else 
         {
             $bandera = 1;

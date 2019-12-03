@@ -21,11 +21,11 @@ $usuarios = json_decode($usuarios_json,true);
         $usuario = $user["usuario"];
         $password = $user["password"];
         $_SESSION["usuario"] = $user;
-        header("Location:http://localhost/proyecto-tp/perfil.php");
+        header("Location:perfil.php");
     }
     else if(isset($_SESSION["usuario"]))
     {
-        header("Location:http://localhost/proyecto-tp/perfil.php");
+        header("Location:perfil.php");
     }
     else if($_POST)
     {
@@ -74,7 +74,7 @@ $usuarios = json_decode($usuarios_json,true);
                 setcookie("usuario", json_encode($user), time() + 60*60*24*365);
               
             }
-             header('Location:http://localhost/proyecto-tp/perfil.php');
+             header('Location:perfil.php');
             } else if($index_nombre_usuario !== false && $index_nombre_email !== false)
             {
                 $bandera = 1;
@@ -149,7 +149,7 @@ $usuarios = json_decode($usuarios_json,true);
         <div class="fondo col-lg-12 mb-5 mb-xl-0 col-xl-7">
 
         </div>
-        <section class="col-lg-12 col-xl-5">
+        <section class="col-lg-12 col-xl-5 section-registro">
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" enctype ="multipart/form-data" class="form-registro">
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="usuario">Usuario</label>

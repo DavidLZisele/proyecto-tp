@@ -11,7 +11,7 @@ if($_POST)
   {
     session_destroy();
     setcookie("usuario", "", -1);
-    header("Location:http://localhost/proyecto-tp/index.html");
+    header("Location:index.html");
   }
   else if(isset($_POST["boton-foto"]))
   {
@@ -27,7 +27,7 @@ if($_POST)
       }
       file_put_contents("usuarios.json", json_encode($usuarios));
       move_uploaded_file($_FILES["cambiarfoto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
-      header("Location:http://localhost/proyecto-tp/perfil.php");
+      header("Location:perfil.php");
     }
   } else if(isset($_POST["cambiarcontraseña"]))
   {
@@ -43,7 +43,7 @@ if($_POST)
         setcookie("index",null,-1);
       }
       
-      header("Location:http://localhost/proyecto-tp/login.php");
+      header("Location:login.php");
     } else 
     {
       $errores[] = "Error al actualizar la contraseña";

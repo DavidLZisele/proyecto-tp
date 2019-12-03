@@ -20,7 +20,7 @@ a
     color:red;
     font-size: 0.7em;
     text-align: start;
-    padding-left:35%;
+    padding-left:45%;
 }
 .form-registro input
 {
@@ -286,8 +286,8 @@ div p
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    height: 50vh;
     align-items: center;
+   
 }
 
 .form-registro div 
@@ -295,7 +295,7 @@ div p
     display:flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
 }
 .form-registro div:nth-child(8)
 {
@@ -316,7 +316,7 @@ div p
     font-size:1em;
     font-weight: bold;
     line-height: 25px;
-    margin-top: 10px;
+    margin-bottom: 15px;
 }
 .form-registro div button:hover
 {
@@ -383,6 +383,11 @@ background-color:lightslategray;
     bottom: 0px;
     z-index: 1;
     background-color: white;
+    border-top: solid 1px #eaeaea;
+}
+.section-registro 
+{
+    padding-bottom: 30px;
 }
 /*---------------------------------------------------*/
 
@@ -542,7 +547,6 @@ background-color:lightslategray;
      }
      .fondo
      {
-         height: 50vh;
          background-size: cover;
      }
      .form-registro div:last-child
