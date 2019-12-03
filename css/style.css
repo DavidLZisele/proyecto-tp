@@ -366,7 +366,7 @@ background-color:lightslategray;
     margin-right: 50px;
     position: absolute;
     top:10px;
-    margin-left: -70%;
+    margin-left: -40%;
 }
 .recordar-registro
 {
@@ -517,9 +517,9 @@ background-color:lightslategray;
     {
        margin-left: 50%;
     }
-    .bloque-foto i
+    .imagen-upload
     {
-        margin-left: -50%;
+        margin-left: -40%;
     }
     .recordar-registro
     {
@@ -562,9 +562,9 @@ background-color:lightslategray;
     {
        margin-left: 51%;
     }
-    .bloque-foto i
+    .imagen-upload
     {
-        margin-left: -60%;
+        margin-left: -40%;
     }
       /*---------------------------*/
 
