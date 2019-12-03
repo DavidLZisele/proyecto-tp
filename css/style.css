@@ -316,7 +316,7 @@ div p
     font-size:1em;
     font-weight: bold;
     line-height: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 35px;
 }
 .form-registro div button:hover
 {
@@ -387,7 +387,7 @@ background-color:lightslategray;
 }
 .section-registro 
 {
-    padding-bottom: 30px;
+    height: 50vh;
 }
 /*---------------------------------------------------*/
 
