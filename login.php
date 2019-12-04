@@ -143,7 +143,7 @@ session_start();
                     <a class="col-12" href="registro.php">Registro</a>
                 </div>
                 <div class="col-3">
-                    <a href="faq.html" class="col-12">F.A.Q</a>
+                    <a href="faq.php" class="col-12">F.A.Q</a>
                 </div>
                 <div class="col-3">
                     <p>

@@ -1,3 +1,43 @@
+<?php
+
+$pregunta = [];
+$errores = [];
+if($_POST)
+{
+    $preguntas_js = file_get_contents("preguntas.json");
+    $preguntas = json_decode($preguntas_js,true);
+    if(isset($_POST['email']))
+    {
+        if(empty($_POST['email']))
+        {
+            $errores["email"] = "Email vacio";
+        }
+        elseif ( !filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) )
+        {
+            $errores["email"] = "Ingresar un email valido";
+        }
+    }
+    if(isset($_POST['mensaje']))
+    {
+        if(empty($_POST['mensaje']))
+        {
+            $errores["mensaje"] = "Mensaje vacio";
+        }
+    } // ESTA CORRECTO
+
+    if (count($errores) === 0)
+    {
+        $pregunta['email'] = $_POST['email'];
+        $pregunta['mensaje'] = $_POST['mensaje'];
+        $preguntas[] = $pregunta;
+        $preguntas_js = json_encode($preguntas);
+        file_put_contents("preguntas.json",$preguntas_js);
+    }
+
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,13 +57,16 @@
 </head>
 
 <body>
-    <div class="container col-12 col-md-12 col-lg-12 col-xl-12 contenedor-faq">
-        <header class="header-faq col-12 col-xl-8">
-
+    <div class="container col-12 contenedor-faq">
+        <header class="header-faq col-12">
+            <img src="img/road-to-the-social.jpg" alt="foto">
         </header>
-        <section class="section-faq col-xl-4">
-            <article class="article-faq">
-                <div class="col-lg-6 col-xl-12">
+        <section class="section-faq ">
+            <article class="article-faq col-lg-6">
+                <h1 class="">
+                    Preguntas frecuentes
+                </h1>
+                <div class="col-lg-6 ">
                     <h2 class="col-6">
                         ¿Cómo funciona Social?
                     </h2>
@@ -32,7 +75,7 @@
                         de todo lo que te ofrecemos.
                     </p>
                 </div>
-                <div class="col-lg-6 col-xl-12">
+                <div class="col-lg-6">
                     <h2 class="col-6">
                         ¿Es pago?
                     </h2>
@@ -40,7 +83,7 @@
                         Es gratis, y lo seguira siendo.
                     </p>
                 </div>
-                <div class="col-lg-6 col-xl-12">
+                <div class="col-lg-6 ">
                     <h2 class="col-6">
                         ¿Puedes eliminar tu cuenta?
                     </h2>
@@ -48,7 +91,7 @@
                         Puedes hacerlo en cualquier momento que lo desees.
                     </p>
                 </div>
-                <div class="col-lg-6 col-xl-12">
+                <div class="col-lg-6">
                     <h2 class="col-6">
                         ¿Alguien te molesta?
                     </h2>
@@ -58,7 +101,32 @@
                     </p>
                 </div>
             </article>
+
+            <article class="article-faq-form col-12 col-lg-6" >
+            <h2>   
+                 Envianos tus dudas
+            </h2>
+
+            <form class="form-faq col-lg-6" action="faq.php" method="post">
+                <label for="email">Email</label>
+                <input class="col-10" type="email" name="email" id="email" >
+                <small> <?=isset($errores["email"]) ? $errores["email"] : "" ?> </small>
+
+                <label for="mensaje">Mensaje</label>
+                <textarea class="col-10" name="mensaje" id="mensaje" value="" cols="30" rows="7" ></textarea>
+                <small> <?=isset($errores["mensaje"]) ? $errores["mensaje"] : "" ?> </small>
+    
+                <br>
+                <button class="btn btn-dark col-10" type="submit">Enviar</button>
+ 
+
+            </form>
+            </article>
+
         </section>
+
+        
+        
         <footer id="footer-index" class="col-12 col-lg-12">
             <div class="bloque-footer col-12">
                 <div class="col-3">
@@ -77,7 +145,7 @@
                 </div>
             </div>
 
-    </footer>
+        </footer>
     </div>
 </body>
 

@@ -253,7 +253,7 @@ $usuarios = json_decode($usuarios_json,true);
                     <a class="col-12" href="login.php">LogIn</a>
                 </div>
                 <div class="col-3">
-                    <a href="faq.html" class="col-12">F.A.Q</a>
+                    <a href="faq.php" class="col-12">F.A.Q</a>
                 </div>
                 <div class="col-3">
                     <p>
