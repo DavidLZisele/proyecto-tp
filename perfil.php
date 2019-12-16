@@ -66,6 +66,9 @@ if($_POST)
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">        <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <style>
     html, body, h1, h2, h3, h4, h5 {font-family: "Arial", sans-serif}
@@ -153,7 +156,7 @@ if($_POST)
               <div id="Demo2" class="w3-hide w3-container">
                 <p>...</p>
               </div>
-              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Fotos</button>
+              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa- fa-fw w3-margin-right"></i> Mis Fotos</button>
               <div id="Demo3" class="w3-hide w3-container">
              <div class="w3-row-padding">
              <br>
@@ -168,14 +171,37 @@ if($_POST)
                </div>
              </div>
               </div>
-              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cog fa-fw w3-margin-right" aria-hidden="true"></i>
+              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button> 
+              <div div id="Demo4" class="w3-hide w3-container margenes">
+                  <div class="w3-row-padding">
+                  
+                      <div class="w3-container  w3-white tamaño"><br>
+                        <img src="img/Joanna.jpg" alt="Avatar" class="w3-left w3-circle tam" >
+                    
+                        <h4>Joanna Diaz</h4><br>
+                      </div>
+                        <div class="w3-container w3-white  tamaño"><br>
+                          <img src="img/MariaA.jpg" alt="Avatar" class="w3-left w3-circle tam " >
+                          
+                          <h4>Maria Angeles Gomez </h4><br>
+                        </div>
+                        <div class="w3-container w3-white  tamaño"><br>
+                          <img src="img/Martin1.jpg" alt="Avatar" class="w3-left w3-circle tam"  >
+                          
+                          <h4>Martin Gonzalez </h4><br>
+                        </div>
+                  </div>
+              </div>
+
+
+              <button onclick="myFunction('Demo5')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cog fa-fw w3-margin-right" aria-hidden="true"></i>
  Configuracion</button>
-              <div id="Demo4" class="w3-hide w3-container demo4">
+              <div id="Demo5" class="w3-hide w3-container demo5">
                   <form action="perfil.php" method = "POST">
                       <button type="submit" name="salir" class="w3-button w3-block w3-theme-l1 w3-left-align">Salir</button>
                   </form>
-                  <button onclick="myFunction('Demo5')" class="w3-button w3-block w3-theme-l1 w3-left-align">Cambiar contraseña</button>
-                  <div id="Demo5" class="w3-hide w3-container">
+                  <button onclick="myFunction('Demo6')" class="w3-button w3-block w3-theme-l1 w3-left-align">Cambiar contraseña</button>
+                  <div id="Demo6" class="w3-hide w3-container">
                      <form action="perfil.php" method = "POST" class="contraseña-form-perfil">
                          <br>
                          <input type="password" name="password1" id="password1" placeholder="Contraseña Actual">
@@ -310,13 +336,25 @@ if($_POST)
     </div>
     
     <!-- Footer -->
-    <footer class="w3-container w3-theme-d3 w3-padding-16">
+    <footer class="w3-container w3-theme-d3 w3-padding-16" style="text-align:center;">
       <h5>Digital House Full Stack - Sardilla Loves</h5>
+        <div class="row bloque-footer">
+          <div class="col-4">
+            <a class="col-12" href="registro.php">Registro</a>
+          </div>
+          <div class="col-4">
+            <a href="faq.php" class="col-12">F.A.Q</a>
+          </div>
+          <div class="col-4">
+            <p class="col-12">
+              © 2019 Social.
+            </p>
+          </div>
+        </div>
+
     </footer>
     
-    <footer class="w3-container w3-theme-d5">
-      
-    </footer>
+   
      
     <script>
     // Accordion
