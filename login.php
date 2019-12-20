@@ -28,6 +28,7 @@ session_start();
     
     $usernames = array_column($usuarios, 'usuario');
     $index_usuario = array_search($usuario, $usernames);
+    $index_usuario_2 = array_search($usuario,array_column($usuarios,'email'));
      if($index_usuario !== false)
     {
         if(password_verify($password, $usuarios[$index_usuario]["password"]))
@@ -46,7 +47,22 @@ session_start();
             $bandera = 1;
             $errores[2] = "Contraseña incorrecta";
         }     
-    } else if($index_usuario === false )
+    }
+    else if($index_usuario_2 !== false)
+    {
+        if(password_verify($password, $usuarios[$index_usuario_2]["password"]))
+        {
+            $user = $usuarios[$index_usuario_2];
+            $_SESSION["usuario"] = $user;
+            $_SESSION["index"] = $index_usuario_2;
+            if(isset($_POST["recordar"]))
+            {
+                setcookie("usuario", json_encode($user), time() + 60*60*24*365);
+                setcookie("index", $index_usuario_2, time() + 60*60*24*365);
+            }
+            header("Location:perfil.php");
+        }
+    } else if($index_usuario === false && $index_usuario_2 === false )
     {
         $errores[0] = "No se encontro el usuario";
     } 
@@ -121,7 +137,7 @@ session_start();
                     </p>
                     <p class="col-12">
                         <button type="submit" class="col-9">Ingresar</button>
-                            <?php if(($usuario == '' && $password == '' ||  $index_usuario === false ) && count($errores)!=0) : ?>
+                            <?php if(($usuario == '' && $password == '' ||  $index_usuario === false && $index_usuario_2 === false  ) && count($errores)!=0) : ?>
                             <p class="error">
                               <?= $errores[0] ?>
                           </p>
