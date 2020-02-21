@@ -10,314 +10,190 @@ if($_POST)
   if(isset($_POST["salir"]))
   {
     session_destroy();
-    setcookie("usuario", "", -1);
-    header("Location:index.html");
-  }
-  else if(isset($_POST["boton-foto"]))
-  {
-    $ext = pathinfo($_FILES["cambiarfoto"]["name"],PATHINFO_EXTENSION);
-    if($_FILES["cambiarfoto"]["error"]==0 && ($ext== "jpg" ||$ext== "png") )
-    {
-      $usuario["foto"] = $usuario["id"].".".$ext;
-      $_SESSION["usuario"] =$usuario;
-      $usuarios[$_SESSION["index"]] = $usuario;
-      if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
-      {
-        $_COOKIE["usuario"] = json_encode($usuario);
-      }
-      file_put_contents("usuarios.json", json_encode($usuarios));
-      move_uploaded_file($_FILES["cambiarfoto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
-      header("Location:perfil.php");
-    }
-  } else if(isset($_POST["cambiarcontraseña"]))
-  {
-    if(password_verify($_POST["password1"], $usuario["password"]) && $_POST["password2"] == $_POST["password3"] && strlen($_POST["password3"])>=5 && strlen($_POST["password2"])>=5 && $_POST["password1"] != $_POST["password2"])
-    {
-      $usuario["password"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
-      $usuarios[$_SESSION["index"]] = $usuario;
-      file_put_contents("usuarios.json", json_encode($usuarios));
-      session_destroy();
-      if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
-      {
-        setcookie("usuario",null,-1);
-        setcookie("index",null,-1);
-      }
-      header("Location:login.php");
-    } else 
-    {
-      $errores[] = "Error al actualizar la contraseña";
-      $bandera = 1;
-    }
+    setcookie("usuario",null,-1);
+    setcookie("index",null,-1);
+    header("Location:login.php");
   }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Perfil</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-    html, body, h1, h2, h3, h4, h5 {font-family: "Arial", sans-serif}
-    </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
 
-    <body class="w3-theme-l5">
-    
-    <!-- Navbar -->
-    <div class="w3-top">
-     <div class="w3-bar w3-left-align w3-large bg-nav">
-      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-      <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Home</a>
-      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Noticias"><i class="fa fa-globe"></i></a>
-      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Configuración"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Mensajes"><i class="fa fa-envelope"></i></a>
-      <div class="w3-dropdown-hover w3-hide-small">
-        <button class="w3-button w3-padding-large" title="Notifications"><i class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>     
-        <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-          <a href="#" class="w3-bar-item w3-button">Solicitud de amistad</a>
-          <a href="#" class="w3-bar-item w3-button">Joana publico en tu muro</a>
-          <a href="#" class="w3-bar-item w3-button">Joana le gusta tu publicación</a>
-        </div>
-      </div>
-      <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="Mi Perfil">
-        <img src="img/perfil.jpg" class="w3-circle" style="height:23px;width:23px" alt="Avatar">
-      </a>
-     </div>
-    </div>
-    
-    <!-- Navbar on small screens -->
-    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
-      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-      <a href="#" class="w3-bar-item w3-button w3-padding-large">Mi Perfil</a>
-    </div>
-    
-    <!-- Page Container -->
-    <div class="w3-container w3-content bg-cmain" style="max-width:1400px;margin-top:51px;padding-top:15px;">    
-      <!-- The Grid -->
-      <div class="w3-row">
-        <!-- Left Column -->
-        <div class="w3-col m3">
-          <!-- Profile -->
-          <div class="w3-card w3-round w3-white">
-            <div class="w3-container">
-             <h4 class="w3-center">
-               <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
-             </h4>                            
-              <form action="perfil.php" method="POST" enctype="multipart/form-data" class="form-perfil">
-              <p class="w3-center">
-                <img src="perfiles/<?=$usuario["foto"]?>" class="w3-square" alt="Avatar">
-              </p>
-               <div class="foto-perfil">
-                 <div class="bloque-foto-perfil">
-                      <i class="fa fa-camera cargarfoto" aria-hidden="true"></i>
-                      <input type="file" name="cambiarfoto" id="cambiarfoto">   
-                 </div>        
-                   <div class="bloque-boton-perfil">
-                        <button type="submit" name="boton-foto">
-                            <i class="fa fa-upload subirfoto" aria-hidden="true"></i>
-                         </button>  
-                   </div>  
-              </div>          
-              </form>
-            <hr>
-             <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>Programador Web Full Stack</p>
-             <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> Rosario, Argentina</p>
-             <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> 1 Abril, 1998</p>
-            </div>
-            
+<body>
+  <div class="container col-12 contenedor-perfil">
+    <header class = "header-perfil col-12">
+      <ul class="nav nav-pills col-8">
+        <li class="nav-item dropdown">  
+            <a class="nav-link socialperfil" href="#" title="Noticias">Social</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" title="Noticias"><i class="fa fa-globe"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" title="Configuracion"><i class="fa fa-user"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" title="Mensajes"><i class="fa fa-envelope"></i></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false" title="Notificaciones"><i class="fa fa-bell"></i></a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Solicitud de amistad</a>
           </div>
-          <br>
-          
-          <!-- Accordion -->
+        </li>
+      </ul>
+      <ul class="nav nav-pills col-4 justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" href="datosusuario.php" title="Configuracion cuenta"><i class="fa fa-cog"></i></a>
+        </li>
+        <li class="nav-item li-salir">
+          <form action="perfil.php" method="POST">
+            <button type="submit" name="salir">Salir</button>
+          </form>
+        </li>
+      </ul>
+    </header>
+     <section class="seccion-perfil col-12">
+       <div class="col-lg-3">  
+        <article class="informacion">
+          <p class="nombre-perfil">
+            <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
+          </p>
+          <div class="bloke-imagen-perfil">
+            <img src="perfiles/<?= $usuario["foto"] ?>" alt="foto">
+          </div>
+          <div class="bloke-info col-12">
+            <div>
+              <i class="fa fa-pencil col-2"></i>
+              <p class="col-10">Informacion personal</p>
+            </div>
+            <div>
+              <i class="fa fa-home col-2"></i>
+              <p class="col-10">Ciudad</p>
+            </div>
+            <div>
+              <i class="fa fa-birthday-cake col-2"></i>
+              <p class="col-10">Cumpleaños</p>
+            </div>
+          </div>
+        </article>
+        <article class="mis-perfil">
           <div class="w3-card w3-round">
             <div class="w3-white">
               <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Mis Grupos</button>
               <div id="Demo1" class="w3-hide w3-container">
                 <p>...</p>
               </div>
+              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
+              <div id="Demo4" class="w3-hide w3-container">
+                <p>...</p>
+              </div>
               <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
               <div id="Demo2" class="w3-hide w3-container">
                 <p>...</p>
               </div>
-              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Fotos</button>
+               <div id="Demo2" class="w3-hide w3-container">
+                <p>...</p>
+              </div>
+              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
               <div id="Demo3" class="w3-hide w3-container">
              <div class="w3-row-padding">
              <br>
                <div class="w3-half">
-                 <img src="img/New York.jpg" style="width:100%" class="w3-margin-bottom">
-               </div>
-               <div class="w3-half">
-                 <img src="img/Bar.png" style="width:100%" class="w3-margin-bottom">
-               </div>
-               <div class="w3-half">
-                 <img src="img/perfil2.jpg" style="width:100%" class="w3-margin-bottom">
+                 <img src="" style="width:100%" class="w3-margin-bottom">
                </div>
              </div>
               </div>
-              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-cog fa-fw w3-margin-right" aria-hidden="true"></i>
- Configuracion</button>
-              <div id="Demo4" class="w3-hide w3-container demo4">
-                  <form action="perfil.php" method = "POST">
-                      <button type="submit" name="salir" class="w3-button w3-block w3-theme-l1 w3-left-align">Salir</button>
-                  </form>
-                  <button onclick="myFunction('Demo5')" class="w3-button w3-block w3-theme-l1 w3-left-align">Cambiar contraseña</button>
-                  <div id="Demo5" class="w3-hide w3-container">
-                     <form action="perfil.php" method = "POST" class="contraseña-form-perfil">
-                         <br>
-                         <input type="password" name="password1" id="password1" placeholder="Contraseña Actual">
-                         <br>
-                         <br>
-                         <input type="password" name="password2" id="password2" placeholder="Nueva Contraseña">
-                         <br>
-                         <br>
-                         <input type="password" name="password3" id="password3" placeholder="Confirmar Contraseña">
-                         <br>
-                         <br>
-                        <button type="submit" name="cambiarcontraseña" class="cambiarcontraseña w3-button ">Confirmar</button>
-                        <?php if($bandera == 1 && count($errores)!=0) : ?>
-                          <p class="error-perfil">
-                            <?= $errores[0] ?>
-                          </p>
-                        <?php endif ; ?>
-                      </form>
-                  </div>
-              </div>
-            </div>      
-          </div>
-          <br>
-          
-          <!-- Interests --> 
-          
-          <br>
-          
-              
-        <!-- End Left Column -->
-        </div>
-        
-        <!-- Middle Column -->
-        <div class="w3-col m7">
-        
-          <div class="w3-row-padding">
-            <div class="w3-col m12">
-              <div class="w3-card w3-round w3-white">
-                <div class="w3-container w3-padding">
-                  <h6 class="w3-opacity"></h6>
-                  <p contenteditable="true" class="w3-border w3-padding">Estado: </p>
-                  <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Publicar</button> 
-                </div>
-              </div>
             </div>
-          </div>
-          
-          <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-            <img src="img/Martin1.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px; height: 60px;">
-            <span class="w3-right w3-opacity">1 min</span>
-            <h4>Martin Gonalez</h4><br>
-            <hr class="w3-clear">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              <div class="w3-row-padding" style="margin:0 -16px">
-                <div class="w3-half">
-                  <img src="img/Martin2.jpg" style="width:100%" alt="Northern Lights" class="w3-margin-bottom">
-                </div>
-                <div class="w3-half">
-                  <img src="img/Martin hollywood.jpg" style="width:100%" alt="Nature" class="w3-margin-bottom">
               </div>
-            </div>
-            <button type="button" class="w3-button w3-margin-bottom bg-like-comm"><i class="fa fa-thumbs-up"></i>  Like</button> 
-            <button type="button" class="w3-button w3-margin-bottom bg-like-comm"><i class="fa fa-comment"></i>  Comentar</button> 
-          </div>
-          
-          <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-            <img src="img/Joanna.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-            <span class="w3-right w3-opacity">16 min</span>
-            <h4>Joana Diaz</h4><br>
-            <hr class="w3-clear">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <button type="button" class="w3-button w3-margin-bottom bg-like-comm"><i class="fa fa-thumbs-up"></i>  Like</button> 
-            <button type="button" class="w3-button w3-margin-bottom bg-like-comm"><i class="fa fa-comment"></i>  Comentar</button> 
-          </div>  
-    
-          <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-            <img src="img/MariaA.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px;height: 60px;">
-            <span class="w3-right w3-opacity">32 min</span>
-            <h4>Maria Angeles Gomez </h4><br>
-            <hr class="w3-clear">
-            <p>Has visto esto?</p>
-            <img src="img/Viaje.jpg" style="width:100%" class="w3-margin-bottom">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <button type="button" class="w3-button w3-margin-bottom bg-like-comm"><i class="fa fa-thumbs-up"></i>  Like</button> 
-            <button type="button" class="w3-button w3-margin-bottom bg-like-comm"><i class="fa fa-comment"></i>  Comentar</button> 
-          </div> 
-          
-        <!-- End Middle Column -->
-        </div>
-        
-        <!-- Right Column -->
-        <div class="w3-col m2">
-                  
-          <div class="w3-card w3-round w3-white w3-center">
-            <div class="w3-container">
-              <p>Solicitud de Amistad</p>
-              <img src="img/Juan Carlos.jpg" alt="Avatar" style="width:50%"><br>
-              <span>Juan Carlos Rodriguez</span>
-              <div class="w3-row w3-opacity">
-                <div class="w3-half">
-                  <button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-                </div>
-                <div class="w3-half">
-                  <button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
+        </article>
 
-          <div class="w3-card w3-round w3-white w3-hide-small">
-              <div class="w3-container">
-                <p>Interests</p>
-                <p>
-                  <span class="w3-tag w3-small w3-theme-d5">Noticias</span>               
-                  <span class="w3-tag w3-small w3-theme">Juegos</span>
-                  <span class="w3-tag w3-small w3-theme-l1">Amigos</span>
-                  <span class="w3-tag w3-small w3-theme-l2">Comida</span>
-                  <span class="w3-tag w3-small w3-theme-l3">Diseño</span>
-                  <span class="w3-tag w3-small w3-theme-l4">Arte</span>
-                  <span class="w3-tag w3-small w3-theme-l5">Fotos</span>
-                </p>
-              </div>
+       </div>
+      <div class="col-lg-5">
+        <article class="publicacion-perfil">
+          <form action="pagina.html">
+              <input type="text" name="publicacion" class="publicacion" placeholder="Estado">
+              <br>
+              <br>
+              <button type="submit"> <i class="fa fa-pencil"></i> Publicar</button>
+          </form>
+       </article>
+       <article class="publicaciones-perfil">
+          <div class="pp col-12">
+            <div class="user-public col-2 col-md-2">
+              <img src="img/perfil2.jpg" alt="">
             </div>
-        <!-- End Right Column -->
-        </div>
-        
-      <!-- End Grid -->
+            <p class="col-10">
+              Nombre
+            </p>
+          </div>
+           <p class="texto-publicacion">
+             texto
+           </p>
+           <div class="imagen-public">
+             <img src="img/martin1.jpg" alt="">
+           </div>
+           <div class="interaccion-publicacion">
+             <form action="perfil.php" method="POST">
+                   <button type="submit" name ="like">
+                        <i class="fa fa-thumbs-up"></i>  Like
+                   </button>
+                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
+                    </button>
+             </form>
+             
+           </div>
+       </article>
       </div>
-      
-    <!-- End Page Container -->
-    </div>
-    
-    <!-- Footer -->
-    <footer class="w3-container w3-theme-d3 w3-padding-16">
-      <h5>Digital House Full Stack - Sardilla Loves</h5>
-    </footer>
-    
-    <footer class="w3-container w3-theme-d5">
-      
-    </footer>
-     
-    <script>
+       
+       <article class="solicitudes-amistad col-12 col-lg-4">
+            <h2>
+              Solicitud de amistad
+            </h2>
+            <div class="sa col-12">
+              <div class="col-1 col-lg-4 foto-solicitud">
+                <img src="img/Martin1.jpg" alt="">
+              </div>
+              <p class="col-8 col-lg-4">
+                Nombre
+              </p>
+              <form action="perfil.php" method="POST" class="col-3 col-lg-4">
+                <button type="submit" name="aceptar" class="col-6 check"> <i class="fa fa-check"></i></button>
+                  <button type="submit" name="aceptar" class="col-6 remove"> <i class="fa fa-remove"></i></button>
+              </form>
+            </div>
+
+       </article>
+     </section>
+  </div>
+  <script>
     // Accordion
     function myFunction(id) {
       var x = document.getElementById(id);
@@ -342,7 +218,7 @@ if($_POST)
     }
     </script>
     
-    </body>
-    
+
 </body>
+
 </html>

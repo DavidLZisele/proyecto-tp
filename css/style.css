@@ -546,6 +546,279 @@ background-color:lightslategray;
     text-align: left;
 }
 /*---------------------------------------------------*/
+
+/*------------PERFIL--------------*/
+.contenedor-perfil
+{
+    padding:0;
+}
+.header-perfil
+     {
+         padding:5px;
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: center;
+         background-color: black;
+     }
+.fa-bell,.fa-envelope,.fa-user,.fa-globe,.fa-cog
+     {
+         color: grey;
+        font-size: 1.2em;
+     }
+     .dropdown-toggle
+     {
+         color:grey;
+     }
+     .socialperfil
+     {
+         color:white;
+         font-size: 1em;
+         font-weight: bold;
+     }
+     .socialperfil:hover,.dropdown-toggle:hover
+     {
+         color:white;
+     }
+     .li-salir
+     {
+         align-self: center;
+     }
+     .li-salir button
+     {
+         font-weight: bold;
+         background-color: black;
+         color:white;
+         border:solid 1px black;
+     }
+     .informacion .bloke-imagen-perfil
+     {
+         width: 100%;
+     }
+     .informacion
+     {
+        background-color: white;
+        color:black;
+        padding-top: 10px;
+        padding-left: 30px;
+        padding-right: 15px;
+        
+     }
+     .informacion .bloke-imagen-perfil img
+     {
+        height: 50vh;
+        width: 100%;
+     }
+     .informacion .nombre-perfil 
+     {
+        text-align: center;
+     }
+     .bloke-info 
+     {
+        border-top: solid 1px #eaeaea;
+        margin-top:10px;
+     }
+     .bloke-info div
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: center;
+     }
+     .bloke-info div p 
+     {
+         padding-top: 17px;
+     }
+     .seccion-perfil 
+     {
+         background-color:#333;
+         padding:25px;
+     }
+     .mis-perfil
+     {
+         margin-top:25px;
+         margin-bottom: 40px;
+     }
+     .publicacion-perfil
+     {
+         border: solid 1px ;
+         background-color: white;
+         padding: 15px 10px;
+     }
+     .publicacion-perfil input 
+     {
+         width: 100%;
+         padding: 10px 3px;
+     }
+     .publicacion-perfil button
+     {
+        background-color: #607d8b !important;
+        color:#fff !important;
+        border: solid 1px #fff;
+        padding: 10px;
+        width: 150px;
+     }
+     .publicaciones-perfil
+     {
+         background-color: white;
+         margin-top: 15px;
+         padding: 15px;
+     }
+     .user-public img 
+     {
+         width: 100%;
+     }
+     .pp
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: center;
+         border-bottom: solid 1px #333;
+         padding: 10px 5px;
+     }
+     .publicaciones-perfil .texto-publicacion
+     {
+         margin:5px 0;
+     }
+     .interaccion-publicacion
+     {
+         margin-top: 10px;
+     }
+     .interaccion-publicacion button
+     {
+        width: 150px;
+        background-color: black;
+        color:white;
+        padding: 7px 3px;
+        border:solid 1px black;
+     }
+     .pp p 
+     {
+         padding-top:15px;
+         align-self: center;
+     }
+     .user-public img 
+     {
+        border:solid 1px #333;
+        border-radius: 50%;
+        width: 100%;
+     }
+     .imagen-public
+     {
+         width: 100%;
+     }
+     .imagen-public img 
+     {
+         width: 100%;
+     }
+     .solicitudes-amistad
+     {
+         background-color: white;
+     }
+     .solicitudes-amistad h2
+     {
+         text-align: center;
+         padding: 15px 10px;
+     }
+     .sa 
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         align-items: center;
+         margin-bottom: 10px;
+         padding:15px;
+     }
+     .foto-solicitud img 
+     {
+         width: 100%;
+     }
+     .foto-solicitud 
+     {
+         width: 60px;
+     }
+     .sa p 
+     {
+         padding-top: 15px;
+     }
+     .sa form .check 
+     {
+        background-color: green;
+        color:white;
+        padding: 10px 5px;
+        border:solid 1px green;
+        width: 75px;
+     }
+     .sa form .remove 
+     {
+        background-color: red;
+        color:white;
+        padding: 10px 5px;
+        border:solid 1px red;
+        width: 75px;
+     }
+     .contenedor-datousuario
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         background-color: #333;
+     }
+     .card-header
+     {
+         
+         background-color: #607d8b !important;
+     }
+     .btn-link,.btn-link:hover,.btn-link:focus
+     {
+        color:white;
+        text-decoration: none;
+     }
+     #fecha-cumple,#cambiardatos,#cambiarcontraseña,#cambiarfoto
+     {
+         color:grey;
+         width: 221px;
+     }
+     #cambiardatos,#cambiarcontraseña,#cambiarfoto
+     {
+         color:white;
+        padding: 10px 0;
+         background-color: #607d8b;
+     }
+     .cambiarfotoperfil input
+     {
+        opacity: 0;
+        position: absolute;
+        left:0;
+        right: 0;
+        top:0;
+        bottom: 0;
+        width: 100%;
+     }
+     .cambiarfotoperfil 
+     {
+         border:solid 1px #333;
+         position: relative;
+         width: 221px;
+         text-align: center;
+         padding: 15px 0;
+         background-color: #607d8b;
+         color:white;
+         margin-left: 15px;
+     }
+     .volver
+     {
+         color:white;
+         text-decoration: none;
+     }
+     .volver:hover
+     {
+         color:white;
+         text-decoration: none;
+     }
 @media (min-width:768px)
 {
     .form-registro div:last-child
@@ -646,6 +919,32 @@ background-color:lightslategray;
           padding-bottom: 0;
           border-bottom: none;
       }
+      /*------PERFIL--------*/
+      .seccion-perfil
+      {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+      }
+      .imagen-public img 
+      {
+          height: 70vh;
+      }
+      .foto-solicitud img 
+      {
+          width: 100%;
+          height: 20vh;
+      }
+      .solicitudes-amistad form 
+      {
+          display:flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+      }
+      .solicitudes-amistad form button
+      {
+        justify-content: flex-end;
+      }
 }
 
 
@@ -699,6 +998,12 @@ background-color:lightslategray;
         border-left:0;
     }
      /*---------------------------*/
+
+     /*PERFIL*/
+     .user-public img 
+     {
+         width: 75%;
+     }
 }
 
 

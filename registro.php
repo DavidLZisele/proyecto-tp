@@ -61,7 +61,8 @@ $usuarios = json_decode($usuarios_json,true);
                      "nombre" => $nombre,
                      "apellido" => $apellido,
                      "email" => $email,
-                     "foto" => $id.".".$ext
+                     "foto" => $id.".".$ext,
+                     "fecha"=> null
                 ];
                 $usuarios[] = $usuario;
                 $usuarios_json = json_encode($usuarios);
