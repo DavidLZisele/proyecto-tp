@@ -90,16 +90,16 @@ if($_POST)
             <img src="perfiles/<?= $usuario["foto"] ?>" alt="foto">
           </div>
           <div class="bloke-info col-12">
-            <div>
-              <i class="fa fa-pencil col-2"></i>
+            <div class="info-personal">
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
               <p class="col-10">Informacion personal</p>
             </div>
             <div>
-              <i class="fa fa-home col-2"></i>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-home"></i></a>
               <p class="col-10">Ciudad</p>
             </div>
             <div>
-              <i class="fa fa-birthday-cake col-2"></i>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
               <p class="col-10">Cumpleaños</p>
             </div>
           </div>

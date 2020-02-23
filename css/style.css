@@ -848,6 +848,15 @@ background-color:lightslategray;
         top: 0;
         bottom: 0;
      }
+     .a-datosusuario:hover
+     {
+        text-decoration: none;
+        color:black
+     }
+     .info-personal
+     {
+         overflow: auto;
+     }
 @media (min-width:768px)
 {
     .form-registro div:last-child

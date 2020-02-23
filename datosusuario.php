@@ -109,7 +109,24 @@ if($_POST)
                 <input type="email" name="email" id="email" value="" placeholder="Email">
                 </p>
                  <p>
+                  Dia de nacimiento
                  <input type="date" name="fecha" id="fecha-cumple" value="">
+                 </p>
+                 <p>
+                 <input type="text" name="escuela" id="escuela" value="" placeholder="Escuela">
+                 </p>
+                 <p>
+                 <input type="text" name="universidad" id="universidad" value="" placeholder="Universidad">
+                 </p>
+                 <p>
+                 Situación sentimental
+                 <br>
+                 <select name="relacion" id="relacion">
+                    <option value="soltero">Soltero</option>
+                    <option value="pareja">En pareja</option>
+                    <option value="casado">Casado</option>
+                    <option value="divorciado">Divorciado</option>
+                    </select>           
                  </p>
                  <p>
                      <button type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
