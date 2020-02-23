@@ -663,6 +663,7 @@ background-color:lightslategray;
          background-color: white;
          margin-top: 15px;
          padding: 15px;
+         overflow: auto;
      }
      .user-public img 
      {
@@ -714,6 +715,8 @@ background-color:lightslategray;
      }
      .solicitudes-amistad
      {
+         height: 40vh;
+         overflow: auto;
          background-color: white;
      }
      .solicitudes-amistad h2
@@ -818,6 +821,12 @@ background-color:lightslategray;
      {
          color:white;
          text-decoration: none;
+     }
+     .borrar-public
+     {
+         color:white;
+         background-color: red ;
+         border: solid 1px red;
      }
 @media (min-width:768px)
 {

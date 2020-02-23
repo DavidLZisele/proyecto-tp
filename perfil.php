@@ -142,6 +142,15 @@ if($_POST)
               <input type="text" name="publicacion" class="publicacion" placeholder="Estado">
               <br>
               <br>
+               <label for="tipopublicacion">Categoria</label>
+               <select name="tipopublicacion" id="tipopublicacion">
+                  <option value="terror">Offtopic</option>
+                  <option value="terror">Noticias</option>
+                  <option value="terror">Deportes</option>
+                  <option value="terror">Terror</option>
+                  <option value="terror">Tecnologia</option>
+               </select>
+              <br>
               <button type="submit"> <i class="fa fa-pencil"></i> Publicar</button>
           </form>
        </article>
@@ -150,9 +159,12 @@ if($_POST)
             <div class="user-public col-2 col-md-2">
               <img src="img/perfil2.jpg" alt="">
             </div>
-            <p class="col-10">
+            <p class="col-9">
               Nombre
             </p>
+            <form action="perfil.php" method="post" class="col-1">
+            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion">  <i class="fa fa-times" aria-hidden="true"></i></button>
+            </form>
           </div>
            <p class="texto-publicacion">
              texto
@@ -171,12 +183,14 @@ if($_POST)
              
            </div>
        </article>
+       
       </div>
        
        <article class="solicitudes-amistad col-12 col-lg-4">
             <h2>
               Solicitud de amistad
             </h2>
+      
             <div class="sa col-12">
               <div class="col-1 col-lg-4 foto-solicitud">
                 <img src="img/Martin1.jpg" alt="">
