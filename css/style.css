@@ -828,6 +828,26 @@ background-color:lightslategray;
          background-color: red ;
          border: solid 1px red;
      }
+     .div-subirfoto
+     {
+        border:solid 1px #333;
+        position: relative;
+        width: 150px;
+        text-align: center;
+        padding: 5px 0;
+        background-color: #607d8b;
+        color:white;
+     }
+     .div-subirfoto input
+     {
+        opacity: 0;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+     }
 @media (min-width:768px)
 {
     .form-registro div:last-child

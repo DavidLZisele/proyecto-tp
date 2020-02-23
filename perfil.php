@@ -138,7 +138,7 @@ if($_POST)
        </div>
       <div class="col-lg-5">
         <article class="publicacion-perfil">
-          <form action="pagina.html">
+          <form action="pagina.html" method ="post" enctype="multipart/form-data">
               <input type="text" name="publicacion" class="publicacion" placeholder="Estado">
               <br>
               <br>
@@ -150,6 +150,12 @@ if($_POST)
                   <option value="terror">Terror</option>
                   <option value="terror">Tecnologia</option>
                </select>
+               <div class="div-subirfoto">
+                  <span>
+                  <i class="fa fa-camera" aria-hidden="true"></i> Subir imagen
+                  </span>
+                  <input type="file" name="fotopublic" id="fotopublic">
+               </div>
               <br>
               <button type="submit"> <i class="fa fa-pencil"></i> Publicar</button>
           </form>
