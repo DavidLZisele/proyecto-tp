@@ -1,6 +1,6 @@
 <?php
 session_start();
-$usuarios = json_decode(file_get_contents("usuarios.json"),true);
+require("funciones.php");
 $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
 $ext = '';
 $errores = [];
@@ -12,34 +12,33 @@ if($_POST)
     $ext = pathinfo($_FILES["cambiar-foto"]["name"],PATHINFO_EXTENSION);
     if($_FILES["cambiar-foto"]["error"]==0 && ($ext== "jpg" ||$ext== "png") )
     {
-      $usuario["foto"] = $usuario["id"].".".$ext;
+      $nombre_foto = password_hash(basename($_FILES["cambiar-foto"]["name"]),PASSWORD_DEFAULT);
+      $usuario["foto"] = $nombre_foto;
       $_SESSION["usuario"] =$usuario;
-      $usuarios[$_SESSION["index"]] = $usuario;
-      if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
+      if(isset($_COOKIE["usuario"]))
       {
         $_COOKIE["usuario"] = json_encode($usuario);
       }
-      file_put_contents("usuarios.json", json_encode($usuarios));
-      move_uploaded_file($_FILES["cambiar-foto"]["tmp_name"],"perfiles/".$usuario["id"].".".$ext);
+      actualizarUsuario($bd,$usuario);
+      move_uploaded_file($_FILES["cambiar-foto"]["tmp_name"],"perfiles/".$nombre_foto);
       header("Location:perfil.php");
     } else 
     {
-      $errores[0] = "Error al actualizar la contraseña";
+      $errores[0] = "Error al actualizar la foto";
       $bandera = 2;
     }
   } else if(isset($_POST["cambiarcontraseña"]))
   {
-    if(password_verify($_POST["password1"], $usuario["password"]) && $_POST["password2"] == $_POST["password3"] && strlen($_POST["password3"])>=5 && strlen($_POST["password2"])>=5 && $_POST["password1"] != $_POST["password2"])
+    if(password_verify($_POST["password1"], $usuario["contrasenia"]) && $_POST["password2"] == $_POST["password3"] && strlen($_POST["password3"])>=5 && strlen($_POST["password2"])>=5 && $_POST["password1"] != $_POST["password2"])
     {
-      $usuario["password"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
-      $usuarios[$_SESSION["index"]] = $usuario;
-      file_put_contents("usuarios.json", json_encode($usuarios));
+      $usuario["contrasenia"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
       session_destroy();
-      if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
+      if(isset($_COOKIE["usuario"]))
       {
         setcookie("usuario",null,-1);
         setcookie("index",null,-1);
       }
+      actualizarUsuario($bd,$usuario);
       header("Location:login.php");
     } else 
     {
@@ -48,16 +47,27 @@ if($_POST)
     }
   } else if(isset($_POST["cambiardatos"]))
   {
-    $usuario["email"]= $_POST["email"];
-    $usuario["fecha"] = $_POST["fecha"];
-    $usuarios[$_SESSION["index"]] = $usuario;
-    file_put_contents("usuarios.json", json_encode($usuarios));
-    $_SESSION["usuario"] = $usuario;
-    if(isset($_COOKIE["usuario"]))
+    if(strlen($_POST["ciudad"])!=0 &&strlen($_POST["email"])!=0 && strlen($_POST["fecha"])!=0 && strlen($_POST["escuela"])!=0 && strlen($_POST["universidad"])!=0)
     {
-      $_COOKIE["usuario"] = json_encode($usuario);
+      $usuario["email"]= $_POST["email"];
+      $usuario["fecha_cumpleanios"] = $_POST["fecha"];
+      $usuario["escuela"] = $_POST["escuela"];
+      $usuario["universidad"] = $_POST["universidad"];
+      $usuario["situacion_sentimental"] = $_POST["relacion"];
+      $usuario["ciudad"]= $_POST["ciudad"];
+      actualizarUsuario($bd,$usuario);  
+      $_SESSION["usuario"] = $usuario;
+      if(isset($_COOKIE["usuario"]))
+      {
+        $_COOKIE["usuario"] = json_encode($usuario);
+      }
+      header("Location:perfil.php");   
+    } else 
+    {
+      $bandera = 3;
+      $errores[0] = "Error al actualizar datos";
     }
-    header("Location:perfil.php");
+   
   }
 }
 ?>
@@ -103,33 +113,54 @@ if($_POST)
     </div>
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="datosusuarios.php" method = "POST">
+      <form action="datosusuario.php" method = "POST">
             <div>
                 <p>
-                <input type="email" name="email" id="email" value="" placeholder="Email">
+                <input type="email" name="email" id="email" value="<?=$usuario['email']?>" placeholder="Email">
                 </p>
                  <p>
                   Dia de nacimiento
-                 <input type="date" name="fecha" id="fecha-cumple" value="">
+                  <br>
+                 <input type="date" name="fecha" id="fecha-cumple" value="<?=$usuario['fecha']?>">
                  </p>
                  <p>
-                 <input type="text" name="escuela" id="escuela" value="" placeholder="Escuela">
+                 <?php if(isset($usuario["escuela"])) :?>
+                 <input type="text" name="escuela" id="escuela" value="<?=$usuario['escuela']?>" placeholder="Escuela">
+                 <?php else : ?>
+                  <input type="text" name="escuela" id="escuela" value="" placeholder="Escuela">
+                 <?php endif;?>
                  </p>
                  <p>
-                 <input type="text" name="universidad" id="universidad" value="" placeholder="Universidad">
+                 <?php if(isset($usuario["universidad"])) :?>
+                 <input type="text" name="universidad" id="universidad" value="<?=$usuario['universidad']?>" placeholder="Universidad">
+                 <?php else : ?>
+                  <input type="text" name="universidad" id="universidad" value="" placeholder="Universidad">
+                 <?php endif;?>
+                 </p>
+                 <p>
+                 <?php if(isset($usuario["ciudad"])) :?>
+                 <input type="text" name="ciudad" id="ciudad" value="<?=$usuario['ciudad']?>" placeholder="ciudad">
+                 <?php else : ?>
+                  <input type="text" name="ciudad" id="ciudad" value="" placeholder="ciudad">
+                 <?php endif;?>
                  </p>
                  <p>
                  Situación sentimental
                  <br>
-                 <select name="relacion" id="relacion">
-                    <option value="soltero">Soltero</option>
-                    <option value="pareja">En pareja</option>
-                    <option value="casado">Casado</option>
-                    <option value="divorciado">Divorciado</option>
+                 <select name="relacion" id="relacion" value ="<?= $usuario["situacion_sentimental"] ?>">
+                    <option value="Soltero">Soltero</option>
+                    <option value="En pareja">En pareja</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Divorciado">Divorciado</option>
                     </select>           
                  </p>
                  <p>
                      <button type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
+                     <?php if($bandera == 3 && count($errores)!=0) : ?>
+                          <p class="error-perfil">
+                            <?= $errores[0] ?>
+                          </p>
+                     <?php endif;?>
                  </p>        
             </div>
         </form>
@@ -146,16 +177,16 @@ if($_POST)
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="datosusuarios.php" method = "POST">
+      <form action="datosusuario.php" method = "POST">
             <div>
                 <p>
-                <input type="text" name="password1" id="" value="" placeholder ="Contraseña actual">
+                <input type="password" name="password1" id="" value="" placeholder ="Contraseña actual">
                 </p>
                  <p>
-                 <input type="text" name="password2" id="" value="" placeholder ="Contraseña nueva">
+                 <input type="password" name="password2" id="" value="" placeholder ="Contraseña nueva">
                  </p>
                  <p>
-                 <input type="text" name="password3" id="" value="" placeholder ="Confirmar contraseña">
+                 <input type="password" name="password3" id="" value="" placeholder ="Confirmar contraseña">
                  </p>
                  <p>
                      <button type="submit" name="cambiarcontraseña" id="cambiarcontraseña">Aceptar</button>
@@ -180,7 +211,7 @@ if($_POST)
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="datosusuarios.php" method = "POST" enctype="multipart/form-data">
+      <form action="datosusuario.php" method = "POST" enctype="multipart/form-data">
             <div>
                 <p class="cambiarfotoperfil">
                 <i class="fa fa-camera" aria-hidden="true"></i>

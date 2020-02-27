@@ -1,7 +1,6 @@
 <?php 
 session_start();
-$usuarios_json = file_get_contents("usuarios.json");
-$usuarios = json_decode($usuarios_json,true);
+include("funciones.php");
     $usuario = null;
     $password = null;
     $nombre = null;
@@ -10,17 +9,13 @@ $usuarios = json_decode($usuarios_json,true);
     $errores = [];
     $ext = null;
     $validar_archivo = null;
-    $index_nombre_usuario = null;
-    $index_nombre_email = null ;
     $bandera = 0;
     $foto = [];
     $id = 0;
+    $validarEmail = '';
     if(isset($_COOKIE["usuario"]))
     {
-        $user = json_decode($_COOKIE["usuario"],true);
-        $usuario = $user["usuario"];
-        $password = $user["password"];
-        $_SESSION["usuario"] = $user;
+        $_SESSION["usuario"] = json_decode($_COOKIE["usuario"],true);
         header("Location:perfil.php");
     }
     else if(isset($_SESSION["usuario"]))
@@ -29,7 +24,7 @@ $usuarios = json_decode($usuarios_json,true);
     }
     else if($_POST)
     {
-        $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : '';
+        $datos = $_POST;
         $password = isset($_POST["contraseña"]) ? $_POST["contraseña"] : '';
         $nombre = isset($_POST["nombre"]) ? $_POST["nombre"] : '';
         $apellido = isset($_POST["apellido"]) ? $_POST["apellido"] : '';
@@ -37,93 +32,57 @@ $usuarios = json_decode($usuarios_json,true);
         $foto = isset($_FILES["foto"]) ? $_FILES["foto"] : [];
         $ext =  pathinfo($foto["name"],PATHINFO_EXTENSION);
         $validar_archivo = $foto["error"];
-        if(strlen($usuario)>=5 && strlen($password)>=5 && strlen($email)>=5 && strlen($nombre)>=3 && !is_numeric($nombre) && strlen($apellido)>=3 && !is_numeric($apellido)  && ($ext == "jpg" || $ext == "png") && $validar_archivo == 0)
+        if(strlen($password)>=5 && strlen($email)>=5 && strlen($nombre)>=3 && !is_numeric($nombre) && strlen($apellido)>=3 && !is_numeric($apellido)  && ($ext == "jpg" || $ext == "png") && $validar_archivo == 0)
         {
-            $nombres_usuarios = array_column($usuarios,'usuario');
-            $nombres_email = array_column($usuarios,'email');
 
-            $index_nombre_usuario = array_search($usuario, $nombres_usuarios);
-            $index_nombre_email = array_search($email, $nombres_email);
+            $validarEmail = validarEmail($bd,$email);
 
-            if($index_nombre_usuario === false && $index_nombre_email === false)
+            if(!$validarEmail)
             {
-                if(count($usuarios) == 0)
-                {
-                    $id = 1;
-                } else 
-                {
-                    $id = end($usuarios)["id"] + 1 ;
-                }
-                $usuario = [
-                     "id" => $id,
-                     "usuario" => $usuario,
-                     "password" => password_hash($password,PASSWORD_DEFAULT),
-                     "nombre" => $nombre,
-                     "apellido" => $apellido,
-                     "email" => $email,
-                     "foto" => $id.".".$ext,
-                     "fecha"=> null
+                $nombre_foto = password_hash(basename($foto["name"]),PASSWORD_DEFAULT);
+                $id = guardarUsuario($bd,$datos,$nombre_foto);
+                $_SESSION["usuario"] = [
+                    "id" => $id,
+                    "nombre"=> $nombre,
+                    "apellido"=> $apellido,
+                    "email" => $email,
+                    "password" => $pass_hash,
+                    "foto" => $nombre_foto
                 ];
-                $usuarios[] = $usuario;
-                $usuarios_json = json_encode($usuarios);
-                file_put_contents("usuarios.json", $usuarios_json);
 
-                move_uploaded_file($foto["tmp_name"], "perfiles/".$id.".".$ext);
-                $_SESSION["usuario"] = $usuario;
+                move_uploaded_file($foto["tmp_name"], "perfiles/".$nombre_foto);
                 if(isset($_POST["recordar"]))
             {
-                setcookie("usuario", json_encode($user), time() + 60*60*24*365);
-              
+                setcookie("usuario", json_encode($_SESSION["usuario"]), time() + 60*60*24*365);
             }
              header('Location:perfil.php');
-            } else if($index_nombre_usuario !== false && $index_nombre_email !== false)
+            } else
             {
-                $bandera = 1;
-            } else if($index_nombre_usuario !== false && $index_nombre_email === false)
-            {
-                $bandera = 2;
-            } else if($index_nombre_usuario === false && $index_nombre_email !== false)
-            {
-                $bandera = 3;
+                $errores[5] ="Email ya ingresado";
             }
-        } 
-        if (strlen($usuario)<=5)
-        {
-            $errores[0] = "Usuario invalido";
         }
-         if (strlen($password)<=5)
+        if (strlen($password)<=5)
         {
-            $errores[1] = "Contraseña invalida";
+            $errores[0] = "Contraseña invalida";
         } 
-         if( strlen($nombre)<3 || is_numeric($nombre))
+          if( strlen($nombre)<3 || is_numeric($nombre))
         {
-            $errores[2] = "Nombre invalido";
+            $errores[1] = "Nombre invalido";
         }
         if( strlen($apellido)<3 || is_numeric($apellido))
         {
-            $errores[3] = "Apellido invalido";
+            $errores[2] = "Apellido invalido";
         }  
         if (strlen($email)<=5)
         {
-            $errores[4] = "Email invalido";
+            $errores[3] = "Email invalido";
         }
         if( ($ext != "png" && $ext != "jpg")|| $validar_archivo !=0 )
         {
-            $errores[5] = "Foto en jpg o png";
+            $errores[4] = "Foto en jpg o png";
         } 
-        if($bandera == 1)
-        {
-            $errores[6] = "Usuario y Mail ya registrados";
-        }
-        if($bandera == 2)
-        {
-            $errores[0] = "Usuario ya registrado";
-        }
-        if($bandera == 3)
-        {
-            $errores[4] = "Mail ya registrado";
-        }
     }
+
 ?>
 
 
@@ -153,12 +112,12 @@ $usuarios = json_decode($usuarios_json,true);
         <section class="col-lg-12 col-xl-5 section-registro">
             <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST" enctype ="multipart/form-data" class="form-registro">
                 <div class="col-12 col-md-6 col-xl-12">
-                    <label class="col-6" for="usuario">Usuario</label>
-                    <input class="col-6" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
+                    <label class="col-6" for="email">Email</label>
+                    <input class="col-6" type="email" name="email" id="email" value="<?= $email ?>">
                     <div class="bloque-error-registro  col-12">
-                     <?php if((strlen($usuario)<=5 || $bandera == 2) && count($errores)!=0) : ?>
+                     <?php if((strlen($email)<=5) && count($errores)!=0) : ?>
                         <p  class="error col-10">
-                            <?= $errores[0] ?>
+                            <?= $errores[3] ?>
                         </p>
                      <?php endif; ?>    
                      </div> 
@@ -169,7 +128,7 @@ $usuarios = json_decode($usuarios_json,true);
                     <div class="bloque-error-registro  col-12">
                     <?php if(strlen($password) <=5 && count($errores)!=0) : ?>
                         <p  class="error col-10">
-                            <?= $errores[1] ?>
+                            <?= $errores[0] ?>
                         </p>
                      <?php endif; ?>   
                     </div>
@@ -180,7 +139,7 @@ $usuarios = json_decode($usuarios_json,true);
                     <div class="bloque-error-registro  col-12">
                     <?php if( (strlen($nombre)<3 || is_numeric($nombre)) && count($errores)!=0) : ?>
                         <p  class="error col-10">
-                            <?= $errores[2]?>
+                            <?= $errores[1]?>
                         </p>
                      <?php endif; ?>  
                     </div>
@@ -191,37 +150,25 @@ $usuarios = json_decode($usuarios_json,true);
                     <div class="bloque-error-registro  col-12">
                          <?php if( (strlen($apellido)<3 || is_numeric($apellido)) && count($errores)!=0 ) : ?>
                             <p class="error col-10">
-                                <?= $errores[3] ?>
+                                <?= $errores[2] ?>
                              </p>
                         <?php endif; ?> 
                     </div>
                     
                 </div>
-                <div class="col-12 col-md-6 col-xl-12">
-                    <label class="col-6" for="email">Email</label>
-                    <input class="col-6" type="email" name="email" id="email" value="<?= $email ?>"> 
-                    <div class="bloque-error-registro  col-12">
-                    <?php if(  (strlen($email)<=5 || $bandera == 3 )&& count($errores)!=0) : ?>
-                        <p class="error col-10">
-                            <?= $errores[4] ?>
-                        </p>
-                     <?php endif; ?>  
-                    </div>
-                     
-                </div>
-                <div class="col-12 col-md-6 col-xl-12 bloque-foto-perfil">   
+                <div class="col-8 col-md-6 col-xl-8 bloque-foto-perfil">   
                     <div class="bloque-foto col-6">
                         <input class="col-12 foto_perfil" type="file" name="foto" id="foto-perfil-registro" > 
                         <i class="fa fa-upload imagen-upload" aria-hidden="true"></i>
                          <p >
-                                Cargar Foto
+                            Foto
                          </p>  
                     </div>
                       
                     <div class="bloque-error-registro  col-12">
                         <?php if( ($ext!="jpg" && $ext!="png" || $validar_archivo!=0 || count($_FILES)==0) && count($errores)!=0 ) : ?>
-                            <p class="error col-10">
-                                <?= $errores[5] ?>  
+                            <p class="error error2 col-10">
+                                <?= $errores[4] ?>  
                             </p>
                          <?php endif; ?>
                     </div>
@@ -236,9 +183,9 @@ $usuarios = json_decode($usuarios_json,true);
                     <button class="col-6" type="submit">Registrarte</button>
                 </div>
                 <div class="bloque-error-registro  col-12">
-                        <?php if( $bandera == 1 && count($errores)!=0 ) : ?>
+                        <?php if( $bandera && count($errores)!=0 ) : ?>
                             <p class="error col-10">
-                                <?= $errores[6] ?>  
+                                <?= $errores[5] ?>  
                             </p>
                          <?php endif; ?>
                 </div>

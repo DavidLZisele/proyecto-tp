@@ -1,5 +1,6 @@
 <?php
 session_start();
+require("funciones.php");
 $usuarios = json_decode(file_get_contents("usuarios.json"),true);
 $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
 $ext = '';
@@ -81,7 +82,7 @@ if($_POST)
       </ul>
     </header>
      <section class="seccion-perfil col-12">
-       <div class="col-lg-3">  
+       <div class="col-lg-6 col-xl-3">  
         <article class="informacion">
           <p class="nombre-perfil">
             <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
@@ -90,17 +91,35 @@ if($_POST)
             <img src="perfiles/<?= $usuario["foto"] ?>" alt="foto">
           </div>
           <div class="bloke-info col-12">
-            <div class="info-personal">
+           <div class="datosusuario-bloque">
+              <div class="col-12">
               <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
-              <p class="col-10">Informacion personal</p>
-            </div>
+                    <?php if(isset($usuario["escuela"])) : ?>
+                    <p class="col-10"><?= $usuario["escuela"] ?></p>
+                    <?php endif;?>
+              </div>
+                 
+              <div class="col-12">
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <?php if(isset($usuario["universidad"])) : ?>
+                    <p class="col-10"><?= $usuario["universidad"] ?></p>
+              </div>
+
+                <div class="col-12">
+                    <?php endif;?><a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <?php if(isset($usuario["situacion_sentimental"])) : ?>
+                    <p class="col-10"><?= $usuario["situacion_sentimental"] ?></p>
+                    <?php endif;?>
+                 </div>
+           
+           </div>
             <div>
               <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-home"></i></a>
-              <p class="col-10">Ciudad</p>
+              <p class="col-10"><?=$usuario["ciudad"] ?></p>
             </div>
             <div>
               <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-              <p class="col-10">Cumpleaños</p>
+              <p class="col-10"><?=$usuario["fecha_cumpleanios"] ?></p>
             </div>
           </div>
         </article>
@@ -136,7 +155,7 @@ if($_POST)
         </article>
 
        </div>
-      <div class="col-lg-5">
+      <div class="col-lg-6 col-xl-5">
         <article class="publicacion-perfil">
           <form action="pagina.html" method ="post" enctype="multipart/form-data">
               <input type="text" name="publicacion" class="publicacion" placeholder="Estado">
@@ -144,11 +163,11 @@ if($_POST)
               <br>
                <label for="tipopublicacion">Categoria</label>
                <select name="tipopublicacion" id="tipopublicacion">
-                  <option value="terror">Offtopic</option>
-                  <option value="terror">Noticias</option>
-                  <option value="terror">Deportes</option>
-                  <option value="terror">Terror</option>
-                  <option value="terror">Tecnologia</option>
+                  <?php foreach(getCategorias($bd) as $categoria) : ?>
+                  <option value="<?=$categoria["id"] ?>">
+                      <?= $categoria["descripcion"] ?>
+                  </option>
+                  <?php endforeach;?>
                </select>
                <div class="div-subirfoto">
                   <span>
@@ -192,19 +211,19 @@ if($_POST)
        
       </div>
        
-       <article class="solicitudes-amistad col-12 col-lg-4">
+       <article class="solicitudes-amistad col-11 col-lg-6 col-xl-3">
             <h2>
               Solicitud de amistad
             </h2>
       
             <div class="sa col-12">
-              <div class="col-1 col-lg-4 foto-solicitud">
+              <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
                 <img src="img/Martin1.jpg" alt="">
               </div>
-              <p class="col-8 col-lg-4">
+              <p class="col-6 col-lg-4 col-xl-3">
                 Nombre
               </p>
-              <form action="perfil.php" method="POST" class="col-3 col-lg-4">
+              <form action="perfil.php" method="POST" class="col-3 col-lg-4 col-xl-5">
                 <button type="submit" name="aceptar" class="col-6 check"> <i class="fa fa-check"></i></button>
                   <button type="submit" name="aceptar" class="col-6 remove"> <i class="fa fa-remove"></i></button>
               </form>

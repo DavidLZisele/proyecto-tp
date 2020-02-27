@@ -1,20 +1,15 @@
 <?php
 session_start();
+require('funciones.php');
     $usuario = ""; 
     $password ="";
     $errores = [];
-    $user = [];
-    $bandera = 0;
-    $index_usuario = false;
-    $usuarios_json = file_get_contents("usuarios.json");
-    $usuarios = json_decode($usuarios_json,true);
-    if(isset($_COOKIE["usuario"])&& isset($_COOKIE["index"]))
+    $validarPass = "";
+    $validarEmail = '';
+    $email = '';
+    if(isset($_COOKIE["usuario"]))
     {
-        $user = json_decode($_COOKIE["usuario"],true);
-        $usuario = $user["usuario"];
-        $password = $user["password"];
-        $_SESSION["usuario"] = $user;
-        $_SESSION["index"] = $_COOKIE["index"]; 
+        $_SESSION["usuario"] = json_decode($_COOKIE["usuario"],true);;
         header("Location:perfil.php");
     } 
     else if(isset($_SESSION["usuario"]))
@@ -23,59 +18,29 @@ session_start();
     }
     else if($_POST)
  {
-    $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "" ;
+    $email = isset($_POST["email"]) ? $_POST["email"] : "" ;
     $password = isset($_POST["password"]) ? $_POST["password"] : "" ;
     
-    $usernames = array_column($usuarios, 'usuario');
-    $index_usuario = array_search($usuario, $usernames);
-    $index_usuario_2 = array_search($usuario,array_column($usuarios,'email'));
-     if($index_usuario !== false)
+    $usuario = buscarEmail($bd,$email);
+     if($usuario !== false)
     {
-        if(password_verify($password, $usuarios[$index_usuario]["password"]))
+        $validarPass = password_verify($password,$usuario["contrasenia"]);
+        if($validarPass)
         {
-            $user = $usuarios[$index_usuario];
-            $_SESSION["usuario"] = $user;
-            $_SESSION["index"] = $index_usuario;
+            $_SESSION["usuario"] = $usuario;
             if(isset($_POST["recordar"]))
             {
-                setcookie("usuario", json_encode($user), time() + 60*60*24*365);
-                setcookie("index", $index_usuario, time() + 60*60*24*365);
+                setcookie("usuario", json_encode($usuario), time() + 60*60*24*365);
             }
             header("Location:perfil.php");
-        } else 
+        } else
         {
-            $bandera = 1;
-            $errores[2] = "Contraseña incorrecta";
-        }     
-    }
-    else if($index_usuario_2 !== false)
-    {
-        if(password_verify($password, $usuarios[$index_usuario_2]["password"]))
-        {
-            $user = $usuarios[$index_usuario_2];
-            $_SESSION["usuario"] = $user;
-            $_SESSION["index"] = $index_usuario_2;
-            if(isset($_POST["recordar"]))
-            {
-                setcookie("usuario", json_encode($user), time() + 60*60*24*365);
-                setcookie("index", $index_usuario_2, time() + 60*60*24*365);
-            }
-            header("Location:perfil.php");
-        }
-    } else if($index_usuario === false && $index_usuario_2 === false )
+            $errores[0] = "Contraseña incorrecta";  
+        } 
+    } else
     {
         $errores[0] = "No se encontro el usuario";
     } 
-    else if($usuario == '' && $password != '')
-    {
-        $errores[1] = "Ingrese usuario";
-    }else if($usuario != '' && $password == '')
-    {
-        $errores[2] = "Ingrese contraseña";
-    } else if($usuario == '' && $password == '')
-    {
-        $errores[0] = "Ingrese usuario y contraseña";
-    }
  }
  
 ?>
@@ -112,22 +77,11 @@ session_start();
                 <form action="login.php" method="POST">
                     <p class="col-12">
                         <label for="usuario" class="col-12">Usuario</label>
-                        <input type="text" name="usuario" id="usuario" class="col-9" value="<?= $usuario ?>">
-                         <?php if($usuario == ''&& $password != '' && count($errores)!=0) : ?>
-                          <p class="error">
-                              <?= $errores[1]?>
-                         </p>
-                          <?php endif ; ?>  
-                         
+                        <input type="text" name="email" id="email" class="col-9" value="<?= $email ?>">
                     </p>
                     <p class="col-12">
                         <label for="password" class="col-12">Contraseña</label>
                         <input type="password" name="password" id="password" class="col-9" value="<?= $password ?>">
-                        <?php if( ($password == '' && $usuario != '' || $bandera == 1)  && count($errores)!=0) : ?>
-                          <p class="error">
-                              <?= $errores[2]?>
-                          </p>
-                          <?php endif ; ?>  
                     </p>
                     <p class="col-12 recordar">
                         <input type="checkbox" name="recordar" id="recordar" value="true"> 
@@ -137,7 +91,7 @@ session_start();
                     </p>
                     <p class="col-12">
                         <button type="submit" class="col-9">Ingresar</button>
-                            <?php if(($usuario == '' && $password == '' ||  $index_usuario === false && $index_usuario_2 === false  ) && count($errores)!=0) : ?>
+                            <?php if(( $usuario ===false || !$validarPass) && count($errores)!=0) : ?>
                             <p class="error">
                               <?= $errores[0] ?>
                           </p>

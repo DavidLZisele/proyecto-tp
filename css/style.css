@@ -311,7 +311,7 @@ div p
     flex-wrap: wrap;
     margin-bottom: 5px;
 }
-.form-registro div:nth-child(8)
+.form-registro div:nth-child(7)
 {
     display:flex;
     justify-content: flex-end;
@@ -345,7 +345,6 @@ background-color:lightslategray;
 .bloque-foto-perfil .bloque-foto
 {
     border:solid 1px #333;
-    margin-left: 50%;
     position: relative;
     background-color: #333;
     border-radius: 5px;
@@ -403,6 +402,14 @@ background-color:lightslategray;
 {
     height: 50vh;
 }
+.bloque-foto-perfil
+{
+     left:16%;
+ }
+ .error2
+ {
+      padding-left:20%;
+  }
 /*---------------------------------------------------*/
 
 /*-------------------------FAQ-----------------------*/
@@ -552,6 +559,10 @@ background-color:lightslategray;
 {
     padding:0;
 }
+.contenedor-perfil .col-12
+{
+    padding-left:0;
+}
 .header-perfil
      {
          padding:5px;
@@ -686,6 +697,29 @@ background-color:lightslategray;
      {
          margin-top: 10px;
      }
+     .datosusuario-bloque 
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: flex-start;
+     }
+     .datosusuario-bloque div 
+     {
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+     }
+     .datosusuario-bloque p{
+        
+        align-self: center;
+     }
+     .datosusuario-bloque p 
+     {
+         margin-top: 0;
+         margin-bottom: 0;
+     }
      .interaccion-publicacion button
      {
         width: 150px;
@@ -718,6 +752,8 @@ background-color:lightslategray;
          height: 40vh;
          overflow: auto;
          background-color: white;
+         margin-top:30px;
+         margin-left:16px;
      }
      .solicitudes-amistad h2
      {
@@ -769,6 +805,7 @@ background-color:lightslategray;
          align-items: center;
          height: 100vh;
          background-color: #333;
+         font-size:11px;
      }
      .card-header
      {
@@ -879,6 +916,15 @@ background-color:lightslategray;
     {
        margin-left: 40%;
     }
+    .bloque-foto-perfil
+    {
+         left:-14%;
+    }
+    .error2 
+    {
+        padding-left:20%;
+    }
+
 }
 @media (min-width: 992px)
 {
@@ -899,6 +945,7 @@ background-color:lightslategray;
          justify-content: space-between;
          align-items: center;
      }
+    
      .fondo
      {
          background-size: cover;
@@ -983,6 +1030,10 @@ background-color:lightslategray;
       {
         justify-content: flex-end;
       }
+      .error2 
+    {
+        padding-left:12%;
+    }
 }
 
 
@@ -1016,6 +1067,18 @@ background-color:lightslategray;
     {
        margin-left: 0;
     }
+    .bloque-foto-perfil
+    {
+         left:16%;
+     }
+     .bloque-foto i
+     {
+        margin-left:-50%;
+     }
+     .error2
+     {
+        padding-left:13%;
+     }
     /*-----------------------------*/
      /*-------------FAQ-------------*/
     .contenedor-faq .header-faq
@@ -1041,6 +1104,18 @@ background-color:lightslategray;
      .user-public img 
      {
          width: 75%;
+     }
+     .solicitudes-amistad
+     {
+         margin-top:0;
+     }
+     .foto-solicitud img
+     {
+         height: 10vh;
+     }
+     .sa p 
+     {
+         padding-left:0;
      }
 }
 
