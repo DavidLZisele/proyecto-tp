@@ -5,32 +5,31 @@ function validarEmail(PDO $bd, String $email)
 {
     try 
     {
-        $bd->beginTransaction();
+    
         $consulta = $bd->prepare("select * from usuarios WHERE email = ?");
         $consulta->bindValue(1,$email);
         $consulta->execute();
         $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
-        $bd-> commit();
         return ($resultado !== false) ? true : false;
     } catch(PDOException $e)
     {
         echo "No se puede validar mail <br>".$e->getMessage();
+        exit;
     }
 }
 function buscarUsuario(PDO $bd, String $email)
 {
     try 
     {
-        $bd->beginTransaction();
         $consulta = $bd->prepare("select * from usuarios WHERE email = ?");
         $consulta->bindValue(1,$email);
         $consulta->execute();
         $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
-        $bd-> commit();
         return $resultado;
     } catch(PDOException $e)
     {
         echo "No se puede validar mail <br>".$e->getMessage();
+        exit;
     }
 }
 function cantidadUsuarios(PDO $bd)
@@ -44,8 +43,10 @@ function cantidadUsuarios(PDO $bd)
     } catch(PDOException $e)
     {
         echo "No se puede consultar la cantidad de usuarios <br>".$e->getMessage();
+        exit;
     }
 }
+
 function guardarUsuario(PDO $bd,$datos,$foto)
 {
     $contraseña = password_hash($datos["contraseña"],PASSWORD_DEFAULT);
@@ -65,6 +66,8 @@ function guardarUsuario(PDO $bd,$datos,$foto)
     } catch(PDOException $e)
     {
         echo "No se puede consultar la cantidad de usuarios <br>".$e->getMessage();
+        $bd->rollback();
+        exit;
     }
 }
 function getCategorias(PDO $bd)
@@ -78,29 +81,69 @@ function getCategorias(PDO $bd)
     } catch(PDOException $e)
     {
         echo "No se puede consultar las categorias de los posteos<br>".$e->getMessage();
+        exit;
     }
 }
-function actualizarUsuario(PDO $bd,$usuario)
+function actualizarDatos(PDO $bd,$usuario)
 {
     try
     {
         $bd->beginTransaction();
-        $consulta= $bd->prepare("update usuarios set email = ?, contrasenia = ?, foto = ?, fecha_cumpleanios = ?, situacion_sentimental = ?, escuela = ?, universidad = ?, ciudad = ?
+        $consulta= $bd->prepare("update usuarios set email = ?, fecha_cumpleanios = ?, situacion_sentimental = ?, escuela = ?, universidad = ?, ciudad = ?
         where id = ?");
         $consulta->bindValue(1,$usuario["email"]);
-        $consulta->bindValue(2,$usuario["contrasenia"]);
-        $consulta->bindValue(3,$usuario["foto"]);
-        $consulta->bindValue(4,$usuario["fecha_cumpleanios"]);
-        $consulta->bindValue(5,$usuario["situacion_sentimental"]);
-        $consulta->bindValue(6,$usuario["escuela"]);
-        $consulta->bindValue(7,$usuario["universidad"]);
-        $consulta->bindValue(8,$usuario["ciudad"]);
-        $consulta->bindValue(9,$usuario["id"]);
+        $consulta->bindValue(2,$usuario["fecha_cumpleanios"]);
+        $consulta->bindValue(3,$usuario["situacion_sentimental"]);
+        $consulta->bindValue(4,$usuario["escuela"]);
+        $consulta->bindValue(5,$usuario["universidad"]);
+        $consulta->bindValue(6,$usuario["ciudad"]);
+        $consulta->bindValue(7,$usuario["id"]);
         $consulta->execute();
         $bd->commit();
+
     } catch(PDOException $e)
     {
         echo "No se pudo actualizar al usuario ".$e->getMessage();
+        $bd->rollback();
+        exit;
+
+    }
+}
+function actualizarContraseña(PDO $bd,$usuario)
+{
+    try
+    {
+        $bd->beginTransaction();
+        $consulta= $bd->prepare("update usuarios set contrasenia = ? where id = ?");
+        $consulta->bindValue(1,$usuario["contrasenia"]);
+        $consulta->bindValue(2,$usuario["id"]);
+        $consulta->execute();
+        $bd->commit();
+
+    } catch(PDOException $e)
+    {
+        echo "No se pudo actualizar al usuario ".$e->getMessage();
+        $bd->rollback();
+        exit;
+
+    }
+}
+function actualizarFoto(PDO $bd,$usuario)
+{
+    try
+    {
+        $bd->beginTransaction();
+        $consulta= $bd->prepare("update usuarios set foto = ? where id = ?");
+        $consulta->bindValue(1,$usuario["foto"]);
+        $consulta->bindValue(2,$usuario["id"]);
+        $consulta->execute();
+        $bd->commit();
+
+    } catch(PDOException $e)
+    {
+        echo "No se pudo actualizar al usuario ".$e->getMessage();
+        $bd->rollback();
+        exit;
 
     }
 }
@@ -123,19 +166,6 @@ function guardarPublicacion(PDO $bd,$publicacion,$foto,$usuario)
        exit;
    }
 }
-function buscarPublicaciones($bd,$id)
-{
-    try{
-        $consulta = $bd->prepare("select * from posteos where id_usuario = ?");
-        $consulta->bindValue(1,$id);
-        $consulta->execute();
-        return $consulta->fetchAll(PDO::FETCH_ASSOC);
-    } catch(PDOException $e)
-    {
-        echo "Error al buscar publicacion ".$e->getMessage();
-        exit;
-    }
-}
 function aceptarSolicitud($bd,$amigo,$usuario)
 {
    try{
@@ -150,6 +180,7 @@ function aceptarSolicitud($bd,$amigo,$usuario)
    {
        echo "Error al aceptar amistad ".$e->getMessage();
        $bd->rollback();
+       exit;
    }
 }
 
@@ -167,6 +198,7 @@ function eliminarSolicitud($bd,$amigo,$usuario)
     {
         echo "Error al eliminar amistad ".$e->getMessage();
         $bd->rollback();
+        exit;
     }
 }
 function mandarSolicitud($bd,$amigo,$usuario)
@@ -183,6 +215,7 @@ function mandarSolicitud($bd,$amigo,$usuario)
     {
         echo "Error al mandar amistad ".$e->getMessage();
         $bd->rollback();
+        exit;
     }
 }
 function getAmigos($bd,$usuario)
@@ -197,6 +230,7 @@ function getAmigos($bd,$usuario)
     } catch(PDOException $e)
     {
         echo "Error al buscar amigos ".$e->getMessage(); 
+        exit;
     }
 }
 function getSolicitudes($bd,$usuario)
@@ -210,6 +244,121 @@ function getSolicitudes($bd,$usuario)
     } catch(PDOException $e)
     {
         echo "Error al buscar amigos ".$e->getMessage(); 
+        exit;
+    }
+}
+function borrarPublicacion($bd,$id)
+{
+    try{
+        $bd->beginTransaction();
+        $consulta = $bd->prepare("delete from posteos where id = ?");
+        $consulta->bindValue(1,$id);
+        $consulta->execute();
+        $bd->commit();
+
+    } catch(PDOException $e)
+    {
+        echo "Error al borrar publicacion ".$e->getMessage();
+        $bd->rollback();
+        exit;
+    }
+}
+function publicacionesAmigos($bd,$usuario)
+{
+    try{
+        $consulta = $bd->prepare("select distinct u.id, u.nombre,u.foto foto_usuario,contenido_posteo,p.foto foto_posteo,fecha_posteo
+        from usuarios u 
+        inner join amigos a on (u.id = a.id_usuario or u.id = a.id_amigo)
+        inner join posteos p on p.id_usuario = u.id
+        where (a.id_usuario = ? or a.id_amigo = ? or u.id = ?) and respuesta = 1
+        order by fecha_posteo desc");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->bindValue(2,$usuario["id"]);
+        $consulta->bindValue(3,$usuario["id"]);
+        $consulta->execute();
+        
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e){
+        echo "Error al consultar las publicaciones de los amigos ".$e->getMessage();
+        exit;
+    }
+}
+function getPublicaciones($bd,$usuario)
+{
+    try{
+        $consulta = $bd->prepare("select u.id, u.nombre nombre_usuario, u.foto foto_usuario, p.foto foto_posteo, p.contenido_posteo from posteos p
+        inner join usuarios u on u.id = id_usuario
+        where id_usuario = ?
+        order by fecha_posteo desc");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->execute();
+        
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e){
+        echo "Error al consultar las publicaciones de los amigos ".$e->getMessage();
+        exit;
+    }
+}
+function agregarFoto($bd,$usuario)
+{
+    try{
+        $bd->beginTransaction();
+        $consulta = $bd->prepare("insert into fotos_usuario(id_usuario,nombre_foto) values(?,?)");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->bindValue(2,$usuario["foto"]);
+        $consulta->execute();
+        $bd->commit();
+
+    } catch(PDOException $e)
+    {
+        echo "Error al actualizar la foto del usuario ".$e->getMessage();
+        $bd->rollback();
+        exit;
+    }
+}
+function cantidadFotos($bd,$usuario)
+{  
+    try{
+    $consulta = $bd->prepare("select * from fotos_usuario where id_usuario = ?");
+    $consulta->bindValue(1,$usuario["id"]);
+    $consulta->execute();
+    $res = $consulta-> fetchAll(PDO::FETCH_ASSOC);
+    return ($resultado !== false) ? ($consulta->rowCount()+1) : 1;
+    } catch(PDOException $e)
+    {
+    echo "Error al consultar la cantidad de fotos del usuario ".$e->getMessage();
+    exit;
+    }
+}
+function cantidadFotosPosteo($bd,$usuario)
+{  
+    try{
+    $consulta = $bd->prepare("select * from fotos_posteo where id_usuario = ?");
+    $consulta->bindValue(1,$usuario["id"]);
+    $consulta->execute();
+    $resultado = $consulta-> fetchAll(PDO::FETCH_ASSOC);
+    return ($resultado !== false) ? ($consulta->rowCount()+1) : 1;
+    } catch(PDOException $e)
+    {
+    echo "Error al consultar la cantidad de fotos de las publicaciones del usuario ".$e->getMessage();
+    exit;
+    }
+} 
+function agregarFotoPosteo($bd,$usuario,$foto)
+{
+    try{
+        $bd->beginTransaction();
+        $consulta = $bd->prepare("insert into fotos_posteo(id_usuario,nombre_foto) values(?,?)");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->bindValue(2,$foto);
+        $consulta->execute();
+        $bd->commit();
+
+    } catch(PDOException $e)
+    {
+        echo "Error al actualizar la foto del usuario ".$e->getMessage();
+        $bd->rollback();
+        exit;
     }
 }
 ?>

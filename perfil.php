@@ -26,7 +26,7 @@ if($_POST)
         $error_foto_public = $_FILES["fotopublic"]["error"];
         if($error_foto_public == 0 && ($ext  == "jpg" || $ext == "png"))
         {
-          $foto = password_hash(basename($_FILES["fotopublic"]["name"]),PASSWORD_DEFAULT);
+          $foto = $usuario["id"]."_".cantidadFotosPosteo($bd,$usuario).".".$ext;
           move_uploaded_file($_FILES["fotopublic"]["tmp_name"],"publicaciones/".$foto);
         } else 
         {
@@ -34,6 +34,7 @@ if($_POST)
         }
       }
       guardarPublicacion($bd,$publicacion,$foto,$usuario);
+      agregarFotoPosteo($bd,$usuario,$foto);
       header("Location:perfil.php");
     } else 
     {
@@ -46,13 +47,14 @@ if($_POST)
           if($_POST["aceptar"] == $amigo["id"])
           {
               aceptarSolicitud($bd,$amigo,$usuario);
+              aceptarSolicitud($bd,$usuario,$amigo);
               break;
           }
           header("Location:perfil.php");
       }
   } else if(isset($_POST["rechazar"]))
   {
-    foreach($amigos as $amigo)
+    foreach(getSolicitudes($bd,$usuario) as $amigo)
     {
       if($_POST["aceptar"] == $amigo["id"])
       {
@@ -74,6 +76,10 @@ if($_POST)
         $bandera = 1;
         $errores[0] = "No se encontro usuario";
       }
+  } else if(isset($_POST["borrar-publicacion"]))
+  {
+      borrarPublicacion($bd,$_POST["borrar-publicacion"]);
+      header("Location:perfil.php");
   }
 }
 ?>
@@ -270,25 +276,26 @@ if($_POST)
               <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
           </form>
        </article>
-       <article class="publicaciones-perfil">
-        <?php foreach(buscarPublicaciones($bd,$usuario["id"]) as $pub) :?>
+       <article class="publicaciones-perfil"> 
+         <?php if(getAmigos($bd,$usuario)==null) :?>
+          <?php foreach(getPublicaciones($bd,$usuario) as $pub) :?>
           <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
-              <img src="perfiles/<?=$usuario["foto"]?>" alt="">
+              <img src="perfiles/<?=$pub["foto_usuario"]?>" alt="">
             </div>
             <p class="col-9 col-lg-6">
-              <?= $usuario["nombre"] ?>
+              <?= $pub["nombre_usuario"] ?>
             </p>
             <form action="perfil.php" method="post" class="col-1">
-            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion">  <i class="fa fa-times" aria-hidden="true"></i></button>
+            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion" value="<?=$pub["id"]?>">  <i class="fa fa-times" aria-hidden="true"></i></button>
             </form>
           </div>
            <p class="texto-publicacion">
              <?= $pub["contenido_posteo"] ?>
            </p>
-           <?php if(strlen($pub["foto"])!=0) :?>
+           <?php if(strlen($pub["foto_posteo"])!=0) :?>
            <div class="imagen-public">
-             <img src="publicaciones/<?=$pub["foto"]?>" alt="no se encontro la foto">
+             <img src="publicaciones/<?=$pub["foto_posteo"]?>" alt="no se encontro la foto">
            </div>
            <?php endif;?>
            <div class="interaccion-publicacion">
@@ -301,14 +308,77 @@ if($_POST)
              </form>        
            </div>
         <?php endforeach;?>
+         <?php endif;?>
+         <?exit;?>  
+        <?php foreach(publicacionesAmigos($bd,$usuario) as $pub) :?>
+          <?php if($pub["id"]==$usuario["id"]) :?>
+            <div class="pp col-12">
+            <div class="user-public col-2 col-md-2 col-lg-3">
+              <img src="perfiles/<?=$pub["foto_usuario"]?>" alt="">
+            </div>
+            <p class="col-9 col-lg-6">
+              <?= $pub["nombre"] ?>
+            </p>
+            <form action="perfil.php" method="post" class="col-1">
+            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion" value="<?=$pub["id"]?>">  <i class="fa fa-times" aria-hidden="true"></i></button>
+            </form>
+          </div>
+           <p class="texto-publicacion">
+             <?= $pub["contenido_posteo"] ?>
+           </p>
+           <?php if(strlen($pub["foto_posteo"])!=0) :?>
+           <div class="imagen-public">
+             <img src="publicaciones/<?=$pub["foto_posteo"]?>" alt="no se encontro la foto">
+           </div>
+           <?php endif;?>
+           <div class="interaccion-publicacion">
+             <form action="perfil.php" method="POST">
+                   <button type="submit" name ="like">
+                        <i class="fa fa-thumbs-up"></i>  Like
+                   </button>
+                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
+                    </button>
+             </form>        
+           </div>
+          <?php else :?>
+            <div class="pp col-12">
+            <div class="user-public col-2 col-md-2 col-lg-3">
+              <img src="perfiles/<?=$pub["foto_usuario"]?>" alt="">
+            </div>
+            <p class="col-9 col-lg-6">
+              <?= $pub["nombre"] ?>
+            </p>
+            <form action="perfil.php" method="post" class="col-1">
+            </form>
+          </div>
+           <p class="texto-publicacion">
+             <?= $pub["contenido_posteo"] ?>
+           </p>
+           <?php if(strlen($pub["foto_posteo"])!=0) :?>
+           <div class="imagen-public">
+             <img src="publicaciones/<?=$pub["foto_posteo"]?>" alt="no se encontro la foto">
+           </div>
+           <?php endif;?>
+           <div class="interaccion-publicacion">
+             <form action="perfil.php" method="POST">
+                   <button type="submit" name ="like">
+                        <i class="fa fa-thumbs-up"></i>  Like
+                   </button>
+                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
+                    </button>
+             </form>        
+           </div>
+          <?php endif;?>
+          
+        <?php endforeach;?>
        </article>
        
       </div>
        
        <article class="solicitudes-amistad col-11 col-lg-3">
-            <h2>
-              Solicitud de amistad
-            </h2>
+            <h3>
+              Agregar amigos
+            </h3>
             <div class="sa-2 col-12">
               <form action="perfil.php" method="POST">
                 <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo">
@@ -324,6 +394,9 @@ if($_POST)
                 <?php endif;?>
               </form>
             </div>
+            <h3>
+              Solicitudes de amistad
+            </h3>
             <?php foreach(getSolicitudes($bd,$usuario) as $amigo) :?>
             <div class="sa col-12">
               <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">

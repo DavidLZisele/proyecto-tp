@@ -39,22 +39,23 @@ include("funciones.php");
 
             if(!$validarEmail)
             {
-                $nombre_foto = password_hash(basename($foto["name"]),PASSWORD_DEFAULT);
-                $id = guardarUsuario($bd,$datos,$nombre_foto);
+                $foto = (cantidadUsuarios($bd)).".".$ext;
+                $id = guardarUsuario($bd,$datos,$foto);
                 $_SESSION["usuario"] = [
                     "id" => $id,
                     "nombre"=> $nombre,
                     "apellido"=> $apellido,
                     "email" => $email,
-                    "password" => $pass_hash,
-                    "foto" => $nombre_foto
+                    "contrasenia" => password_hash($password,PASSWORD_DEFAULT),
+                    "foto" => $foto
                 ];
-
-                move_uploaded_file($foto["tmp_name"], "perfiles/".$nombre_foto);
+                agregarFoto($bd,$_SESSION["usuario"]);     
+                   
                 if(isset($_POST["recordar"]))
             {
                 setcookie("usuario", json_encode($_SESSION["usuario"]), time() + 60*60*24*365);
             }
+            move_uploaded_file($_FILES["foto"]["tmp_name"], "perfiles/".$foto);     
              header('Location:perfil.php');
             } else
             {

@@ -12,14 +12,15 @@ if($_POST)
     $ext = pathinfo($_FILES["cambiar-foto"]["name"],PATHINFO_EXTENSION);
     if($_FILES["cambiar-foto"]["error"]==0 && ($ext== "jpg" ||$ext== "png") )
     {
-      $nombre_foto = password_hash(basename($_FILES["cambiar-foto"]["name"]),PASSWORD_DEFAULT);
+      $nombre_foto =  $usuario["id"]."_".(cantidadFotos($bd,$usuario)+1).".".$ext;
       $usuario["foto"] = $nombre_foto;
       $_SESSION["usuario"] =$usuario;
       if(isset($_COOKIE["usuario"]))
       {
         $_COOKIE["usuario"] = json_encode($usuario);
       }
-      actualizarUsuario($bd,$usuario);
+      actualizarFoto($bd,$usuario);
+      agregarFoto($bd,$usuario);
       move_uploaded_file($_FILES["cambiar-foto"]["tmp_name"],"perfiles/".$nombre_foto);
       header("Location:perfil.php");
     } else 
@@ -38,7 +39,7 @@ if($_POST)
         setcookie("usuario",null,-1);
         setcookie("index",null,-1);
       }
-      actualizarUsuario($bd,$usuario);
+      actualizarContraseña($bd,$usuario);
       header("Location:login.php");
     } else 
     {
@@ -55,7 +56,7 @@ if($_POST)
       $usuario["universidad"] = $_POST["universidad"];
       $usuario["situacion_sentimental"] = $_POST["relacion"];
       $usuario["ciudad"]= $_POST["ciudad"];
-      actualizarUsuario($bd,$usuario);  
+      actualizarDatos($bd,$usuario);  
       $_SESSION["usuario"] = $usuario;
       if(isset($_COOKIE["usuario"]))
       {
