@@ -21,7 +21,7 @@ require('funciones.php');
     $email = isset($_POST["email"]) ? $_POST["email"] : "" ;
     $password = isset($_POST["password"]) ? $_POST["password"] : "" ;
     
-    $usuario = buscarEmail($bd,$email);
+    $usuario = buscarUsuario($bd,$email);
      if($usuario !== false)
     {
         $validarPass = password_verify($password,$usuario["contrasenia"]);

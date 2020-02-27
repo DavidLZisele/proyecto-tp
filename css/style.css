@@ -894,6 +894,16 @@ background-color:lightslategray;
      {
          overflow: auto;
      }
+     .error-buscaramigo
+     {
+         color:red;
+         font-size:10px;
+     }
+     .info-buscaramigo
+     {
+        color:green;
+        font-size:10px;
+     }
 @media (min-width:768px)
 {
     .form-registro div:last-child
@@ -1034,6 +1044,28 @@ background-color:lightslategray;
     {
         padding-left:12%;
     }
+    #amigo
+    {
+        width: 130px;
+    }
+    .user-public img 
+     {
+         width: 75%;
+     }
+     .solicitudes-amistad
+     {
+         margin-top:0;
+     }
+     .foto-solicitud img
+     {
+         height: 10vh;
+     }
+     .sa p 
+     {
+         padding-left:0;
+         font-size:12px;
+         font-weight: bold;
+     }
 }
 
 
@@ -1117,6 +1149,10 @@ background-color:lightslategray;
      {
          padding-left:0;
      }
+     #amigo
+    {
+        width: 200px;
+    }
 }
 
 

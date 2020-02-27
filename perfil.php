@@ -1,11 +1,11 @@
 <?php
 session_start();
 require("funciones.php");
-$usuarios = json_decode(file_get_contents("usuarios.json"),true);
 $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
 $ext = '';
 $errores = [];
 $bandera = 0;
+$informe_envio = '';
 if($_POST)
 {
   if(isset($_POST["salir"]))
@@ -14,6 +14,66 @@ if($_POST)
     setcookie("usuario",null,-1);
     setcookie("index",null,-1);
     header("Location:login.php");
+  } else if(isset($_POST["subir-publicacion"]))
+  {
+    $publicacion = $_POST;
+    if(strlen($publicacion["publicacion"])!= 0)
+    {
+      $foto = '';
+      if(isset($_FILES["fotopublic"]))
+      {
+        $ext = pathinfo($_FILES["fotopublic"]["name"],PATHINFO_EXTENSION);
+        $error_foto_public = $_FILES["fotopublic"]["error"];
+        if($error_foto_public == 0 && ($ext  == "jpg" || $ext == "png"))
+        {
+          $foto = password_hash(basename($_FILES["fotopublic"]["name"]),PASSWORD_DEFAULT);
+          move_uploaded_file($_FILES["fotopublic"]["tmp_name"],"publicaciones/".$foto);
+        } else 
+        {
+          $errores[0] = "Error al subir foto";
+        }
+      }
+      guardarPublicacion($bd,$publicacion,$foto,$usuario);
+      header("Location:perfil.php");
+    } else 
+    {
+      $errores[0] = "Error al subir la publicacion";
+    }
+  } else if(isset($_POST["aceptar"]))
+  {
+      foreach(getSolicitudes($bd,$usuario) as $amigo)
+      {
+          if($_POST["aceptar"] == $amigo["id"])
+          {
+              aceptarSolicitud($bd,$amigo,$usuario);
+              break;
+          }
+          header("Location:perfil.php");
+      }
+  } else if(isset($_POST["rechazar"]))
+  {
+    foreach($amigos as $amigo)
+    {
+      if($_POST["aceptar"] == $amigo["id"])
+      {
+        eliminarSolicitud($bd,$amigo,$usuario);
+          break;
+      }
+      header("Location:perfil.php");
+    }
+  } else if(isset($_POST["buscaramigo"]))
+  {
+      $email = $_POST["amigo"];
+      $amigo = buscarUsuario($bd,$email);
+      if($amigo !==false)
+      {
+        mandarSolicitud($bd,$amigo,$usuario);
+        $informe_envio = "Se envio la solicitud";
+      } else 
+      {
+        $bandera = 1;
+        $errores[0] = "No se encontro usuario";
+      }
   }
 }
 ?>
@@ -82,7 +142,7 @@ if($_POST)
       </ul>
     </header>
      <section class="seccion-perfil col-12">
-       <div class="col-lg-6 col-xl-3">  
+       <div class="col-lg-3">  
         <article class="informacion">
           <p class="nombre-perfil">
             <?= $usuario["nombre"]." ".$usuario["apellido"] ?>
@@ -92,35 +152,62 @@ if($_POST)
           </div>
           <div class="bloke-info col-12">
            <div class="datosusuario-bloque">
-              <div class="col-12">
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
-                    <?php if(isset($usuario["escuela"])) : ?>
-                    <p class="col-10"><?= $usuario["escuela"] ?></p>
-                    <?php endif;?>
-              </div>
-                 
+           <?php if(isset($usuario["escuela"])) : ?>
               <div class="col-12">
                     <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
-                    <?php if(isset($usuario["universidad"])) : ?>
-                    <p class="col-10"><?= $usuario["universidad"] ?></p>
+                    <p class="col-10"><?= $usuario["escuela"] ?></p>
               </div>
-
+              <?php else :?>
                 <div class="col-12">
-                    <?php endif;?><a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
-                    <?php if(isset($usuario["situacion_sentimental"])) : ?>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <p class="col-10">Escuela</p>
+              </div>
+              <?php endif;?>
+              <?php if(isset($usuario["universidad"])) :?>
+                  <div class="col-12">
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <p class="col-10"><?= $usuario["universidad"] ?></p>
+                  </div>
+              <?php else :?>
+                <div class="col-12">
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <p class="col-10">Universidad</p>
+                  </div>
+              <?php endif?>
+              <?php if(isset($usuario["situacion_sentimental"])) : ?>
+                <div class="col-12">
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
                     <p class="col-10"><?= $usuario["situacion_sentimental"] ?></p>
-                    <?php endif;?>
                  </div>
-           
+                <?php else : ?>
+                  <div class="col-12">
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <p class="col-10">Relacion</p>
+                 </div>
+                 <?php endif;?>
            </div>
+           <?php if(isset($usuario["ciudad"])) :?>
             <div>
               <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-home"></i></a>
               <p class="col-10"><?=$usuario["ciudad"] ?></p>
             </div>
+            <?php else :?>
+              <div>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-home"></i></a>
+              <p class="col-10">Ciudad</p>
+            </div>
+           <?php endif;?>
+            <?php if(isset($usuario["fecha_cumpleanios"])) :?>
             <div>
               <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
               <p class="col-10"><?=$usuario["fecha_cumpleanios"] ?></p>
             </div>
+            <?php else :?>
+              <div>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
+              <p class="col-10">Cumpleaños</p>
+            </div>
+            <?php endif;?>
           </div>
         </article>
         <article class="mis-perfil">
@@ -132,7 +219,11 @@ if($_POST)
               </div>
               <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
-                <p>...</p>
+                <?php foreach(getAmigos($bd,$usuario) as $amigo) :?>
+                <p>
+                  <?=$amigo["nombre"]?>
+                </p>
+                <?php endforeach;?>
               </div>
               <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
               <div id="Demo2" class="w3-hide w3-container">
@@ -155,9 +246,9 @@ if($_POST)
         </article>
 
        </div>
-      <div class="col-lg-6 col-xl-5">
+      <div class="col-lg-5">
         <article class="publicacion-perfil">
-          <form action="pagina.html" method ="post" enctype="multipart/form-data">
+          <form action="perfil.php" method ="post" enctype="multipart/form-data">
               <input type="text" name="publicacion" class="publicacion" placeholder="Estado">
               <br>
               <br>
@@ -176,27 +267,30 @@ if($_POST)
                   <input type="file" name="fotopublic" id="fotopublic">
                </div>
               <br>
-              <button type="submit"> <i class="fa fa-pencil"></i> Publicar</button>
+              <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
           </form>
        </article>
        <article class="publicaciones-perfil">
+        <?php foreach(buscarPublicaciones($bd,$usuario["id"]) as $pub) :?>
           <div class="pp col-12">
-            <div class="user-public col-2 col-md-2">
-              <img src="img/perfil2.jpg" alt="">
+            <div class="user-public col-2 col-md-2 col-lg-3">
+              <img src="perfiles/<?=$usuario["foto"]?>" alt="">
             </div>
-            <p class="col-9">
-              Nombre
+            <p class="col-9 col-lg-6">
+              <?= $usuario["nombre"] ?>
             </p>
             <form action="perfil.php" method="post" class="col-1">
             <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion">  <i class="fa fa-times" aria-hidden="true"></i></button>
             </form>
           </div>
            <p class="texto-publicacion">
-             texto
+             <?= $pub["contenido_posteo"] ?>
            </p>
+           <?php if(strlen($pub["foto"])!=0) :?>
            <div class="imagen-public">
-             <img src="img/martin1.jpg" alt="">
+             <img src="publicaciones/<?=$pub["foto"]?>" alt="no se encontro la foto">
            </div>
+           <?php endif;?>
            <div class="interaccion-publicacion">
              <form action="perfil.php" method="POST">
                    <button type="submit" name ="like">
@@ -204,31 +298,46 @@ if($_POST)
                    </button>
                     <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
                     </button>
-             </form>
-             
+             </form>        
            </div>
+        <?php endforeach;?>
        </article>
        
       </div>
        
-       <article class="solicitudes-amistad col-11 col-lg-6 col-xl-3">
+       <article class="solicitudes-amistad col-11 col-lg-3">
             <h2>
               Solicitud de amistad
             </h2>
-      
-            <div class="sa col-12">
-              <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
-                <img src="img/Martin1.jpg" alt="">
-              </div>
-              <p class="col-6 col-lg-4 col-xl-3">
-                Nombre
-              </p>
-              <form action="perfil.php" method="POST" class="col-3 col-lg-4 col-xl-5">
-                <button type="submit" name="aceptar" class="col-6 check"> <i class="fa fa-check"></i></button>
-                  <button type="submit" name="aceptar" class="col-6 remove"> <i class="fa fa-remove"></i></button>
+            <div class="sa-2 col-12">
+              <form action="perfil.php" method="POST">
+                <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo">
+                <button type="submit" name="buscaramigo">Buscar</button>
+                <?php if($bandera==1 && count($errores)!=0) :?>
+                <p class="error-buscaramigo">
+                  <?= $errores[0] ?>
+                </p>
+                <?php else :?>
+                  <p class="info-buscaramigo">
+                      <?php $informe_envio?>
+                  </p>
+                <?php endif;?>
               </form>
             </div>
-
+            <?php foreach(getSolicitudes($bd,$usuario) as $amigo) :?>
+            <div class="sa col-12">
+              <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
+                <img src="perfiles/<?=$amigo["foto"]?>" alt="">
+              </div>
+              <p class="col-6 col-lg-3 col-xl-3">
+                <?= $amigo["nombre"] ?>
+              </p>
+              <form action="perfil.php" method="POST" class="col-3 col-lg-5 col-xl-5">
+                <button type="submit" name="aceptar" class="col-6 check" value="<?=$amigo["id"]?>"> <i class="fa fa-check"></i></button>
+                  <button type="submit" name="rechazar" class="col-6 remove" value="<?=$amigo["id"]?>"> <i class="fa fa-remove"></i></button>
+              </form>
+            </div>
+            <?php endforeach;?>
        </article>
      </section>
   </div>

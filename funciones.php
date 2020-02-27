@@ -17,7 +17,7 @@ function validarEmail(PDO $bd, String $email)
         echo "No se puede validar mail <br>".$e->getMessage();
     }
 }
-function buscarEmail(PDO $bd, String $email)
+function buscarUsuario(PDO $bd, String $email)
 {
     try 
     {
@@ -59,7 +59,7 @@ function guardarUsuario(PDO $bd,$datos,$foto)
         $consulta->bindValue(4,$contraseña);
         $consulta->bindValue(5,$foto);
         $consulta->execute();
-        $id = lastInsertID();
+        $id = $bd->lastInsertID();
         $bd->commit();
         return $id;
     } catch(PDOException $e)
@@ -102,6 +102,114 @@ function actualizarUsuario(PDO $bd,$usuario)
     {
         echo "No se pudo actualizar al usuario ".$e->getMessage();
 
+    }
+}
+function guardarPublicacion(PDO $bd,$publicacion,$foto,$usuario)
+{
+   try 
+   {
+        $bd->beginTransaction();
+        $consulta = $bd->prepare("insert into posteos(fecha_posteo,contenido_posteo,foto,id_categoria,id_usuario) values(current_time(),?,?,?,?)");
+        $consulta->bindValue(1,$publicacion["publicacion"]);
+        $consulta->bindValue(2,$foto);
+        $consulta->bindValue(3,$publicacion["tipopublicacion"]);
+        $consulta->bindValue(4,$usuario["id"]);
+        $consulta->execute();
+        $bd->commit();
+   } catch(PDOException $e)
+   {
+       echo "Error al insertar la publicacion ".$e->getMessage();
+       $bd->rollback();
+       exit;
+   }
+}
+function buscarPublicaciones($bd,$id)
+{
+    try{
+        $consulta = $bd->prepare("select * from posteos where id_usuario = ?");
+        $consulta->bindValue(1,$id);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e)
+    {
+        echo "Error al buscar publicacion ".$e->getMessage();
+        exit;
+    }
+}
+function aceptarSolicitud($bd,$amigo,$usuario)
+{
+   try{
+        $bd->beginTransaction();
+        $consulta = $bd->prepare("update amigos set respuesta = ? where id_usuario = ? and id_amigo = ?");
+        $consulta->bindValue(1, 1);
+        $consulta->bindValue(2,$amigo["id"]);
+        $consulta->bindValue(3,$usuario["id"]);
+        $consulta->execute();
+        $bd->commit();
+   } catch(PDOException $e)
+   {
+       echo "Error al aceptar amistad ".$e->getMessage();
+       $bd->rollback();
+   }
+}
+
+function eliminarSolicitud($bd,$amigo,$usuario)
+{
+    try{
+        $bd->beginTransaction();
+        $consulta = $bd->prepare("update amigos set respuesta = ? where id_usuario = ? and id_amigo = ?");
+        $consulta->bindValue(1, 0);
+        $consulta->bindValue(2,$usuario["id"]);
+        $consulta->bindValue(3,$amigo["id"]);
+        $consulta->execute();
+        $bd->commit();
+    }catch(PDOException $e)
+    {
+        echo "Error al eliminar amistad ".$e->getMessage();
+        $bd->rollback();
+    }
+}
+function mandarSolicitud($bd,$amigo,$usuario)
+{
+    try{
+        $bd->beginTransaction();
+        $consulta =$bd->prepare("insert into amigos values(?,?,current_date(),?)");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->bindValue(2,$amigo["id"]);
+        $consulta->bindValue(3,3);
+        $consulta->execute();
+        $bd->commit();
+    } catch(PDOException $e)
+    {
+        echo "Error al mandar amistad ".$e->getMessage();
+        $bd->rollback();
+    }
+}
+function getAmigos($bd,$usuario)
+{
+    try{
+        $consulta = $bd->prepare("select usuarios.* from amigos inner join usuarios on id = id_usuario or id = id_amigo where (id_usuario = ? or id_amigo = ?) and id != ? and respuesta = 1");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->bindValue(2,$usuario["id"]);
+        $consulta->bindValue(3,$usuario["id"]);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e)
+    {
+        echo "Error al buscar amigos ".$e->getMessage(); 
+    }
+}
+function getSolicitudes($bd,$usuario)
+{
+    try{
+        $consulta = $bd->prepare("select usuarios.* from amigos inner join usuarios on (id = id_usuario or id = id_amigo) where id_amigo = ? and id != ? and respuesta = 3");
+        $consulta->bindValue(1,$usuario["id"]);
+        $consulta->bindValue(2,$usuario["id"]);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch(PDOException $e)
+    {
+        echo "Error al buscar amigos ".$e->getMessage(); 
     }
 }
 ?>
