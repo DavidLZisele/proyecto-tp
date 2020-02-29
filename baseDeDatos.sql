@@ -28,9 +28,9 @@ CREATE TABLE `amigos` (
   `fecha_amistad` date NOT NULL,
   `respuesta` int(11) NOT NULL DEFAULT '3',
   PRIMARY KEY (`id_usuario`,`id_amigo`,`fecha_amistad`),
-  KEY `fk_amigos_usuario2_idx` (`id_amigo`),
-  CONSTRAINT `fk_amigos_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_amigos_usuario2` FOREIGN KEY (`id_amigo`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_amigos_usuarios2_idx` (`id_amigo`),
+  CONSTRAINT `fk_amigos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_amigos_usuarios2` FOREIGN KEY (`id_amigo`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,7 +55,7 @@ CREATE TABLE `categorias` (
   `descripcion` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,8 +64,56 @@ CREATE TABLE `categorias` (
 
 LOCK TABLES `categorias` WRITE;
 /*!40000 ALTER TABLE `categorias` DISABLE KEYS */;
-INSERT INTO `categorias` VALUES (1,'Offtopic'),(2,'Noticias'),(3,'Deportes'),(4,'Terror'),(5,'Tecnologia');
+INSERT INTO `categorias` VALUES (1,'Offtopic'),(2,'Noticias'),(3,'Deportes'),(4,'Tecnologias'),(5,'Terror'),(6,'Anime');
 /*!40000 ALTER TABLE `categorias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fotos_posteo`
+--
+
+DROP TABLE IF EXISTS `fotos_posteo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `fotos_posteo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `nombre_foto` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fotos_posteo`
+--
+
+LOCK TABLES `fotos_posteo` WRITE;
+/*!40000 ALTER TABLE `fotos_posteo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fotos_posteo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fotos_usuario`
+--
+
+DROP TABLE IF EXISTS `fotos_usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `fotos_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `nombre_foto` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fotos_usuario`
+--
+
+LOCK TABLES `fotos_usuario` WRITE;
+/*!40000 ALTER TABLE `fotos_usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fotos_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -83,9 +131,9 @@ CREATE TABLE `posteos` (
   `id_categoria` int(11) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_posteos_categoria_idx` (`id_categoria`),
+  KEY `fk_posteos_categorias_idx` (`id_categoria`),
   KEY `fk_posteos_usuarios_idx` (`id_usuario`),
-  CONSTRAINT `fk_posteos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_posteos_categorias` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_posteos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -112,7 +160,7 @@ CREATE TABLE `usuarios` (
   `apellido` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `contrasenia` text NOT NULL,
-  `foto` text NOT NULL,
+  `foto` text,
   `fecha_cumpleanios` date DEFAULT NULL,
   `situacion_sentimental` enum('Soltero','Casado','Divorciado','En pareja') DEFAULT 'Soltero',
   `escuela` varchar(45) DEFAULT NULL,
@@ -140,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-02-27 13:16:29
+-- Dump completed on 2020-02-29 10:27:51
