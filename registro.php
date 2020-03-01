@@ -174,6 +174,7 @@ include("funciones.php");
                          <?php endif; ?>
                     </div>
                 </div>
+                
                 <div class="col-12 col-md-6 col-xl-12 recordar-registro">
                         <input type="checkbox" name="recordar" id="recordar" value="true"> 
                         <span>
@@ -190,6 +191,9 @@ include("funciones.php");
                             </p>
                          <?php endif; ?>
                 </div>
+              
+
+               
     </form>
     </section>
 

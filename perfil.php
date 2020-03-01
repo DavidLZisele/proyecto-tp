@@ -226,8 +226,9 @@ if($_POST)
               <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
                 <?php foreach(getAmigos($bd,$usuario) as $amigo) :?>
-                <p>
-                  <?=$amigo["nombre"]?>
+                <p class="p-amigo" class="col-12">
+                  <img src="perfiles/<?=$amigo["foto"]?>" alt="">
+                  <?=$amigo["nombre"]." ".$amigo["apellido"]?>
                 </p>
                 <?php endforeach;?>
               </div>
@@ -381,8 +382,8 @@ if($_POST)
             </h3>
             <div class="sa-2 col-12">
               <form action="perfil.php" method="POST">
-                <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo">
-                <button type="submit" name="buscaramigo">Buscar</button>
+                <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">
+                <button type="submit" name="buscaramigo" class="buscaramigo">Buscar</button>
                 <?php if($bandera==1 && count($errores)!=0) :?>
                 <p class="error-buscaramigo">
                   <?= $errores[0] ?>
