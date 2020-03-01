@@ -678,7 +678,8 @@ background-color:lightslategray;
      }
      .user-public img 
      {
-         width: 100%;
+         width: 40px;
+         height: 40px;
      }
      .pp
      {
@@ -923,6 +924,21 @@ background-color:lightslategray;
          background-color: #607d8b;
          color:white;
      }
+     .fa-graduation-cap
+     {
+         color: blue;
+     }
+     .fa-heart{
+         color:red;
+     }
+     .fa-map-marker
+     {
+         color:green;
+     }
+     .fa-birthday-cake
+     {
+        color:orange;
+     }
 @media (min-width:768px)
 {
     .form-registro div:last-child
@@ -958,7 +974,15 @@ background-color:lightslategray;
         position: relative;
         bottom:60px;
     }
-
+    .user-public img 
+     {
+         width: 40px;
+         height: 40px;
+     }
+     .contenedor-mp
+     {
+         max-width: 991px;
+     }
 }
 @media (min-width: 992px)
 {
@@ -1090,6 +1114,11 @@ background-color:lightslategray;
          font-size:12px;
          font-weight: bold;
      }
+     .contenedor-mp
+     {
+         max-width: 1199px;
+     }
+
 }
 
 
@@ -1182,10 +1211,16 @@ background-color:lightslategray;
         position: relative;
         bottom:0;
     }
-
+    .user-public img 
+    {
+        width: 40px;
+        height: 40px;
+    }
+    .contenedor-mp
+     {
+         max-width: 2064px;
+     }
 }
-
-
 .bg-nav{
     background-color: black;
     color: gray;

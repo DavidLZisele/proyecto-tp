@@ -160,46 +160,54 @@ if($_POST)
            <div class="datosusuario-bloque">
            <?php if(isset($usuario["escuela"])) : ?>
               <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+</a>
                     <p class="col-10"><?= $usuario["escuela"] ?></p>
               </div>
               <?php else :?>
                 <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+</a>
                     <p class="col-10">Escuela</p>
               </div>
               <?php endif;?>
               <?php if(isset($usuario["universidad"])) :?>
                   <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+</a>
                     <p class="col-10"><?= $usuario["universidad"] ?></p>
                   </div>
               <?php else :?>
                 <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+</a>
                     <p class="col-10">Universidad</p>
                   </div>
               <?php endif?>
               <?php if(isset($usuario["situacion_sentimental"])) : ?>
                 <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+</a>
                     <p class="col-10"><?= $usuario["situacion_sentimental"] ?></p>
                  </div>
                 <?php else : ?>
                   <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-pencil"></i></a>
+                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+</a>
                     <p class="col-10">Relacion</p>
                  </div>
                  <?php endif;?>
            </div>
            <?php if(isset($usuario["ciudad"])) :?>
             <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-home"></i></a>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+</a>
               <p class="col-10"><?=$usuario["ciudad"] ?></p>
             </div>
             <?php else :?>
               <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-home"></i></a>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+</a>
               <p class="col-10">Ciudad</p>
             </div>
            <?php endif;?>
@@ -278,41 +286,8 @@ if($_POST)
           </form>
        </article>
        <article class="publicaciones-perfil"> 
-         <?php if(getAmigos($bd,$usuario)==null) :?>
-          <?php foreach(getPublicaciones($bd,$usuario) as $pub) :?>
-          <div class="pp col-12">
-            <div class="user-public col-2 col-md-2 col-lg-3">
-              <img src="perfiles/<?=$pub["foto_usuario"]?>" alt="">
-            </div>
-            <p class="col-9 col-lg-6">
-              <?= $pub["nombre_usuario"] ?>
-            </p>
-            <form action="perfil.php" method="post" class="col-1">
-            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion" value="<?=$pub["id"]?>">  <i class="fa fa-times" aria-hidden="true"></i></button>
-            </form>
-          </div>
-           <p class="texto-publicacion">
-             <?= $pub["contenido_posteo"] ?>
-           </p>
-           <?php if(strlen($pub["foto_posteo"])!=0) :?>
-           <div class="imagen-public">
-             <img src="publicaciones/<?=$pub["foto_posteo"]?>" alt="no se encontro la foto">
-           </div>
-           <?php endif;?>
-           <div class="interaccion-publicacion">
-             <form action="perfil.php" method="POST">
-                   <button type="submit" name ="like">
-                        <i class="fa fa-thumbs-up"></i>  Like
-                   </button>
-                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
-                    </button>
-             </form>        
-           </div>
-        <?php endforeach;?>
-         <?php endif;?>
-         <?exit;?>  
         <?php foreach(publicacionesAmigos($bd,$usuario) as $pub) :?>
-          <?php if($pub["id"]==$usuario["id"]) :?>
+          <?php if($pub["id_usuario"]==$usuario["id"]) :?>
             <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
               <img src="perfiles/<?=$pub["foto_usuario"]?>" alt="">
@@ -321,7 +296,7 @@ if($_POST)
               <?= $pub["nombre"] ?>
             </p>
             <form action="perfil.php" method="post" class="col-1">
-            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion" value="<?=$pub["id"]?>">  <i class="fa fa-times" aria-hidden="true"></i></button>
+            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion" value="<?=$pub["id_posteo"]?>">  <i class="fa fa-times" aria-hidden="true"></i></button>
             </form>
           </div>
            <p class="texto-publicacion">
@@ -333,12 +308,12 @@ if($_POST)
            </div>
            <?php endif;?>
            <div class="interaccion-publicacion">
-             <form action="perfil.php" method="POST">
+             
                    <button type="submit" name ="like">
                         <i class="fa fa-thumbs-up"></i>  Like
                    </button>
                     <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
-                    </button>
+           </button>
              </form>        
            </div>
           <?php else :?>
@@ -367,6 +342,7 @@ if($_POST)
                    </button>
                     <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
                     </button>
+                    
              </form>        
            </div>
           <?php endif;?>

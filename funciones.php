@@ -266,7 +266,7 @@ function borrarPublicacion($bd,$id)
 function publicacionesAmigos($bd,$usuario)
 {
     try{
-        $consulta = $bd->prepare("select distinct u.id, u.nombre,u.foto foto_usuario,contenido_posteo,p.foto foto_posteo,fecha_posteo
+        $consulta = $bd->prepare("select distinct p.id id_posteo,u.id id_usuario, u.nombre,u.foto foto_usuario,contenido_posteo,p.foto foto_posteo,fecha_posteo
         from usuarios u 
         inner join amigos a on (u.id = a.id_usuario or u.id = a.id_amigo)
         inner join posteos p on p.id_usuario = u.id
