@@ -361,4 +361,34 @@ function agregarFotoPosteo($bd,$usuario,$foto)
         exit;
     }
 }
+function getPublicacion($bd,$id)
+{
+    try{
+        $consulta = $bd->prepare("select * from posteos where id = ?");
+        $consulta->bindValue(1,$id);
+        $consulta->execute();
+        return $consulta->fetch(PDO::FETCH_ASSOC);
+    } catch(PDOException $e)
+    {
+        echo "Error al consultar la publicacion ".$e-getMessage();
+        exit; 
+    }
+}
+function modificarPosteo($bd,$foto,$contenido,$id)
+{
+  try{
+    $bd->beginTransaction();
+    $consulta= $bd->prepare("update posteos set contenido_posteo = ?, foto = ? where id = ? ");
+    $consulta -> bindValue(1,$contenido);
+    $consulta -> bindValue(2,$foto);
+    $consulta -> bindValue(3,$id);
+    $consulta->execute();
+    $bd->commit();
+  } catch(PDOException $e )
+  {
+    echo "Error al actualizar posteo ".$e->getMessage();
+    $bd->rollback();
+    exit;
+  }
+}
 ?>

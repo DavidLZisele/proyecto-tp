@@ -308,14 +308,18 @@ if($_POST)
            </div>
            <?php endif;?>
            <div class="interaccion-publicacion">
-             
+             <form action="perfil.php" method="POST">
                    <button type="submit" name ="like">
                         <i class="fa fa-thumbs-up"></i>  Like
                    </button>
-                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
-           </button>
-             </form>        
+                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+             </form>       
            </div>
+           <form action="modificarPub.php" method="GET" class="editar-publicacion-form">
+               <input type="hidden" name="id_pub" value="<?=$pub["id_posteo"]?>">
+               <button type="submit"><i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+             </form> 
           <?php else :?>
             <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
