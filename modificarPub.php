@@ -7,11 +7,12 @@ if($_POST)
     $foto = '';
     if(strlen($_POST["contenido"])>0)
     {
-        if(isset($_FILES["foto"]))
+        if(isset($_FILES["foto-pub"]))
         {
             $ext = pathinfo($_FILES["foto-pub"]["name"],PATHINFO_EXTENSION);
             $error = $_FILES["foto-pub"]["error"];
             $foto  = $_SESSION["usuario"]["id"]."_".cantidadFotosPosteo($bd,$_SESSION["usuario"]).$ext;
+            move_uploaded_file($_FILES["foto-pub"]["tmp_name"],"publicaciones/".$foto);
              agregarFotoPosteo($bd,$_SESSION["usuario"],$foto);
         }
     }
