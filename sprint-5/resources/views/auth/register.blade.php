@@ -27,46 +27,46 @@
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="email">Email</label>
                     <input class="col-6 form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" value="{{old('email')}}">
-                    <div class="bloque-error-registro  col-12">
-                        @error('email')
-                        <span class="invalid-feedback" role="alert">
+                    
+                        @error('email') 
+                        <span class="invalid-feedback alerta" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                     </div> 
+                     
                 </div>
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="password">Contraseña</label>
                 <input class="col-6 form-control @error('password') is-invalid @enderror" type="password" name="password" id="password" value="{{old('password')}}">
-                    <div class="bloque-error-registro  col-12">
+                    
                         @error('password')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback alerta" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>
+                
                 </div>
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="name">Nombre</label>
                 <input class="col-6 form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{old('name')}}">
-                    <div class="bloque-error-registro  col-12">
+                    
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback alerta" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror 
-                    </div>
+                   
                 </div>
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="surname">Apellido</label>
                 <input class="col-6 form-control @error('surname') is-invalid @enderror" type="text" name="surname" id="surname" value="{{old('surname')}}">  
-                    <div class="bloque-error-registro  col-12">
+                
                         @error('surname')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback alerta" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror 
-                    </div>
+                   
                     
                 </div>
                 <div class="col-8 col-md-6 col-xl-8 bloque-foto-perfil">   
@@ -77,14 +77,12 @@
                             Foto
                          </p>  
                     </div>
-                      
-                    <div class="bloque-error-registro  col-12">
                         @error('photo')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback alerta" role="alert">
                                 <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </div>
+    
                 </div>
                 
                 <div class="col-12 col-md-6 col-xl-12 recordar-registro">
