@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePosteosTable extends Migration
+class CreateFotosPoteosUsuarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePosteosTable extends Migration
      */
     public function up()
     {
-        Schema::create('posteos', function (Blueprint $table) {
-            $table->increments("id");
+        Schema::create('fotos_poteos_usuario', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-            $table->string("contenido_posteo");
-            $table->string("foto");
-            $table->date("fecha_posteo");           
+            $table->string('nombre_foto');
         });
     }
 
@@ -29,6 +27,6 @@ class CreatePosteosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posteos');
+        Schema::dropIfExists('fotos_poteos_usuario');
     }
 }

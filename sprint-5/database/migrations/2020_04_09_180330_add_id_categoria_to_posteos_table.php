@@ -14,8 +14,8 @@ class AddIdCategoriaToPosteosTable extends Migration
     public function up()
     {
         Schema::table('posteos', function (Blueprint $table) {
-            $table->unsignedInteger("id_categoria");
-            $table->foreign("id_categoria")->references("id")->on("categorias");
+            $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id')->on('categorias');
         });
     }
 
@@ -27,9 +27,8 @@ class AddIdCategoriaToPosteosTable extends Migration
     public function down()
     {
         Schema::table('posteos', function (Blueprint $table) {
-
-            $table->dropForeign("posteos_id_categoria_foreign");
-            $table->dropColumn("id_categoria");
+            $table->dropForeign('posteos_id_categoria_foreign');
+            $table->dropColumn('id_categoria');
         });
     }
 }

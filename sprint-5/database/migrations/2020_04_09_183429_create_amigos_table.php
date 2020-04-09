@@ -14,13 +14,12 @@ class CreateAmigosTable extends Migration
     public function up()
     {
         Schema::create('amigos', function (Blueprint $table) {
-            $table->unsignedInteger("id_user");
-            $table->unsignedInteger("id_amigo");
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_amigo');
+            $table->primary(['id_user','id_amigo']);
             $table->timestamps();
-            $table->integer('respuesta');
-            $table->primary(["id_user","id_amigo"]);
-            $table->foreign('id_user')->references("id")->on("users");
-            $table->foreign('id_amigo')->references("id")->on("users");
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_amigo')->references('id')->on('users');
         });
     }
 

@@ -14,8 +14,8 @@ class AddIdUserToFotosUsuarioTable extends Migration
     public function up()
     {
         Schema::table('fotos_usuario', function (Blueprint $table) {
-            $table->unsignedInteger("id_user");
-            $table->foreign("id_user")->references("id")->on("users");
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
@@ -27,8 +27,8 @@ class AddIdUserToFotosUsuarioTable extends Migration
     public function down()
     {
         Schema::table('fotos_usuario', function (Blueprint $table) {
-            $table->dropForeign("posteos_id_user_foreign");
-            $table->dropColumn("id_user");
+            $table->dropForeign('posteos_id_user_foreign');
+            $table->dropColumn('id_user');
         });
     }
 }

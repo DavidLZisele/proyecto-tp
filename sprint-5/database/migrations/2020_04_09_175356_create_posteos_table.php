@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFotosUsuarioTable extends Migration
+class CreatePosteosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateFotosUsuarioTable extends Migration
      */
     public function up()
     {
-        Schema::create('fotos_usuario', function (Blueprint $table) {
-            $table->increments("id");
+        Schema::create('posteos', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-            $table->string("nombre_foto");
+            $table->string('descripcion');
+            $table->string('foto');
         });
     }
 
@@ -27,6 +28,6 @@ class CreateFotosUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fotos_usuario');
+        Schema::dropIfExists('posteos');
     }
 }
