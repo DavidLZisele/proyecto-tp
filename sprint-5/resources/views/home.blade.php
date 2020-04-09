@@ -1,23 +1,73 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Home</title>
+</head>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<body>
+    <div class="container col-12 col-md-12 col-lg-12 col-xl-12" id="index">
+        <div class="bloque-nombre-red col-12 col-xl-8">
 
-                    You are logged in!
+        </div>
+
+        <section id="index-section" class="col-12 col-xl-4">
+            <article class="article-index" class="col-8 col-xl-12">
+                <div class="bloque-article">
+                    <i class="fa fa-search col-1" aria-hidden="true"></i>
+                    <h3 class="col-11">
+                        Sigue lo que te interesa
+                    </h3>
+                </div>
+                <div class="bloque-article">
+                    <i class="fa fa-users col-1" aria-hidden="true"></i>
+                    <h3 class="col-11">
+                        Entérate de lo que está hablando la gente.
+                    </h3>
+                </div>
+                <div class="bloque-article">
+                    <i class="fa fa-comment-o col-1" aria-hidden="true"></i>
+                    <h3 class="col-11">
+                        Únete a la conversación.
+                    </h3>
+                </div>
+                <div class="registrate col-12">
+                    <a href="{{route("register")}}">Registrate</a>
+                </div>
+                <div class="login col-12">
+                    <a href="{{route("login")}}">Inicia Sesion</a>
+                </div>
+
+            </article>
+        </section>
+        <footer id="footer-index" class="col-12 col-lg-12">
+            <div class="bloque-footer col-12">
+                <div class="col-4">
+                    <a class="col-12" href="{{route("register")}}">Registro</a>
+                </div>
+                <div class="col-4">
+                    <a href="faq.php" class="col-12">F.A.Q</a>
+                </div>
+                <div class="col-4">
+                    <p class="col-12">
+                        © 2019 Social.
+                    </p>
                 </div>
             </div>
-        </div>
     </div>
-</div>
-@endsection
+
+    </footer>
+</body>
+
+</html>
