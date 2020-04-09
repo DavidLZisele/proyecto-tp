@@ -168,7 +168,10 @@ a
 /*---------------------------------------------------*/
 
 /*----------------------LOGIN------------------------*/
-
+.alerta
+{
+    text-align: right;
+}
 .contenedor-login
 {
     display:flex;
@@ -394,6 +397,7 @@ background-color:lightslategray;
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
+    padding-right: 40px;
 }
 .imagen-upload
 {
@@ -403,6 +407,7 @@ background-color:lightslategray;
     position: absolute;
     top:10px;
     margin-left: -40%;
+    padding-right: 0;
 }
 .recordar-registro
 {
@@ -1109,10 +1114,17 @@ background-color:lightslategray;
     .bloque-boton-registro
     {
        margin-left: 51%;
+       
+
+    }
+    .foto-perfil
+    {
+        padding-right: 40%;
     }
     .imagen-upload
     {
         margin-left: -40%;
+        padding-right: 60%;
     }
       /*---------------------------*/
 
@@ -1312,6 +1324,10 @@ background-color:lightslategray;
     .contenedor-mp
      {
          max-width: 2064px;
+     }
+     .imagen-upload
+     {
+        padding-right: 40%;
      }
 }
 .bg-nav{
