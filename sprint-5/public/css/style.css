@@ -179,12 +179,15 @@ a
     background-color: #333;
     padding:0;
 }
+.contenedor-login section{
+    width: 80%;
+}
 .contenedor-login article 
 {
+    width: 100%;
     border: solid 2px #eaeaea;
-    height: 50vh;
+    height: 55vh;
     display:flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-top: 50px;
@@ -194,22 +197,13 @@ a
 {
     text-align: center;
 }
-.contenedor-login article form p label 
-{
-    text-align: left;
-    font-size:0.7em;
-    padding-left:60px;
-    margin:0;
-    color:white;
+.contenedor-login article form p label {
+    text-align: center;
+    font-size: 0.7em;
+    padding-left: 15px;
+    margin: 0;
+    color: white;
     font-weight: bold;
-}
-.contenedor-login article form p button
-{
-    border-radius: 100px;
-    border: solid 2px black;
-    padding: 4px 15px;
-    color:black;
-    font-size:0.8em;
 }
 .contenedor-login article form p input
 {
@@ -219,6 +213,15 @@ a
     color:black;
     font-size:0.8em;
     border-radius: 5px;
+
+}
+.contenedor-login article form p button
+{
+    border-radius: 100px;
+    border: solid 2px black;
+    padding: 4px 15px;
+    color:black;
+    font-size:0.8em;
 }
 .contenedor-login p
 {
@@ -1066,6 +1069,9 @@ background-color:lightslategray;
      {
          max-width: 991px;
      }
+     .contenedor-login section{
+        width: 50%;
+    }
 }
 @media (min-width: 992px)
 {
@@ -1204,6 +1210,10 @@ background-color:lightslategray;
 
 }
 
+.contenedor-login section{
+    width: 60%;
+}
+
 
 @media (min-width: 1200px)
 {
@@ -1316,4 +1326,12 @@ background-color:lightslategray;
 .bg-like-comm{
     background-color: black;
     color: white;
+}
+
+
+
+/* LogIn*/
+
+.contenedor-login section{
+    width: 30%;
 }

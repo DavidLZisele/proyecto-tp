@@ -32,7 +32,7 @@
                     @csrf
                     <p class="col-12">
                         <label for="email" class="col-12">Usuario</label>
-                        <input type="text" name="email" id="email" class="col-9 form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
+                        <input type="text" name="email" id="email" class="col-12 form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                     </p>
                     <p class="col-12">
                         <label for="password" class="col-12">Contraseña</label>
-                    <input type="password" name="password" id="password" class="col-9 form-control @error('password') is-invalid @enderror" value="{{old('password')}}">
+                    <input type="password" name="password" id="password" class="col-12 form-control @error('password') is-invalid @enderror" value="{{old('password')}}">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                      <strong>{{ $message }}</strong>
