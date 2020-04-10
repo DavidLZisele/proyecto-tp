@@ -18,6 +18,11 @@
 
 <body>
     <div class="container col-12 contenedor-faq">
+        @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
         <header class="header-faq col-12">
             <img src="img/road-to-the-social.jpg" alt="foto">
         </header>
@@ -67,13 +72,15 @@
                  Envianos tus dudas
             </h2>
 
-            <form class="form-faq col-lg-6" action="faq.php" method="post">
+            <form class="form-faq col-lg-6" action="{{route("faq.store")}}" method="post">
+                @csrf
                 <label for="email">Email</label>
-                <input class="col-10" type="email" name="email" id="email" >
+                <input class="col-10" type="email" name="email" id="email" value="{{old('email')}}" 
+                class="form-control @error('email') is-invalid @enderror" @error('email') placeholder="{{ $message }}"@enderror></textarea>
 
-                <label for="mensaje">Mensaje</label>
-                <textarea class="col-10" name="mensaje" id="mensaje" value="" cols="30" rows="7" ></textarea>
-    
+            <label for="mensaje">Mensaje</label>
+            <textarea class="col-10" name="mensaje" id="mensaje" value="{{old('mensaje')}}" cols="30" rows="7" class="form-control @error('mensaje') is-invalid @enderror"
+            @error('mensaje') placeholder="{{ $message }}"@enderror></textarea>
                 <br>
                 <button class="btn btn-dark col-10" type="submit">Enviar</button>
  
@@ -82,19 +89,17 @@
             </article>
 
         </section>
-
-        
         
         <footer id="footer-index" class="col-12 col-lg-12">
             <div class="bloque-footer col-12">
                 <div class="col-3">
-                    <a class="col-12" href="index.html">Inicio</a>
+                    <a class="col-12" href="{{route("home")}}">Inicio</a>
                 </div>
                 <div class="col-3">
-                        <a class="col-12" href="login.php">LogIn</a>
+                        <a class="col-12" href="{{route("login")}}">Login</a>
                     </div>
                 <div class="col-3">
-                    <a href="registro.php" class="col-12">Registro</a>
+                    <a href="{{route("register")}}" class="col-12">Registro</a>
                 </div>
                 <div class="col-3">
                     <p class="col-12">

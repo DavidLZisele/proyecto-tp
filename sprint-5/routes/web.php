@@ -24,3 +24,6 @@ Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->nam
 Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
 Route::put('datos/{usuario}/cambiarFoto', "UsuarioController@updateFoto")->name('datos.cambiarFoto');
 Route::get('datos', "UsuarioController@index")->name('datos.index');
+
+Route::get('faq','FaqController@create')->name('faq.create');
+Route::post('faq','FaqController@store')->name('faq.store');

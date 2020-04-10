@@ -57,7 +57,7 @@
                     <a class="col-12" href="{{route("register")}}">Registro</a>
                 </div>
                 <div class="col-4">
-                    <a href="faq.php" class="col-12">F.A.Q</a>
+                    <a href="{{route("faq.create")}}" class="col-12">F.A.Q</a>
                 </div>
                 <div class="col-4">
                     <p class="col-12">
