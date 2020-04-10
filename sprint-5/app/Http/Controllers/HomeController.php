@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         if(Auth::user())
         {
-            return view('perfil');
+            return redirect()->route('categoria.index');
         } else 
         {
             return view('home');

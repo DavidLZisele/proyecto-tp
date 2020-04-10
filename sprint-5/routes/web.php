@@ -18,17 +18,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::get("perfil",function(){
-    return view("perfil");
-});
-
-Route::post("perfil",function(){
-    return view("perfil");
-});
 Route::get('perfil', "CategoriaController@index")->name('categoria.index');
 Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->name('datos.cambiarDatos');
 Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
