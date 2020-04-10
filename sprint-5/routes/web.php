@@ -29,3 +29,8 @@ Route::get("perfil",function(){
 Route::post("perfil",function(){
     return view("perfil");
 });
+Route::get('perfil', "CategoriaController@index")->name('categoria.index');
+Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->name('datos.cambiarDatos');
+Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
+Route::put('datos/{usuario}/cambiarFoto', "UsuarioController@updateFoto")->name('datos.cambiarFoto');
+Route::get('datos', "UsuarioController@index")->name('datos.index');

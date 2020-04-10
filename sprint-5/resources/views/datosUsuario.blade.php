@@ -1,76 +1,5 @@
 <?php
-session_start();
-require("funciones.php");
-$usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : [];
-$ext = '';
-$errores = [];
-$bandera = 0;
-if($_POST)
-{
-  if(isset($_POST["cambiarfoto"]))
-  {
-    $ext = pathinfo($_FILES["cambiar-foto"]["name"],PATHINFO_EXTENSION);
-    if($_FILES["cambiar-foto"]["error"]==0 && ($ext== "jpg" ||$ext== "png") )
-    {
-      $nombre_foto =  $usuario["id"]."_".(cantidadFotos($bd,$usuario)+1).".".$ext;
-      $usuario["foto"] = $nombre_foto;
-      $_SESSION["usuario"] =$usuario;
-      if(isset($_COOKIE["usuario"]))
-      {
-        $_COOKIE["usuario"] = json_encode($usuario);
-      }
-      actualizarFoto($bd,$usuario);
-      agregarFoto($bd,$usuario);
-      move_uploaded_file($_FILES["cambiar-foto"]["tmp_name"],"perfiles/".$nombre_foto);
-      header("Location:perfil.php");
-    } else 
-    {
-      $errores[0] = "Error al actualizar la foto";
-      $bandera = 2;
-    }
-  } else if(isset($_POST["cambiarcontraseña"]))
-  {
-    if(password_verify($_POST["password1"], $usuario["contrasenia"]) && $_POST["password2"] == $_POST["password3"] && strlen($_POST["password3"])>=5 && strlen($_POST["password2"])>=5 && $_POST["password1"] != $_POST["password2"])
-    {
-      $usuario["contrasenia"] = password_hash($_POST["password2"],PASSWORD_DEFAULT);
-      session_destroy();
-      if(isset($_COOKIE["usuario"]))
-      {
-        setcookie("usuario",null,-1);
-        setcookie("index",null,-1);
-      }
-      actualizarContraseña($bd,$usuario);
-      header("Location:login.php");
-    } else 
-    {
-      $errores[0] = "Error al actualizar la contraseña";
-      $bandera = 1;
-    }
-  } else if(isset($_POST["cambiardatos"]))
-  {
-    if(strlen($_POST["ciudad"])!=0 &&strlen($_POST["email"])!=0 && strlen($_POST["fecha"])!=0 && strlen($_POST["escuela"])!=0 && strlen($_POST["universidad"])!=0)
-    {
-      $usuario["email"]= $_POST["email"];
-      $usuario["fecha_cumpleanios"] = $_POST["fecha"];
-      $usuario["escuela"] = $_POST["escuela"];
-      $usuario["universidad"] = $_POST["universidad"];
-      $usuario["situacion_sentimental"] = $_POST["relacion"];
-      $usuario["ciudad"]= $_POST["ciudad"];
-      actualizarDatos($bd,$usuario);  
-      $_SESSION["usuario"] = $usuario;
-      if(isset($_COOKIE["usuario"]))
-      {
-        $_COOKIE["usuario"] = json_encode($usuario);
-      }
-      header("Location:perfil.php");   
-    } else 
-    {
-      $bandera = 3;
-      $errores[0] = "Error al actualizar datos";
-    }
-   
-  }
-}
+$usuario = Auth::user();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +30,7 @@ if($_POST)
 <body>
     <div class="container col-12 contenedor-datousuario">
         <div class="accordion col-8 col-md-6 col-xl-4" id="accordionExample">
-        <a href="perfil.php" class="volver">
+        <a href="{{route('categoria.index')}}" class="volver">
               Volver
         </a>
   <div class="card">
@@ -114,41 +43,68 @@ if($_POST)
     </div>
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="datosusuario.php" method = "POST">
+      <form action="{{route('datos.cambiarDatos', $usuario)}}" method = "POST">
+        @csrf 
+        @method('PUT')
             <div>
                 <p>
-                <input type="email" name="email" id="email" value="<?=$usuario['email']?>" placeholder="Email">
+                <input type="email" name="email" id="email" value="{{$usuario->email}}" placeholder="Email" class="form-control @error('email') is-invalid @enderror">
+                @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                @enderror
                 </p>
                  <p>
                   Dia de nacimiento
                   <br>
-                 <input type="date" name="fecha" id="fecha-cumple" value="<?=$usuario['fecha']?>">
+                 <input type="date" name="fecha_cumpleanios" id="fecha-cumple" value="{{$usuario->fecha_cumpleanios}}"  class="form-control @error('fecha_cumpleanios') is-invalid @enderror">
+                 @error('fecha_cumpleanios')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                 @enderror
                  </p>
                  <p>
-                 <?php if(isset($usuario["escuela"])) :?>
-                 <input type="text" name="escuela" id="escuela" value="<?=$usuario['escuela']?>" placeholder="Escuela">
-                 <?php else : ?>
-                  <input type="text" name="escuela" id="escuela" value="" placeholder="Escuela">
-                 <?php endif;?>
+                 @if(isset($usuario->escuela))
+                 <input type="text" name="escuela" id="escuela" value="{{$usuario->escuela}}" placeholder="Escuela"  class="form-control @error('escuela') is-invalid @enderror">
+                 @else 
+                  <input type="text" name="escuela" id="escuela" value="" placeholder="Escuela" class="form-control @error('escuela') is-invalid @enderror">
+                 @endif
+                 @error('escuela')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                 @enderror
                  </p>
                  <p>
-                 <?php if(isset($usuario["universidad"])) :?>
-                 <input type="text" name="universidad" id="universidad" value="<?=$usuario['universidad']?>" placeholder="Universidad">
-                 <?php else : ?>
-                  <input type="text" name="universidad" id="universidad" value="" placeholder="Universidad">
-                 <?php endif;?>
+                 @if(isset($usuario->universidad))
+                 <input type="text" name="universidad" id="universidad" value="{{$usuario->universidad}}" placeholder="Universidad"  class="form-control @error('universidad') is-invalid @enderror">
+                 @else
+                  <input type="text" name="universidad" id="universidad" value="" placeholder="Universidad"  class="form-control @error('universidad') is-invalid @enderror">
+                 @endif
+                 @error('universidad')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                  @enderror
                  </p>
                  <p>
-                 <?php if(isset($usuario["ciudad"])) :?>
-                 <input type="text" name="ciudad" id="ciudad" value="<?=$usuario['ciudad']?>" placeholder="ciudad">
-                 <?php else : ?>
-                  <input type="text" name="ciudad" id="ciudad" value="" placeholder="ciudad">
-                 <?php endif;?>
+                 @if(isset($usuario["ciudad"]))
+                 <input type="text" name="ciudad" id="ciudad" value="{{$usuario->ciudad}}" placeholder="ciudad"  class="form-control @error('ciudad') is-invalid @enderror">
+                 @else
+                  <input type="text" name="ciudad" id="ciudad" value="" placeholder="ciudad"  class="form-control @error('ciudad') is-invalid @enderror">
+                @endif
+                @error('ciudad')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                @enderror
                  </p>
                  <p>
                  Situación sentimental
                  <br>
-                 <select name="relacion" id="relacion" value ="<?= $usuario["situacion_sentimental"] ?>">
+                 <select name="relacion" id="relacion" value ="{{$usuario->relacion}}" class="form-control">
                     <option value="Soltero">Soltero</option>
                     <option value="En pareja">En pareja</option>
                     <option value="Casado">Casado</option>
@@ -157,11 +113,6 @@ if($_POST)
                  </p>
                  <p>
                      <button type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
-                     <?php if($bandera == 3 && count($errores)!=0) : ?>
-                          <p class="error-perfil">
-                            <?= $errores[0] ?>
-                          </p>
-                     <?php endif;?>
                  </p>        
             </div>
         </form>
@@ -178,7 +129,9 @@ if($_POST)
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="datosusuario.php" method = "POST">
+      <form action="{{route('datos.cambiarPassword', $usuario)}}" method = "POST">
+        @csrf 
+        @method('PUT')
             <div>
                 <p>
                 <input type="password" name="password1" id="" value="" placeholder ="Contraseña actual">
@@ -191,11 +144,14 @@ if($_POST)
                  </p>
                  <p>
                      <button type="submit" name="cambiarcontraseña" id="cambiarcontraseña">Aceptar</button>
-                     <?php if($bandera == 1 && count($errores)!=0) : ?>
-                          <p class="error-perfil">
-                            <?= $errores[0] ?>
-                          </p>
-                     <?php endif;?>
+                     <br>
+                   
+                     @if(session('status'))
+                     <p style="color:red">
+                      {{session('status')}}
+                     </p>
+                    
+                     @endif
                  </p>        
             </div>
         </form>
@@ -212,20 +168,22 @@ if($_POST)
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="datosusuario.php" method = "POST" enctype="multipart/form-data">
+      <form action="{{route('datos.cambiarFoto', $usuario)}}" method = "POST" enctype="multipart/form-data">
+        @csrf 
+        @method('PUT')
             <div>
                 <p class="cambiarfotoperfil">
                 <i class="fa fa-camera" aria-hidden="true"></i>
                   <span>Cambiar foto</span>
-                <input type="file" name="cambiar-foto" id="cambiar-foto">
+                <input type="file" name="cambiar-foto" id="cambiar-foto" class="form-control @error('cambiar-foto') is-invalid @enderror">
+                @error('cambiar-foto')
+                     <span class="invalid-feedback" role="alert">
+                         <strong>{{ $message }}</strong>
+                     </span>
+                    @enderror
                 </p>
                  <p>
-                     <button type="submit" name="cambiarfoto" id="cambiarfoto">Aceptar</button>
-                     <?php if($bandera == 2 && count($errores)!=0) : ?>
-                          <p class="error-perfil">
-                            <?= $errores[0] ?>
-                          </p>
-                     <?php endif;?>
+                     <button type="submit" name="cambiarfoto" id="cambiarfoto">Aceptar</button>              
                  </p>        
             </div>
         </form>

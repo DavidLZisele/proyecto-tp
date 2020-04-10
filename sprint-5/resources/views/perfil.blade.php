@@ -1,3 +1,6 @@
+<?php
+ $usuario = Auth::user();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +56,7 @@
       </ul>
       <ul class="nav nav-pills col-4 justify-content-end">
         <li class="nav-item">
-          <a class="nav-link" href="datosusuario.php" title="Configuracion cuenta"><i class="fa fa-cog"></i></a>
+        <a class="nav-link" href="{{route('datos.index')}}" title="Configuracion cuenta"><i class="fa fa-cog"></i></a>
         </li>
         <li class="nav-item li-salir">
           <li class="nav-item dropdown">
@@ -82,72 +85,74 @@
           <p class="nombre-perfil">
           </p>
           <div class="bloke-imagen-perfil">
-            <img src="perfiles/" alt="foto">
+            <img src="/storage/{{$usuario->photo}}" alt="foto">
           </div>
           <div class="bloke-info col-12">
            <div class="datosusuario-bloque">
-           
+            @if(isset($usuario->escuela))
+            <div class="col-12">
+                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+</a>
+                  <p class="col-10">{{$usuario->escuela}}</p>
+            </div>
+            @else
               <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
-                    <p class="col-10">Escuela</p>
-              </div>
-           
+                  <p class="col-10">Escuela</p>
+            </div>
+            @endif
+            @if(isset($usuario->universidad))
                 <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
-                    <p class="col-10">Escuela</p>
-              </div>
-
-                  <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <p class="col-10">{{$usuario->universidad}}</p>
+                </div>
+            @else
+              <div class="col-12">
+                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
-                    <p class="col-10">Universidad</p>
-                  </div>
-
+                  <p class="col-10">Universidad</p>
+                </div>
+            @endif
+            @if(isset($usuario->relacion))
+              <div class="col-12">
+                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+</a>
+                  <p class="col-10">{{$usuario->relacion}}</p>
+               </div>
+              @else
                 <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
 </a>
-                    <p class="col-10">Universidad</p>
-                  </div>
-
-                <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                  <p class="col-10">Relacion</p>
+               </div>
+               @endif
+         </div>
+         @if(isset($usuario->ciudad))
+          <div>
+            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
 </a>
-                    <p class="col-10">Situacion sentimental</p>
-                 </div>
-
-                  <div class="col-12">
-                    <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
-</a>
-                    <p class="col-10">Relacion</p>
-                 </div>
-
-           </div>
-
+            <p class="col-10">{{$usuario->ciudad}}</p>
+          </div>
+          @else
             <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
 </a>
-              <p class="col-10">Ciudad></p>
-            </div>
-
-              <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
-</a>
-              <p class="col-10">Ciudad</p>
-            </div>
-
-
+            <p class="col-10">Ciudad</p>
+          </div>
+         @endif
+          @if(isset($usuario->fecha_cumpleanios))
+          <div>
+            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
+            <p class="col-10">{{$usuario->fecha_cumpleanios}}</p>
+          </div>
+           @else
             <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-              <p class="col-10">Fecha de cumpleaños</p>
-            </div>
-
-              <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-              <p class="col-10">Cumpleaños</p>
-            </div>
-
+            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
+            <p class="col-10">Cumpleaños</p>
+          </div>
+           @endif
           </div>
         </article>
         <article class="mis-perfil">
@@ -195,11 +200,11 @@
               <br>
                <label for="tipopublicacion">Categoria</label>
                <select name="tipopublicacion" id="tipopublicacion">
-
-                  <option value="">
-
+                 @foreach($categorias as $cat)
+                  <option value="{{$cat->id}}">
+                      {{$cat->descripcion}}
                   </option>
-
+                 @endforeach
                </select>
                <div class="div-subirfoto">
                   <span>
