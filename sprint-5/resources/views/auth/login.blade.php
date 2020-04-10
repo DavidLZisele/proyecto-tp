@@ -66,10 +66,10 @@
         <footer id="footer-login" class="col-12 col-lg-12">
             <div class="bloque-footer col-12">
                  <div class="col-3">
-                    <a class="col-12" href="index.html">Inicio</a>
+                    <a class="col-12" href="{{route('home')}}">Inicio</a>
                 </div>
                 <div class="col-3">
-                    <a class="col-12" href="registro.php">Registro</a>
+                    <a class="col-12" href="{{route('register')}}">Registro</a>
                 </div>
                 <div class="col-3">
                     <a href="faq.php" class="col-12">F.A.Q</a>

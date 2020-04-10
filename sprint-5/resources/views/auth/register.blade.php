@@ -100,10 +100,10 @@
     <footer id="footer-registro" class="col-12 col-lg-12 mt-auto">
             <div class="bloque-footer col-12">
                  <div class="col-3">
-                    <a class="col-12" href="index.html">Inicio</a>
+                    <a class="col-12" href="{{route('home')}}">Inicio</a>
                 </div>
                 <div class="col-3">
-                    <a class="col-12" href="login.php">LogIn</a>
+                    <a class="col-12" href="{{route('login')}}">LogIn</a>
                 </div>
                 <div class="col-3">
                     <a href="faq.php" class="col-12">F.A.Q</a>
