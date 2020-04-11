@@ -1,3 +1,7 @@
+:root{
+    --color-fondoBoton: lightslategray;
+}
+
 body 
 {
     font-family: Arial, Helvetica, sans-serif;
@@ -175,94 +179,78 @@ a
 }
 .contenedor-login
 {
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     background-color: #333;
     padding:0;
+    margin: 0;
+    height: 100vh;
 }
-.contenedor-login section{
-    width: 80%;
-}
-.contenedor-login article 
+
+.contenedor-login main 
 {
-    width: 100%;
-    border: solid 2px #eaeaea;
-    height: 55vh;
-    display:flex;
+    display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
-    margin-top: 50px;
-    position: relative;
+    width: 300px;
+    border: solid 2px #eaeaea;
+    align-items: center;
+    border-radius: 5px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
-.contenedor-login article form p
-{
+#form-login{
+    display: flex;
+    justify-content: center;
     text-align: center;
+    align-items: center;
+    flex-direction: column;
 }
-.contenedor-login article form p label {
+.label-login {
     text-align: center;
-    font-size: 0.7em;
-    padding-left: 15px;
+    font-size: 0.75em;
     margin: 0;
     color: white;
     font-weight: bold;
 }
-.contenedor-login article form p input
+#input-login
 {
-    border-radius: 100px;
     border: solid 2px white;
     padding: 4px 15px;
     color:white;
     font-size:0.8em;
-    border-radius: 5px;
-
-}
-.contenedor-login article form p button
-{
-    border-radius: 100px;
-    border: solid 2px black;
-    padding: 4px 15px;
-    color:black;
-    font-size:0.8em;
-}
-.contenedor-login p
-{
-    margin-bottom:15px;
-}
-.contenedor-login article form p button
-{
-    color:white;
-    background-color: black;
-    font-weight: bold;
-}
-.contenedor-login article svg
-{
-    width: 30px;
-   color: white;
-}
-
-.contenedor-login article div
-{
+    border-radius: 14px;
+    margin: 10px auto;
+    width: 200px;
+    outline: none;
+    transition: 0.25s;
     text-align: center;
-    border: solid 2px white;
-    border-radius: 50%;
-    padding:15px;
+}
+#input-login:focus,#input-login:hover{
+    border: var(--color-fondoBoton) 2px solid;
+    width: 250px;
+}
+input.recordarme-login,
+span.recordarme-login{
     position: absolute;
-    top: -35px;
-    background-color:black;
-    z-index: 50;
+    color:white;
+    font-size:0.8em;
+    display: inline;
+    }
+
+
+input.recordarme-login{
+    margin: 5px 0;
+    bottom: 31%;
+    left: 30%;
 }
-.contenedor-login #footer-login{
-    background-color: white;
-    margin-top: auto;
+span.recordarme-login{
+    bottom: 31.5%;
+    transform: translateX(-5px);
 }
-.contenedor-login #footer-login .bloque-footer
-div p
-{
-    margin: auto;
-}
+
 .recordar 
 {
     display: flex;
@@ -276,6 +264,56 @@ div p
 .recordar input, .recordar-registro input
 {
     margin-right: 10px;
+}
+#boton-login
+{
+    border-radius: 25px;
+    border: solid 2px black;
+    padding: 4px 15px;
+    font-size:0.8em;
+    color:white;
+    background-color: black;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    margin: 25px 0 20px 0;
+    transform: translateY(25%);
+    transition: .35s;
+}
+#boton-login:hover{
+    background: var(--color-fondoBoton);
+    border: var(--color-fondoBoton) solid 2px;
+
+}
+
+
+.contenedor-login main div
+{
+    text-align: center;
+    border: solid 2px white;
+    border-radius: 50%;
+    padding:15px;
+    position: absolute;
+    top: -35px;
+    background-color:black;
+    z-index: 50;
+}
+.contenedor-login main svg
+{
+    width: 21px;
+   color: white;
+   transform: translateX(-15%);
+}
+
+.contenedor-login #footer-login{
+    background-color: white;
+    position: absolute;
+    bottom: 0%;
+}
+.contenedor-login #footer-login .bloque-footer
+div p
+{
+    margin: auto;
 }
 
 .tamaño {
@@ -1031,6 +1069,66 @@ background-color:lightslategray;
          color:white;
          border:solid 1px #607d8b;
      }
+
+@media (min-width:576px){
+    /*--------L O G I N---------*/
+
+
+.contenedor-login main 
+{ 
+    width: 375px;
+    padding: 40px;
+}
+
+.label-login {
+    font-size: .9em;
+
+}
+#input-login
+{
+    padding: 5px 15px;
+    font-size:0.9em;
+    margin: 12px auto;
+    width: 220px;
+}
+#input-login:focus,#input-login:hover{
+
+    width: 275px;
+}
+input.recordarme-login,
+span.recordarme-login{
+    font-size:0.9em;
+}
+
+input.recordarme-login{
+    margin: 5px 0;
+    bottom: 31%;
+    left: 30%;
+}
+span.recordarme-login{
+
+    bottom: 31%;
+    transform: translateX(-10px);
+}
+
+#boton-login
+{
+    padding: 8px 18px;
+    font-size:0.9em;
+    margin: 25px 0 20px 0;
+    transform: translateY(25%);
+}
+.contenedor-login main div
+{
+    padding:15px;
+}
+.contenedor-login main svg
+{
+    width: 24px;
+    color: white;
+    transform: translateX(0%);
+}
+}
 @media (min-width:768px)
 {
     .form-registro div:last-child
@@ -1075,9 +1173,64 @@ background-color:lightslategray;
      {
          max-width: 991px;
      }
-     .contenedor-login section{
-        width: 50%;
-    }
+     
+     /*--------L O G I N---------*/
+
+
+.contenedor-login main 
+{ 
+    width: 425px;
+    padding: 50px;
+}
+
+.label-login {
+    font-size: 1em;
+
+}
+#input-login
+{
+    padding: 6px 18px;
+    font-size:1em;
+    margin: 14px auto;
+    width: 235px;
+}
+#input-login:focus,#input-login:hover{
+
+    width: 295px;
+}
+input.recordarme-login,
+span.recordarme-login{
+    font-size:1em;
+}
+
+input.recordarme-login{
+    margin: 5px 0;
+    bottom: 31%;
+    left: 30%;
+}
+span.recordarme-login{
+
+    bottom: 31%;
+    transform: translateX(-15px);
+}
+
+#boton-login
+{
+    padding: 10px 22px;
+    font-size:1em;
+    margin: 25px 0 20px 0;
+    transform: translateY(25%);
+}
+.contenedor-login main div
+{
+    padding:15px;
+}
+.contenedor-login main svg
+{
+    width: 25px;
+    color: white;
+    text-align: center;
+}
 }
 @media (min-width: 992px)
 {
@@ -1221,10 +1374,54 @@ background-color:lightslategray;
          max-width: 1199px;
      }
 
+
+     /*--------L O G I N---------*/
+
+
+.contenedor-login main 
+{ 
+    width: 35vw;
+    padding: 5%;
 }
 
-.contenedor-login section{
-    width: 60%;
+#input-login
+{
+    padding: 6px 18px;
+    font-size:1em;
+    margin: 14px auto;
+    width: 20vw;
+}
+#input-login:focus,#input-login:hover{
+    width: 25vw;
+}
+
+input.recordarme-login{
+    margin: 1% 0;
+    bottom: 32.5%;
+    left: 30%;
+}
+span.recordarme-login{
+    bottom: 32.5%;
+    transform: translateX(-18px);
+}
+
+#boton-login
+{
+    padding: 10px 22px;
+    font-size:1em;
+    margin: 25px 0 20px 0;
+    transform: translateY(25%);
+}
+.contenedor-login main div
+{
+    padding:15px;
+}
+.contenedor-login main svg
+{
+    width: 25px;
+    color: white;
+    text-align: center;
+}
 }
 
 
@@ -1330,6 +1527,11 @@ background-color:lightslategray;
      {
         padding-right: 40%;
      }
+
+
+
+
+     
 }
 .bg-nav{
     background-color: black;
@@ -1346,9 +1548,62 @@ background-color:lightslategray;
 }
 
 
+ @media (min-width: 1400px){
 
-/* LogIn*/
+    /*------L O G I N------*/
+    .contenedor-login main 
+    { 
+        width: 35vw;
+        padding: 5%;
+        height: 55vh;
+    }
+    .label-login {
+        font-size: 1.6em;
+    
+    }
+    #input-login
+    {
+        padding: 6px 18px;
+        font-size:1.5em;
+        margin: 25px auto;
+        width: 20vw;
+    }
+    #input-login:focus,#input-login:hover{
+        width: 25vw;
+    }
+    
+    input.recordarme-login,
+    span.recordarme-login{
+        font-size: 1.3em;
 
-.contenedor-login section{
-    width: 30%;
-}
+    }
+
+    input.recordarme-login{
+        margin: 1% 0;
+        bottom: 31%;
+        left: 30%;
+    }
+    span.recordarme-login{
+        bottom: 31%;
+        transform: translateX(-2vw);
+    }
+    
+    #boton-login
+    {
+        padding: 10px 22px;
+        font-size:1.5em;
+        margin: 25px 0 20px 0;
+        transform: translateY(25%);
+        width: 9vw;
+    }
+    .contenedor-login main div
+    {
+        padding:15px;
+    }
+    .contenedor-login main svg
+    {
+        width: 2.5vw;
+        color: white;
+        text-align: center;
+    }
+ }

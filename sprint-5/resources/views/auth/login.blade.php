@@ -16,9 +16,8 @@
 </head>
 
 <body>
-    <div class="container col-12 col-md-12 col-lg-12 col-xl-12 contenedor-login">
-        <section>
-            <article>
+    <div class="container col-12 contenedor-login">
+            <main>
                 <div class="col-2">
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user"
                         class="svg-inline--fa fa-user fa-w-14 " role="img" xmlns="http://www.w3.org/2000/svg"
@@ -28,41 +27,35 @@
                         </path>
                     </svg>
                 </div>
-                <form action="{{route('login')}}" method="POST">
+
+                <form id="form-login" action="{{route('login')}}" method="POST">
                     @csrf
-                    <p class="col-12">
-                        <label for="email" class="col-12">Usuario</label>
-                        <input type="text" name="email" id="email" class="col-12 form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
+
+                        <label for="email" class="label-login">Usuario</label>
+                        <input id="input-login" type="text" name="email" id="email" class=" form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
-                    </p>
-                    <p class="col-12">
-                        <label for="password" class="col-12">Contraseña</label>
-                    <input type="password" name="password" id="password" class="col-12 form-control @error('password') is-invalid @enderror" value="{{old('password')}}">
+
+                        <label for="password" class="label-login">Contraseña</label>
+                        <input id="input-login" type="password" name="password" id="password" class=" form-control @error('password') is-invalid @enderror" value="{{old('password')}}">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                      <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                   </p>
-                    <p class="col-12 recordar">
-                        <input type="checkbox" name="recordar" id="recordar" value="true"> 
-                        <span>
-                         Recordarme?
-                        </span>
-                    </p>
-                    <p class="col-12">
-                        <button type="submit" class="col-9">Ingresar</button>
-                    </p>
-                 
-
+                    
+                            <input type="checkbox" name="recordar"  value="true" class="recordarme-login"> 
+                            <span class="recordarme-login">
+                             Recordarme?
+                            </span>  
+                            
+                    <button id="boton-login" type="submit" >Ingresar</button>          
                 </form>
-            </article>
+            </main>
 
-        </section>
         <footer id="footer-login" class="col-12 col-lg-12">
             <div class="bloque-footer col-12">
                  <div class="col-3">
