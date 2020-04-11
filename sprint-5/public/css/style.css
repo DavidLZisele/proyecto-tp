@@ -1078,8 +1078,13 @@ background-color:lightslategray;
 { 
     width: 375px;
     padding: 40px;
+    transition: 1.5s;
 }
-
+.contenedor-login main svg:hover 
+{
+    transition:0.2s;
+    width: 30px;
+}
 .label-login {
     font-size: .9em;
 
@@ -1128,6 +1133,10 @@ span.recordarme-login{
     width: 24px;
     color: white;
     transform: translateX(0%);
+}
+.bloque-boton-registro
+{
+    left:24%;
 }
 }
 @media (min-width:768px)
@@ -1236,6 +1245,10 @@ span.recordarme-login{
     color: white;
     text-align: center;
 }
+.bloque-boton-registro
+{
+    left:12%;
+}
 }
 @media (min-width: 992px)
 {
@@ -1276,15 +1289,29 @@ span.recordarme-login{
        
 
     }
+    .bloque-foto-perfil
+    {
+        left:-13%
+    }
     .foto-perfil
     {
         padding-right: 40%;
     }
     .imagen-upload
     {
-        margin-left: -40%;
+        margin-left: 0%;
         padding-right: 60%;
+        left:15%;
     }
+    .bloque-boton-registro
+{
+    left:-0.5%;
+}
+.bloque-foto p 
+{
+    position: relative;
+    left:-18%;
+};
       /*---------------------------*/
 
       /*-------------FAQ-------------*/
@@ -1534,16 +1561,25 @@ span.recordarme-login
      }
      .imagen-upload
      {
-        padding-right: 40%;
+        padding-right: 25%;
+        left:55%;
+     }
+     .bloque-foto p
+     {
+         left:-5%;
      }
      input.recordarme-login
      {
          left:28%;
+     }  
+     .bloque-nombre-red
+     {
+         transition: 4s;
      }
-
-
-
-     
+     #index 
+     {
+        background-color:black;
+     }
 }
 .bg-nav{
     background-color: black;
