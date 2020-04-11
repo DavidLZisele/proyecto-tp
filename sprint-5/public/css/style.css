@@ -279,6 +279,7 @@ span.recordarme-login{
     margin: 25px 0 20px 0;
     transform: translateY(25%);
     transition: .35s;
+    width: 200px;
 }
 #boton-login:hover{
     background: var(--color-fondoBoton);
@@ -1642,7 +1643,7 @@ span.recordarme-login
         font-size:1.5em;
         margin: 25px 0 20px 0;
         transform: translateY(25%);
-        width: 9vw;
+        width: 20vw;
     }
     .contenedor-login main div
     {
