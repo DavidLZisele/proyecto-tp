@@ -30,3 +30,7 @@ Route::post('datos/{usuario}/insertPos', "PosteoController@store")->name('datos.
 Route::delete('datos/deletePos',"PosteoController@destroy")->name('datos.deletePos');
 Route::get('datos/{posteo}/editPos',"PosteoController@edit")->name('datos.editPos');
 Route::put('datos/{posteo}/updatePos',"PosteoController@update")->name('datos.updatePos');
+Route::get('faq','FaqController@create')->name('faq.create');
+Route::post('faq','FaqController@store')->name('faq.store');
+
+
