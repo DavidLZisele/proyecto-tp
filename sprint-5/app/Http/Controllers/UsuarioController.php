@@ -17,9 +17,7 @@ class UsuarioController extends Controller
             "relacion"=> 'string|required',
             "escuela"=> 'string|required',
             "fecha_cumpleanios"=> 'date|required',
-            "email"=> 'email|required|unique:users'
         ]);
-        $usuario->email = request()->email;
         $usuario->universidad = request()->universidad;
         $usuario->escuela = request()->escuela;
         $usuario->relacion = request()->relacion;

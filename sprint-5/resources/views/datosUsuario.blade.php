@@ -47,14 +47,6 @@ $usuario = Auth::user();
         @csrf 
         @method('PUT')
             <div>
-                <p>
-                <input type="email" name="email" id="email" value="{{$usuario->email}}" placeholder="Email" class="form-control @error('email') is-invalid @enderror">
-                @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                @enderror
-                </p>
                  <p>
                   Dia de nacimiento
                   <br>
