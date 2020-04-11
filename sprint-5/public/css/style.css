@@ -1476,6 +1476,8 @@ span.recordarme-login
     .bloque-nombre-red
     {
         height: 100vh;
+        transition:3s;
+        transform: rotateY(360deg);
     } 
     /*---------------------------*/
     /*-------------REGISTRO-------------*/
@@ -1483,6 +1485,7 @@ span.recordarme-login
      {
          height: 100vh;
          background-size: cover;
+         transition: 3s;
      }
      .bloque-boton-registro
     {
@@ -1573,10 +1576,6 @@ span.recordarme-login
      {
          left:28%;
      }  
-     .bloque-nombre-red
-     {
-         transition: 4s;
-     }
      #index 
      {
         background-color:black;
