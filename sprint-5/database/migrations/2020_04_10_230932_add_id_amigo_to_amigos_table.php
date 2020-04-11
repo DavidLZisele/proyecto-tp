@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAmigosTable extends Migration
+class AddIdAmigoToAmigosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateAmigosTable extends Migration
      */
     public function up()
     {
-        Schema::create('amigos', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_user');
+        Schema::table('amigos', function (Blueprint $table) {
             $table->unsignedBigInteger('id_amigo');
-            $table->primary(['id_user','id_amigo']);
-            $table->timestamps();
-            $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('id_amigo')->references('id')->on('users');
         });
     }
@@ -30,6 +26,9 @@ class CreateAmigosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('amigos');
+        Schema::table('amigos', function (Blueprint $table) {
+            $table->dropForeign('amigos_id_amigo_foreign');
+            $table->dropColumn('id_user');
+        });
     }
 }

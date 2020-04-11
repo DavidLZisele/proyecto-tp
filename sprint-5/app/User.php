@@ -36,4 +36,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function amigosMiSolicitud()
+    {
+       return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('respuesta',1);
+    }
+    public function amigosSuSolicitud()
+    {
+       return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',1);
+    }
+    public function miSolicitudes()
+    {
+       return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',3);
+    }
+    public function posteos()
+    {
+        return $this->hasMany("App\Posteo","id_user");
+    }
 }

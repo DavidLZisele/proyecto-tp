@@ -1,5 +1,35 @@
 <?php
  $usuario = Auth::user();
+ $amigos = [];
+  foreach($usuario->amigosMiSolicitud as $amigo)
+  {
+    $amigos[] = $amigo;
+  }
+  foreach($usuario->amigosSuSolicitud as $amigo)
+  {
+    $amigos[] = $amigo;
+  }
+  $posteos = [];
+  foreach ($amigos as $amigo) {
+    foreach($amigo->posteos as $posteo)
+    {
+      $posteos[] = $posteo;
+    }
+  }
+  foreach ($usuario->posteos as $posteo) {
+    $posteos[] = $posteo;
+  }
+  $posteos = collect($posteos)->sortByDesc('updated_at');
+  function buscarPosteoAmigo($posteo_id, $amigos)
+  {
+      foreach($amigos as $amigo)
+      {
+        if($amigo->id == $posteo_id)
+        {
+          return $amigo;
+        }
+      }     
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -164,12 +194,12 @@
               </div>
               <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
-
+                @foreach($amigos as $amigo)
                 <p class="p-amigo" class="col-12">
-                  <img src="perfiles/" alt="">
-
+                <img src="/storage/{{$amigo->photo}}" alt="">
+                  {{$amigo->name}} {{$amigo->surname}}
                 </p>
-
+                @endforeach
               </div>
               <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
               <div id="Demo2" class="w3-hide w3-container">
@@ -194,8 +224,14 @@
        </div>
       <div class="col-lg-5">
         <article class="publicacion-perfil">
-          <form action="perfil.php" method ="post" enctype="multipart/form-data">
-              <input type="text" name="publicacion" class="publicacion" placeholder="Estado">
+        <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data">
+             @csrf
+              <input type="text" name="publicacion" class="publicacion form-control @error('publicacion') is-invalid @enderror" placeholder="Estado">
+              @error('publicacion')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+              @enderror
               <br>
               <br>
                <label for="tipopublicacion">Categoria</label>
@@ -210,64 +246,83 @@
                   <span>
                   <i class="fa fa-camera" aria-hidden="true"></i> Subir imagen
                   </span>
-                  <input type="file" name="fotopublic" id="fotopublic">
+                  <input type="file" name="fotopublic" id="fotopublic" class="form-control @error('fotopublic') is-invalid @enderror">
+                  @error('fotopublic')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                 @enderror
                </div>
               <br>
               <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
-          </form>
+               @if(session('eliminadoposteo'))
+                <p style="color:red;font-size:13px">
+                  {{session('eliminadoposteo')}}
+                </p>
+                @endif
+                @if(session('eliminadoposteo'))
+                <p style="color:green;font-size:13px">
+                  {{session('postact')}}
+                </p>
+                @endif
+            </form>
        </article>
        <article class="publicaciones-perfil"> 
-
+         @foreach($posteos as $posteo)
+           @if($posteo->id_user == $usuario->id)
             <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
-              <img src="perfiles/" alt="">
+              <img src="/storage/{{$usuario->photo}}" alt="">
             </div>
             <p class="col-9 col-lg-6">
-    
+              {{$usuario->name}}
             </p>
-            <form action="perfil.php" method="post" class="col-1">
-            <button type="submit" name ="borrar-publicacion" class="borrar-public" title="Borrar publicacion" value="">  <i class="fa fa-times" aria-hidden="true"></i></button>
+          <form action="{{route('datos.deletePos')}}" method="post" class="col-1">
+              @csrf 
+              @method('delete')
+            <button type="submit" name ="borrarpublicacion" class="borrar-public" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
             </form>
           </div>
            <p class="texto-publicacion">
-
+            {{$posteo->descripcion}}
            </p>
-
+           @if(strlen($posteo->foto)!=0)
            <div class="imagen-public">
-             <img src="publicaciones/" alt="no se encontro la foto">
+           <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
            </div>
-
+           @endif
            <div class="interaccion-publicacion">
-             <form action="perfil.php" method="POST">
+             <form action="" method="POST">
                    <button type="submit" name ="like">
                         <i class="fa fa-thumbs-up"></i>  Like
                    </button>
                     <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
              </form>       
            </div>
-           <form action="modificarPub.php" method="GET" class="editar-publicacion-form">
-               <input type="hidden" name="id_pub" value="">
+           <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
+            @csrf 
                <button type="submit"><i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
              </form> 
-
+             @else
             <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
-              <img src="perfiles/" alt="">
+              <img src="storage/{{buscarPosteoAmigo($posteo->id_user,$amigos)->photo}}" alt="">
             </div>
             <p class="col-9 col-lg-6">
+              {{buscarPosteoAmigo($posteo->id_user,$amigos)->name}}
           </p>
             <form action="perfil.php" method="post" class="col-1">
             </form>
           </div>
            <p class="texto-publicacion">
-
+            {{$posteo->descripcion}}
            </p>
-
+            @if(strlen($posteo->foto)!=0)
            <div class="imagen-public">
-             <img src="publicaciones/" alt="no se encontro la foto">
+           <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
            </div>
-
+           @endif
            <div class="interaccion-publicacion">
              <form action="perfil.php" method="POST">
                    <button type="submit" name ="like">
@@ -278,9 +333,9 @@
                     
              </form>        
            </div>
-
+         @endif
           
-
+       @endforeach
        </article>
        
       </div>
@@ -290,31 +345,51 @@
               Agregar amigos
             </h3>
             <div class="sa-2 col-12">
-              <form action="perfil.php" method="POST">
+            <form action="{{route('datos.insertSolicitud',$usuario)}}" method="POST">
+              @csrf
                 <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">
                 <button type="submit" name="buscaramigo" class="buscaramigo">Buscar</button>
-
-                <p class="error-buscaramigo">
-
+                @if(session('rechazado'))
+                <p style="color:red;font-size:15px">
+                  {{session('rechazado')}}
                 </p>
-                  <p class="info-buscaramigo">
+                @endif
+                @if(session('aceptado'))
+                  <p style="color:green;font-size:15px">
+                    {{session('aceptado')}}
                   </p>
+                @endif
               </form>
             </div>
             <h3>
               Solicitudes de amistad
             </h3>
+            @foreach($usuario->miSolicitudes as $sol)
             <div class="sa col-12">
               <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
-                <img src="perfiles/" alt="">
+              <img src="storage/{{$sol->photo}}" alt="">
               </div>
               <p class="col-6 col-lg-3 col-xl-3">
+                {{$sol->name}}
               </p>
-              <form action="perfil.php" method="POST" class="col-3 col-lg-5 col-xl-5">
-                <button type="submit" name="aceptar" class="col-6 check" value=" <i class="fa fa-check"></i></button>
-                  <button type="submit" name="rechazar" class="col-6 remove" value=""> <i class="fa fa-remove"></i></button>
-              </form>
+            <form action="{{route('datos.agregarAmigo',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
+              @csrf 
+              @method('PUT')
+              <button type="submit" name="aceptar" class="col-6 check" value="{{$sol->id}}"> <i class="fa fa-check"></i></button>
+              <button type="submit" name="rechazar" class="col-6 remove" value="{{$sol->id}}"> <i class="fa fa-remove"></i></button>
+              @if(session('rechazado'))
+              <p style="color:red;font-size:15px">
+                {{session('rechazado')}}
+              </p>
+              @endif
+              @if(session('aceptado'))
+                <p style="color:green;font-size:15px">
+                  {{session('aceptado')}}
+                </p>
+              @endif  
+            </form>
             </div>
+            @endforeach
        </article>
      </section>
   </div>
