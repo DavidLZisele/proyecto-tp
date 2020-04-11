@@ -164,6 +164,7 @@ a
     bottom: 0px;
     z-index: 1;
     background-color: white;
+    border-top: 1px solid grey;
 }
 /*---------------------------------------------------*/
 
