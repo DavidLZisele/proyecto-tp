@@ -19,8 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('perfil', "CategoriaController@index")->name('categoria.index');
-Route::get('datos', "UsuarioController@index")->name('datos.index');
+Route::get('perfil', "CategoriaController@index")->name('categoria.index')->middleware('auth');
+Route::get('datos', "UsuarioController@index")->name('datos.index')->middleware('auth');
 Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->name('datos.cambiarDatos');
 Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
 Route::put('datos/{usuario}/cambiarFoto', "UsuarioController@updateFoto")->name('datos.cambiarFoto');
