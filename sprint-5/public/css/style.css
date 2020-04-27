@@ -426,6 +426,7 @@ background-color:lightslategray;
     right:0;
     top:0;
     opacity: 0;
+    z-index: 1;
 }
 .bloque-foto p
 {
@@ -436,7 +437,6 @@ background-color:lightslategray;
     text-transform: uppercase;
     font-size: 1em;
     font-weight: bold;
-    cursor: pointer;
     padding-right: 40px;
 }
 .imagen-upload
@@ -448,6 +448,8 @@ background-color:lightslategray;
     top:10px;
     margin-left: -40%;
     padding-right: 0;
+    cursor: pointer;
+
 }
 .recordar-registro
 {
@@ -681,7 +683,9 @@ background-color:lightslategray;
         padding-top: 10px;
         padding-left: 30px;
         padding-right: 15px;
-        
+        border-radius: 5px;
+        box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
+
      }
      .informacion .bloke-imagen-perfil img
      {
@@ -710,7 +714,7 @@ background-color:lightslategray;
      }
      .seccion-perfil 
      {
-         background-color:#333;
+         background:linear-gradient(rgb(92, 106, 121),#333);
          padding:25px;
      }
      .mis-perfil
@@ -720,9 +724,10 @@ background-color:lightslategray;
      }
      .publicacion-perfil
      {
-         border: solid 1px ;
          background-color: white;
          padding: 15px 10px;
+         border-radius: 5px;
+         box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
      }
      .publicacion-perfil input 
      {
@@ -743,6 +748,9 @@ background-color:lightslategray;
          margin-top: 15px;
          padding: 15px;
          overflow: auto;
+         border-radius: 5px;
+         box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
+
      }
      .user-public img 
      {
@@ -765,6 +773,9 @@ background-color:lightslategray;
      .interaccion-publicacion
      {
          margin-top: 10px;
+     }
+     .interaccion-publicacion button{
+        border-radius: 5px;
      }
      .datosusuario-bloque 
      {
@@ -823,6 +834,8 @@ background-color:lightslategray;
          background-color: white;
          margin-top:30px;
          margin-left:16px;
+         border-radius: 5px;
+         box-shadow: 0px 1px 12px rgba(0, 0, 0,.3);
      }
      .solicitudes-amistad h3
      {
@@ -932,16 +945,19 @@ background-color:lightslategray;
          color:white;
          background-color: red ;
          border: solid 1px red;
+         border-radius: 25px;
      }
      .div-subirfoto
      {
-        border:solid 1px #333;
+        border:none;
         position: relative;
         width: 150px;
         text-align: center;
         padding: 5px 0;
         background-color: #607d8b;
         color:white;
+        border-radius: 5px;
+
      }
      .div-subirfoto input
      {
@@ -952,6 +968,10 @@ background-color:lightslategray;
         right: 0;
         top: 0;
         bottom: 0;
+     }
+     button[name='subir-publicacion']{
+        border-radius: 5px;
+        border: none;
      }
      .a-datosusuario:hover
      {
@@ -1035,6 +1055,7 @@ background-color:lightslategray;
          background-color: black;
          color: white;
          border:solid 1px black;
+         border-radius: 25px;
      }
      .div-foto-modificarpub
      {
@@ -1372,9 +1393,18 @@ span.recordarme-login{
           flex-wrap: wrap;
           justify-content: space-between;
       }
+      .solicitudes-amistad form input{
+         border-radius: 5px;
+
+      }
+      .solicitudes-amistad form input::placeholder{
+        color: rgba(240, 240, 240,.8);
+      }
       .solicitudes-amistad form button
       {
         justify-content: flex-end;
+        border-radius: 5px;
+
       }
       .error2 
     {
