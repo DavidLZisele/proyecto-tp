@@ -112,8 +112,7 @@
      <section class="seccion-perfil col-12">
        <div class="col-lg-3">  
         <article class="informacion">
-          <p class="nombre-perfil">
-          </p>
+       
           <div class="bloke-imagen-perfil">
             <img src="/storage/{{$usuario->photo}}" alt="foto">
           </div>
@@ -304,6 +303,9 @@
                <button type="submit"><i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
              </form> 
+             <div class="separar">
+
+             </div>
              @else
             <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
@@ -323,7 +325,7 @@
            <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
            </div>
            @endif
-           <div class="interaccion-publicacion">
+           <div class="interaccion-publicacion separar">
              <form action="perfil.php" method="POST">
                    <button type="submit" name ="like">
                         <i class="fa fa-thumbs-up"></i>  Like
@@ -331,7 +333,7 @@
                     <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
                     </button>
                     
-             </form>        
+             </form>      
            </div>
          @endif
           

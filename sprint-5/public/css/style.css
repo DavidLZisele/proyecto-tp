@@ -741,7 +741,7 @@ background-color:lightslategray;
      {
          background-color: white;
          margin-top: 15px;
-         padding: 15px;
+         padding-top: 15px;
          overflow: auto;
      }
      .user-public img 
@@ -765,6 +765,12 @@ background-color:lightslategray;
      .interaccion-publicacion
      {
          margin-top: 10px;
+         padding-left:15px;
+     }
+     .separar 
+     {
+        border-bottom: solid 25px #333;
+        padding-bottom: 15px;
      }
      .datosusuario-bloque 
      {
@@ -1029,6 +1035,7 @@ background-color:lightslategray;
      {
          margin-top:10px;
          width: 20px;
+         padding-left:15px;
      }
      .editar-publicacion-form button
      {
