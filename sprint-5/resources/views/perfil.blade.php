@@ -112,8 +112,7 @@
      <section class="seccion-perfil col-12">
        <div class="col-lg-3">  
         <article class="informacion">
-          <p class="nombre-perfil">
-          </p>
+       
           <div class="bloke-imagen-perfil">
             <img src="/storage/{{$usuario->photo}}" alt="foto">
           </div>
@@ -121,39 +120,39 @@
            <div class="datosusuario-bloque">
             @if(isset($usuario->escuela))
             <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                   <p class="col-10">{{$usuario->escuela}}</p>
             </div>
             @else
               <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                   <p class="col-10">Escuela</p>
             </div>
             @endif
             @if(isset($usuario->universidad))
                 <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                     <p class="col-10">{{$usuario->universidad}}</p>
                 </div>
             @else
               <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                   <p class="col-10">Universidad</p>
                 </div>
             @endif
             @if(isset($usuario->relacion))
               <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
 </a>
                   <p class="col-10">{{$usuario->relacion}}</p>
                </div>
               @else
                 <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
 </a>
                   <p class="col-10">Relacion</p>
                </div>
@@ -256,14 +255,9 @@
               <br>
               <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
                @if(session('eliminadoposteo'))
-                <p style="color:red;font-size:13px">
+                <span style="color:red;font-size:13px">
                   {{session('eliminadoposteo')}}
-                </p>
-                @endif
-                @if(session('eliminadoposteo'))
-                <p style="color:green;font-size:13px">
-                  {{session('postact')}}
-                </p>
+                </span>
                 @endif
             </form>
        </article>
@@ -304,6 +298,9 @@
                <button type="submit"><i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
              </form> 
+             <div class="separar">
+
+             </div>
              @else
             <div class="pp col-12">
             <div class="user-public col-2 col-md-2 col-lg-3">
@@ -323,7 +320,7 @@
            <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
            </div>
            @endif
-           <div class="interaccion-publicacion">
+           <div class="interaccion-publicacion separar">
              <form action="perfil.php" method="POST">
                    <button type="submit" name ="like">
                         <i class="fa fa-thumbs-up"></i>  Like
@@ -331,7 +328,7 @@
                     <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
                     </button>
                     
-             </form>        
+             </form>      
            </div>
          @endif
           
