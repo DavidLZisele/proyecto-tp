@@ -120,39 +120,39 @@
            <div class="datosusuario-bloque">
             @if(isset($usuario->escuela))
             <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                   <p class="col-10">{{$usuario->escuela}}</p>
             </div>
             @else
               <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                   <p class="col-10">Escuela</p>
             </div>
             @endif
             @if(isset($usuario->universidad))
                 <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                     <p class="col-10">{{$usuario->universidad}}</p>
                 </div>
             @else
               <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
 </a>
                   <p class="col-10">Universidad</p>
                 </div>
             @endif
             @if(isset($usuario->relacion))
               <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
 </a>
                   <p class="col-10">{{$usuario->relacion}}</p>
                </div>
               @else
                 <div class="col-12">
-                  <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
 </a>
                   <p class="col-10">Relacion</p>
                </div>
@@ -255,14 +255,9 @@
               <br>
               <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
                @if(session('eliminadoposteo'))
-                <p style="color:red;font-size:13px">
+                <span style="color:red;font-size:13px">
                   {{session('eliminadoposteo')}}
-                </p>
-                @endif
-                @if(session('eliminadoposteo'))
-                <p style="color:green;font-size:13px">
-                  {{session('postact')}}
-                </p>
+                </span>
                 @endif
             </form>
        </article>
