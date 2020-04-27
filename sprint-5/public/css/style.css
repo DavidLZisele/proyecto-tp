@@ -714,7 +714,7 @@ background-color:lightslategray;
      }
      .seccion-perfil 
      {
-         background:linear-gradient(rgb(92, 106, 121),#333);
+         background: rgb(75, 87, 100);
          padding:25px;
      }
      .mis-perfil
@@ -749,7 +749,7 @@ background-color:lightslategray;
          padding-top: 15px;
          overflow: auto;
          border-radius: 5px;
-         box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
+         box-shadow: 0px 2px rgba(0, 0, 0,.2), 0 -2px rgba(0, 0, 0,.1);
 
      }
      .user-public img 
@@ -777,8 +777,11 @@ background-color:lightslategray;
      }
      .separar 
      {
-        border-bottom: solid 25px #333;
+        border-bottom: solid 25px rgba(75, 87, 100,5);
         padding-bottom: 15px;
+     }
+     .separar:last-child{
+         border-bottom: 0;
      }
      .interaccion-publicacion button{
         border-radius: 5px;
