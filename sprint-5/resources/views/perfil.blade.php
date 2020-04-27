@@ -274,7 +274,7 @@
           <form action="{{route('datos.deletePos')}}" method="post" class="col-1">
               @csrf 
               @method('delete')
-            <button type="submit" name ="borrarpublicacion" class="borrar-public" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
+            <button type="submit" name ="borrarpublicacion" class="borrar-public rounded-circle redondo" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
             </form>
           </div>
            <p class="texto-publicacion">
@@ -295,7 +295,7 @@
            </div>
            <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
             @csrf 
-               <button type="submit"><i class="fa fa-pencil" aria-hidden="true"></i>
+               <button type="submit" class="rounded-circle redondo" ><i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
              </form> 
              <div class="separar">
