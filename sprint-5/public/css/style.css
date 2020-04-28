@@ -629,6 +629,20 @@ background-color:lightslategray;
 {
     padding:0;
 }
+body::-webkit-scrollbar{
+    width: 5px;
+}
+body::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+}
+
+body::-webkit-scrollbar-thumb{
+    background: var(--color-fondoBoton);
+    border-radius: 4px;
+}
+body::-webkit-scrollbar-track{
+    background: black;
+}
 .contenedor-perfil .col-12
 {
     padding-left:0;
@@ -734,6 +748,8 @@ background-color:lightslategray;
          width: 100%;
          padding: 10px 3px;
      }
+
+
      .publicacion-perfil button
      {
         background-color: #607d8b !important;
@@ -742,6 +758,12 @@ background-color:lightslategray;
         padding: 10px;
         width: 150px;
      }
+     .publicacion-perfil button:active{
+         transition: .2s;
+         transform: scale(.9);
+         will-change: transform;
+     }
+
      .publicaciones-perfil
      {
          background-color: white;
@@ -750,7 +772,11 @@ background-color:lightslategray;
          overflow: auto;
          border-radius: 5px;
          box-shadow: 0px 2px rgba(0, 0, 0,.2), 0 -2px rgba(0, 0, 0,.1);
-
+     }
+     .publicaciones-perfil button:active{
+        transition: .2s;
+        transform: scale(.9);
+        will-change: transform;
      }
      .user-public img 
      {
@@ -845,6 +871,10 @@ background-color:lightslategray;
          margin-left:16px;
          border-radius: 5px;
          box-shadow: 0px 1px 12px rgba(0, 0, 0,.3);
+     }
+     .solicitudes-amistad button:active{
+        transition: .2s;
+        transform: scale(.9);
      }
      .solicitudes-amistad h3
      {
