@@ -18,6 +18,11 @@ a
     text-decoration: none;
     display:block;
 }
+.redondo
+{
+    width: 28px;
+    height: 28px;
+}
 .error 
 {
     margin: 0;
@@ -755,7 +760,7 @@ body::-webkit-scrollbar-track{
         background-color: #607d8b !important;
         color:#fff !important;
         border: solid 1px #fff;
-        padding: 10px;
+        padding: 5.5px;
         width: 150px;
      }
      .publicacion-perfil button:active{
