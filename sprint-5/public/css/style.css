@@ -117,6 +117,7 @@ a
     background-color:lightslategray;
     border: solid 1px #333;
     color:white;
+    transition: .25s;
 }
 .contenedor-header
 {
@@ -646,7 +647,7 @@ body::-webkit-scrollbar-thumb{
     border-radius: 4px;
 }
 body::-webkit-scrollbar-track{
-    background: black;
+    background: rgb(75, 87, 100);  ;
 }
 .contenedor-perfil .col-12
 {
