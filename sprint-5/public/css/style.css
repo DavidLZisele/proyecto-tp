@@ -221,7 +221,7 @@ a
     color: white;
     font-weight: bold;
 }
-#input-login
+#input-login, #input-login2
 {
     border: solid 2px white;
     padding: 4px 15px;
@@ -235,6 +235,10 @@ a
     text-align: center;
 }
 #input-login:focus,#input-login:hover{
+    border: var(--color-fondoBoton) 2px solid;
+    width: 250px;
+}
+#input-login2:focus,#input-login2:hover{
     border: var(--color-fondoBoton) 2px solid;
     width: 250px;
 }
@@ -1157,7 +1161,7 @@ body::-webkit-scrollbar-track{
     font-size: .9em;
 
 }
-#input-login
+#input-login,#input-login2
 {
     padding: 5px 15px;
     font-size:0.9em;
@@ -1165,6 +1169,10 @@ body::-webkit-scrollbar-track{
     width: 220px;
 }
 #input-login:focus,#input-login:hover{
+
+    width: 275px;
+}
+#input-login2:focus,#input-login2:hover{
 
     width: 275px;
 }
@@ -1268,7 +1276,7 @@ span.recordarme-login{
     font-size: 1em;
 
 }
-#input-login
+#input-login, #input-login2
 {
     padding: 6px 18px;
     font-size:1em;
@@ -1276,6 +1284,10 @@ span.recordarme-login{
     width: 250px;
 }
 #input-login:focus,#input-login:hover{
+
+    width: 295px;
+}
+#input-login2:focus,#input-login2:hover{
 
     width: 295px;
 }
@@ -1493,7 +1505,7 @@ span.recordarme-login{
     padding: 5%;
 }
 
-#input-login
+#input-login,#input-login2
 {
     padding: 6px 18px;
     font-size:1em;
@@ -1503,7 +1515,9 @@ span.recordarme-login{
 #input-login:focus,#input-login:hover{
     width: 25vw;
 }
-
+#input-login2:focus,#input-login2:hover{
+    width: 25vw;
+}
 input.recordarme-login{
     margin: 1% 0;
     bottom: 32.5%;
@@ -1685,7 +1699,7 @@ span.recordarme-login
         font-size: 1.6em;
     
     }
-    #input-login
+    #input-login,#input-login2
     {
         padding: 6px 18px;
         font-size:1.5em;
@@ -1695,7 +1709,9 @@ span.recordarme-login
     #input-login:focus,#input-login:hover{
         width: 25vw;
     }
-    
+    #input-login2:focus,#input-login2:hover{
+        width: 25vw;
+    }
     input.recordarme-login,
     span.recordarme-login{
         font-size: 1.3em;

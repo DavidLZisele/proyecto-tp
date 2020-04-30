@@ -40,9 +40,9 @@
                         @enderror
 
                         <label for="password" class="label-login">Contraseña</label>
-                        <input id="input-login" type="password" name="password" id="password" class=" form-control @error('password') is-invalid @enderror" value="{{old('password')}}">
+                        <input id="input-login2" type="password" name="password" id="password" class=" form-control @error('password') is-invalid @enderror" value="{{old('password')}}">
                             @error('password')
-                                <span class="invalid-feedback" role="alert">
+                                <span class="invalid-feedback" role="alert" style="margin-bottom:20px">
                                      <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
