@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname','photo'
+        'name', 'email', 'password', 'surname','photo','strikes'
     ];
 
     /**
@@ -47,6 +47,10 @@ class User extends Authenticatable
     public function miSolicitudes()
     {
        return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',3);
+    }
+    public function envioSolicitudes()
+    {
+       return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('respuesta',3);
     }
     public function posteos()
     {

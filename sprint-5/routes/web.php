@@ -19,18 +19,23 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('perfil', "CategoriaController@index")->name('categoria.index')->middleware('auth');
+Route::get('faq','FaqController@create')->name('faq.create');
+Route::post('faq','FaqController@store')->name('faq.store');
+Route::delete('datos/deletePos',"PosteoController@destroy")->name('datos.deletePos');
 Route::get('datos', "UsuarioController@index")->name('datos.index')->middleware('auth');
+Route::get('perfil', "CategoriaController@index")->name('categoria.index')->middleware('auth');
+Route::post('categorias/store', "CategoriaController@store")->name('categoria.store');
+Route::delete('categorias/destroy', "CategoriaController@destroy")->name('categoria.destroy');
+
 Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->name('datos.cambiarDatos');
 Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
 Route::put('datos/{usuario}/cambiarFoto', "UsuarioController@updateFoto")->name('datos.cambiarFoto');
 Route::post('datos/{usuario}/insertSolicitud',"UsuarioController@insertSolicitud")->name('datos.insertSolicitud');
 Route::put('datos/{usuario}/agregarAmigo', "UsuarioController@agregarAmigo")->name('datos.agregarAmigo');
 Route::post('datos/{usuario}/insertPos', "PosteoController@store")->name('datos.insertPos');
-Route::delete('datos/deletePos',"PosteoController@destroy")->name('datos.deletePos');
 Route::get('datos/{posteo}/editPos',"PosteoController@edit")->name('datos.editPos');
 Route::put('datos/{posteo}/updatePos',"PosteoController@update")->name('datos.updatePos');
-Route::get('faq','FaqController@create')->name('faq.create');
-Route::post('faq','FaqController@store')->name('faq.store');
+
+
 
 

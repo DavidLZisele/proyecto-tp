@@ -221,6 +221,10 @@
                }
                this.value = ape;
            }
+           document.querySelector('[name=email]').onblur= function()
+           {
+            this.value = this.value.trim();
+           }
        }
    </script>
 </body>

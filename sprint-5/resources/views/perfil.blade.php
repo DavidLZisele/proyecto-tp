@@ -1,5 +1,6 @@
 <?php
  $usuario = Auth::user();
+ 
  $amigos = [];
   foreach($usuario->amigosMiSolicitud as $amigo)
   {
@@ -78,9 +79,10 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false" title="Notificaciones"><i class="fa fa-bell"></i></a>
+            aria-expanded="false" title="Notificaciones"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Solicitud de amistad</a>
+            <a class="dropdown-item" href="#">Estado: {{$usuario->strikes}} Strikes</a>
           </div>
         </li>
       </ul>
@@ -223,6 +225,7 @@
        </div>
       <div class="col-lg-5">
         <article class="publicacion-perfil">
+          @if($usuario->admin != 1)
         <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data" id="form-insertPos">
              @csrf
               <input type="text" name="publicacion" class="publicacion form-control @error('publicacion') is-invalid @enderror" placeholder="Estado">
@@ -254,14 +257,54 @@
                </div>
               <br>
               <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
-               @if(session('eliminadoposteo'))
+               @if(session('eliminada'))
                 <span style="color:red;font-size:13px">
-                  {{session('eliminadoposteo')}}
+                  {{session('eliminada')}}
                 </span>
                 @endif
+                @if(session('subida'))
+                 <span style="color:green;font-size:13px">
+                   {{session('categoria')}}
+                 </span>
+                 @endif
             </form>
+            @else
+            <form action="{{route('categoria.store')}}" method ="post">
+              @csrf
+               <input type="text" name="descripcion" class="publicacion form-control" placeholder="Categoria">
+               <br>
+               <button type="submit" name ="subircat">Subir</button>
+               @if(session('subida'))
+               <span style="color:green;font-size:13px">
+                 {{session('subida')}}
+               </span>
+               @endif
+               <br>
+               <br>
+            </form>
+            <form action="{{route('categoria.destroy')}}" method = "post">
+                @csrf
+                @method("delete")
+                <label for="tipopublicacion">Categoria</label>
+                <select name="tipopublicacion" id="tipopublicacion">
+                  @foreach($categorias as $cat)
+                   <option value="{{$cat->id}}">
+                       {{$cat->descripcion}}
+                   </option>
+                  @endforeach
+                </select>
+                <button type="submit" name ="eliminarcat">Eliminar</button>  
+                <br>   
+                @if(session('eliminada'))
+                 <span style="color:red;font-size:13px">
+                   {{session('eliminada')}}
+                 </span>
+                 @endif       
+             </form>
+            @endif
        </article>
        <article class="publicaciones-perfil"> 
+         @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
            @if($posteo->id_user == $usuario->id)
             <div class="pp col-12">
@@ -331,8 +374,43 @@
              </form>      
            </div>
          @endif
-          
        @endforeach
+       @else 
+       @foreach($posteosall as $posteo)
+       <div class="pp col-12">
+        <div class="user-public col-2 col-md-2 col-lg-3">
+          <img src="/storage/{{$posteo->usuario->photo}}" alt="">
+        </div>
+        <p class="col-9 col-lg-6">
+          {{$posteo->usuario->name}}
+        </p>
+      <form action="{{route('datos.deletePos')}}" method="post" class="col-1" id="form-eliminarPos">
+          @csrf 
+          @method('delete')
+        <button type="submit" name ="borrarpublicacion" class="borrar-public rounded-circle redondo" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
+        </form>
+      </div>
+       <p class="texto-publicacion">
+        {{$posteo->descripcion}}
+       </p>
+       @if(strlen($posteo->foto)!=0)
+       <div class="imagen-public">
+       <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
+       </div>
+       @endif
+       <div class="interaccion-publicacion">
+         <form action="" method="POST">
+               <button type="submit" name ="like">
+                    <i class="fa fa-thumbs-up"></i>  Like
+               </button>
+                <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+         </form>       
+       </div>
+       <div class="separar">
+
+      </div>
+       @endforeach
+       @endif
        </article>
        
       </div>
