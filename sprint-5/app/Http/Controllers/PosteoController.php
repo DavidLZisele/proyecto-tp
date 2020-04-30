@@ -24,13 +24,16 @@ class PosteoController extends Controller
                 'id_categoria'=>request()->tipopublicacion,
                 'id_user'=>$usuario->id
             ]);
+        }else 
+        {
+            Posteo::create([
+                'descripcion'=>request()->publicacion,
+                'id_categoria'=>request()->tipopublicacion,
+                'id_user'=>$usuario->id,
+                'foto'=>"",
+            ]);
         }
-        Posteo::create([
-            'descripcion'=>request()->publicacion,
-            'id_categoria'=>request()->tipopublicacion,
-            'id_user'=>$usuario->id,
-            'foto'=>"",
-        ]);
+        
         return redirect()->route('categoria.index')->with('subida',"Se ha registrado tu publicacion");
     }
     protected function destroy()
