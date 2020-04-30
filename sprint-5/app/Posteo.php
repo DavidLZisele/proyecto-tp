@@ -11,4 +11,8 @@ class Posteo extends Model
     {
         return $this->belongsTo("App\User","id_user");
     }
+    public function likes()
+    {
+        return $this->hasMany("App\Like", "id_posteo");
+    }
 }

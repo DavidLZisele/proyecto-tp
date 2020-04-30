@@ -29,7 +29,19 @@
         {
           return $amigo;
         }
-      }     
+      }
+      return null;     
+  }
+  function buscarLike($posteo,$usuario)
+  {
+    foreach($posteo->likes as $like)
+    {
+      if($like->id_user == $usuario->id)
+      {
+        return $like;
+      }
+    }
+    return null;
   }
 ?>
 <!DOCTYPE html>
@@ -115,77 +127,77 @@
        <div class="col-lg-3">  
         <article class="informacion">
        
-          <div class="bloke-imagen-perfil">
-            <img src="/storage/{{$usuario->photo}}" alt="foto">
-          </div>
-          <div class="bloke-info col-12">
-           <div class="datosusuario-bloque">
-            @if(isset($usuario->escuela))
-            <div class="col-12">
-                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-</a>
-                  <p class="col-10">{{$usuario->escuela}}</p>
+            <div class="bloke-imagen-perfil">
+              <img src="/storage/{{$usuario->photo}}" alt="foto">
             </div>
-            @else
+            <div class="bloke-info col-12">
+             <div class="datosusuario-bloque">
+              @if(isset($usuario->escuela))
               <div class="col-12">
-                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-</a>
-                  <p class="col-10">Escuela</p>
-            </div>
-            @endif
-            @if(isset($usuario->universidad))
-                <div class="col-12">
-                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-</a>
-                    <p class="col-10">{{$usuario->universidad}}</p>
-                </div>
-            @else
-              <div class="col-12">
-                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-</a>
-                  <p class="col-10">Universidad</p>
-                </div>
-            @endif
-            @if(isset($usuario->relacion))
-              <div class="col-12">
-                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
-</a>
-                  <p class="col-10">{{$usuario->relacion}}</p>
-               </div>
+                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          </a>
+                    <p class="col-10">{{$usuario->escuela}}</p>
+              </div>
               @else
                 <div class="col-12">
-                  <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
-</a>
-                  <p class="col-10">Relacion</p>
-               </div>
-               @endif
-         </div>
-         @if(isset($usuario->ciudad))
-          <div>
-            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
-</a>
-            <p class="col-10">{{$usuario->ciudad}}</p>
-          </div>
-          @else
+                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          </a>
+                    <p class="col-10">Escuela</p>
+              </div>
+              @endif
+              @if(isset($usuario->universidad))
+                  <div class="col-12">
+                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          </a>
+                      <p class="col-10">{{$usuario->universidad}}</p>
+                  </div>
+              @else
+                <div class="col-12">
+                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+          </a>
+                    <p class="col-10">Universidad</p>
+                  </div>
+              @endif
+              @if(isset($usuario->relacion))
+                <div class="col-12">
+                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+          </a>
+                    <p class="col-10">{{$usuario->relacion}}</p>
+                 </div>
+                @else
+                  <div class="col-12">
+                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+          </a>
+                    <p class="col-10">Relacion</p>
+                 </div>
+                 @endif
+           </div>
+           @if(isset($usuario->ciudad))
             <div>
-            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
-</a>
-            <p class="col-10">Ciudad</p>
-          </div>
-         @endif
-          @if(isset($usuario->fecha_cumpleanios))
-          <div>
-            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-            <p class="col-10">{{$usuario->fecha_cumpleanios}}</p>
-          </div>
-           @else
-            <div>
-            <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-            <p class="col-10">Cumpleaños</p>
-          </div>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+          </a>
+              <p class="col-10">{{$usuario->ciudad}}</p>
+            </div>
+            @else
+              <div>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+          </a>
+              <p class="col-10">Ciudad</p>
+            </div>
            @endif
-          </div>
-        </article>
+            @if(isset($usuario->fecha_cumpleanios))
+            <div>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
+              <p class="col-10">{{$usuario->fecha_cumpleanios}}</p>
+            </div>
+             @else
+              <div>
+              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
+              <p class="col-10">Cumpleaños</p>
+            </div>
+             @endif
+            </div>
+          </article>
         <article class="mis-perfil">
           <div class="w3-card w3-round">
             <div class="w3-white">
@@ -329,12 +341,27 @@
            </div>
            @endif
            <div class="interaccion-publicacion">
-             <form action="" method="POST">
-                   <button type="submit" name ="like">
-                        <i class="fa fa-thumbs-up"></i>  Like
-                   </button>
-                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
-             </form>       
+            @if(buscarLike($posteo,$usuario) == null)
+            <form action="{{route('like.store')}}" method="POST">
+             @csrf
+                    <input type="hidden" name="iduser" value="{{$usuario->id}}">
+                    <input type="hidden" name="idposteo" value="{{$posteo->id}}">
+                    <button type="submit" name ="crearlike">
+                         <i class="fa fa-thumbs-up"></i>  Like ({{$posteo->cant_likes}})
+                    </button>
+                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+              </form>
+              @else 
+             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST">
+               @csrf 
+               @method('delete')
+                    <input type="hidden" name="idposteo" value="{{$posteo->id}}">
+                    <button type="submit" name ="eliminarlike" style="background-color:red">
+                         <i class="fa fa-thumbs-up"></i> Like {{$posteo->cant_likes}}
+                    </button>
+                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+              </form>
+              @endif    
            </div>
            <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
             @csrf 
@@ -364,14 +391,27 @@
            </div>
            @endif
            <div class="interaccion-publicacion separar">
-             <form action="perfil.php" method="POST">
-                   <button type="submit" name ="like">
-                        <i class="fa fa-thumbs-up"></i>  Like
-                   </button>
-                    <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar
+            @if(buscarLike($posteo,$usuario) == null)
+            <form action="{{route('like.store')}}" method="POST">
+             @csrf
+                    <input type="hidden" name="iduser" value="{{$usuario->id}}">
+                    <input type="hidden" name="idposteo" value="{{$posteo->id}}">
+                    <button type="submit" name ="crearlike">
+                         <i class="fa fa-thumbs-up"></i>  Like ({{$posteo->cant_likes}})
                     </button>
-                    
-             </form>      
+                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+              </form>
+              @else 
+             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST">
+               @csrf 
+               @method('delete')
+                    <input type="hidden" name="idposteo" value="{{$posteo->id}}">
+                    <button type="submit" name ="eliminarlike" style="background-color:red">
+                         <i class="fa fa-thumbs-up"></i> Like {{$posteo->cant_likes}}
+                    </button>
+                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+              </form>
+              @endif           
            </div>
          @endif
        @endforeach
@@ -399,12 +439,27 @@
        </div>
        @endif
        <div class="interaccion-publicacion">
-         <form action="" method="POST">
-               <button type="submit" name ="like">
-                    <i class="fa fa-thumbs-up"></i>  Like
-               </button>
-                <button type="submit" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
-         </form>       
+        @if(buscarLike($posteo,$usuario) == null)
+        <form action="{{route('like.store')}}" method="POST">
+         @csrf
+                <input type="hidden" name="iduser" value="{{$usuario->id}}">
+                <input type="hidden" name="idposteo" value="{{$posteo->id}}">
+                <button type="submit" name ="crearlike">
+                     <i class="fa fa-thumbs-up"></i>  Like ({{$posteo->cant_likes}})
+                </button>
+                 <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+          </form>
+          @else 
+         <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST">
+           @csrf 
+           @method('delete')
+                <input type="hidden" name="idposteo" value="{{$posteo->id}}">
+                <button type="submit" name ="eliminarlike" style="background-color:red">
+                     <i class="fa fa-thumbs-up"></i> Like {{$posteo->cant_likes}}
+                </button>
+                 <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+          </form>
+          @endif     
        </div>
        <div class="separar">
 
@@ -470,9 +525,7 @@
   </div>
   <script>
    
-    window.onload = function()
-    {
-       // Accordion
+   // Accordion
     function myFunction(id) {
       var x = document.getElementById(id);
       if (x.className.indexOf("w3-show") == -1) {
@@ -494,6 +547,8 @@
         x.className = x.className.replace(" w3-show", "");
       }
     }
+    window.onload = function()
+    {
     document.getElementById('form-insertPos').onsubmit = function(event)
     {
         let inputs = Array.from(this.elements);

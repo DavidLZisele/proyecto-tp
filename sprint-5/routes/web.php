@@ -26,7 +26,9 @@ Route::get('datos', "UsuarioController@index")->name('datos.index')->middleware(
 Route::get('perfil', "CategoriaController@index")->name('categoria.index')->middleware('auth');
 Route::post('categorias/store', "CategoriaController@store")->name('categoria.store');
 Route::delete('categorias/destroy', "CategoriaController@destroy")->name('categoria.destroy');
+Route::post('like/store', "LikeController@store")->name('like.store');
 
+Route::delete('like/{like}/destroy', "LikeController@destroy")->name('like.destroy');
 Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->name('datos.cambiarDatos');
 Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
 Route::put('datos/{usuario}/cambiarFoto', "UsuarioController@updateFoto")->name('datos.cambiarFoto');
