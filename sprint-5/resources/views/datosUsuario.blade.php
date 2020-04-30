@@ -43,7 +43,7 @@ $usuario = Auth::user();
     </div>
     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="{{route('datos.cambiarDatos', $usuario)}}" method = "POST">
+      <form action="{{route('datos.cambiarDatos', $usuario)}}" method = "POST" id="form-cambiarDatos">
         @csrf 
         @method('PUT')
             <div>
@@ -121,7 +121,7 @@ $usuario = Auth::user();
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">
-      <form action="{{route('datos.cambiarPassword', $usuario)}}" method = "POST">
+      <form action="{{route('datos.cambiarPassword', $usuario)}}" method = "POST" id="form-cambiarPass">
         @csrf 
         @method('PUT')
             <div>
@@ -184,5 +184,131 @@ $usuario = Auth::user();
   </div>
 </div>
     </div>
+    <script>
+      window.onload = function()
+      {
+        document.getElementById('form-cambiarDatos').onsubmit = function(event)
+        {
+          let inputs = Array.from(this.elements);
+          inputs.pop();
+          inputs.shift();
+          let validarCiudad = /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/;
+          let resp1 = false;
+          let resp2= false;
+            for(let input of inputs)
+              {
+                if(input.getAttribute('name')=="universidad" || input.getAttribute('name')=="escuela" || input.getAttribute('name')=="ciudad")
+                  {
+                      if(input.value == "")
+                    {
+                      resp1 = true;
+                      break;
+                    } if(input.getAttribute('name')=="ciudad")
+                       {
+                          if(!validarCiudad.test(input.value))
+                          {
+                            resp2 = true;
+                          }
+                       }
+                  }
+              }
+             if(resp1)
+                 {
+                   event.preventDefault();
+                    alert('Campo vacio');
+                } else if(resp2)
+                {
+                    event.preventDefault();
+                    alert('Ciudad no permite numeros');
+                    this.value = "";
+                }
+        }
+        document.getElementById('form-cambiarPass').onsubmit = function(event)
+        {
+          let inputs = Array.from(this.elements);
+          inputs.pop();
+          inputs.shift();
+          let resp1 = false;
+          let resp2 = false;
+            for(let input of inputs)
+              {
+                if(input.getAttribute('name')=="password1" || input.getAttribute('name')=="password2" || input.getAttribute('name') == "password3")
+                  {
+                      if(input.value == "")
+                    {
+                      resp1 = true;
+                      break;
+                    } else if(input.value.length < 6)
+                    {
+                      resp2 = true;
+                    }
+                  }
+              }
+             if(resp1)
+                 {
+                    event.preventDefault();
+                    alert('Campo vacio');
+                }
+            if(resp2){
+                    event.preventDefault();
+                    alert('Password solo acepta mas de 6 caracteres');
+            }
+        }
+        document.querySelector('[name=universidad]').onblur= function()
+           {
+               this.value = this.value.trim();
+               this.value = this.value[0].toUpperCase() + this.value.slice(1);
+               let uni = "";
+               for(let i = 0; i< this.value.length;i++)
+               {
+                 if(this.value[i] != " ")
+                 {
+                    uni += this.value[i];
+                 } else
+                 {
+                    uni += " " + this.value[i+1].toUpperCase();
+                    i++;
+                 }
+               }
+               this.value = uni;
+           }
+           document.querySelector('[name=escuela]').onblur= function()
+           {
+            this.value = this.value.trim();
+               this.value = this.value[0].toUpperCase() + this.value.slice(1);
+               let esc = "";
+               for(let i = 0; i< this.value.length;i++)
+               {
+                 if(this.value[i] != " ")
+                 {
+                    esc += this.value[i];
+                 } else
+                 {
+                    esc += " " + this.value[i+1].toUpperCase();
+                    i++;
+                 }
+               }
+               this.value = esc;
+           }  
+           document.querySelector('[name=ciudad]').onblur= function()
+           {
+            this.value = this.value.trim();
+               this.value = this.value[0].toUpperCase() + this.value.slice(1);
+               let ciu = "";
+               for(let i = 0; i< this.value.length;i++)
+               {
+                 if(this.value[i] != " ")
+                 {
+                    ciu += this.value[i];
+                 } else
+                 {
+                    ciu += " " + this.value[i+1].toUpperCase();
+                    i++;
+                 }
+               }
+               this.value = ciu;
+           }    
+      }
+    </script>
 </body>
 </html>

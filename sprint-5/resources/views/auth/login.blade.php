@@ -76,6 +76,46 @@
 
     </footer>
     </div>
+    <script>
+        window.onload = function()
+        {
+            document.getElementById('form-login').onsubmit = function(event)
+            {
+                let resp1 = false;
+                let resp2 = false;
+                let validar = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
+                inputs = Array.from(this.elements);
+                inputs.pop();
+                inputs.shift();
+                for(let input of inputs)
+                {
+                    console.log(input);
+                    if(input.value == "")
+                    {
+                        resp1 = true;
+                        break;
+                    } else if(input.getAttribute('name')== "email")
+                    {
+                        if(!validar.test(input.value))
+                         {
+                             resp2 = true;
+                             break;
+                        }
+                    }                
+                }
+                if(resp1)
+                {
+                    event.preventDefault();
+                    alert('Campos vacios');
+                }
+                if(resp2)
+                {
+                    event.preventDefault();
+                    alert('No es un mail valido');
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

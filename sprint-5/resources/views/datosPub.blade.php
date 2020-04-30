@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container col-12 contenedor-modpub">
-            <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4">
+            <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos">
                 @csrf 
                 @method('PUT') 
                  <div>
@@ -31,5 +31,33 @@
                 <button type="submit">Aceptar</button>
             </form>
     </div>
+    <script>
+        window.onload = function()
+        {
+            document.getElementById('form-actPos').onsubmit = function(event)
+            {
+                let inputs = Array.from(this.elements);
+                inputs.pop();
+                inputs.shift();
+                let resp = false;
+            for(let input of inputs)
+            {
+                if(input.getAttribute('name')=="contenido")
+                 {
+                     if(input.value == "")
+                    {
+                        resp = true;
+                        break;
+                    }
+                 }
+            }
+            if(resp)
+            {
+                 event.preventDefault();
+                alert('Campo vacio');
+             }
+           }
+        }
+    </script>
 </body>
 </html>

@@ -118,7 +118,111 @@
     </footer>
 
     </div>
-
+    <script>
+        window.onload = function()
+       {
+           document.querySelector('.form-registro').onsubmit = function(event)
+           {
+               let resp1 = false;
+               let resp2 = false;
+               let resp3 = false;
+               let resp4 = false;
+               let validarEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
+               let validarUsuario = /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/;
+               inputs = Array.from(this.elements);
+               inputs.pop();
+               inputs.shift();
+               for(let input of inputs)
+               {
+                   if(input.getAttribute('name') != "photo")
+                   {
+                       if(input.value == "")
+                       {
+                            resp1 = true;                         
+                       } else
+                        if(input.getAttribute('name')=="name" || input.getAttribute('name')=="surname")
+                        {
+                            if(!validarUsuario.test(input.value))
+                            {
+                                 resp3 = true; 
+                            }
+                        } else if(input.getAttribute('name')=="email")
+                        {
+                            if(!validarEmail.test(input.value))
+                            {
+                                 resp2 = true;
+                            }
+                        } else if(input.getAttribute('name')=="password")
+                        {
+                            if(input.value.length < 6)
+                            {
+                                resp4 = true;
+                                input.value = "";
+                            }
+                        }
+                   }
+               }
+               if(resp1 || resp2 || resp3 || resp4)
+               {
+                   if(resp1)
+                   {
+                    alert('Campos vacios');
+                   }
+                   if(resp2)
+                   {
+                    alert('No es un mail valido');
+                   }
+                   if(resp3)
+                   {
+                    alert('Nombre y apellido no aceptan numeros, ni caracteres especiales');
+                   }
+                   if(resp4)
+                   {
+                    alert('Password demasiado corta, mas de 6 caracteres');
+                   }
+                   event.preventDefault();
+               }
+           }
+           document.querySelector('[name=name]').onblur= function()
+           {
+               this.value = this.value.trim();
+               this.value = this.value.toLowerCase();
+               this.value = this.value[0].toUpperCase() + this.value.slice(1);
+               let nom = "";
+               for(let i = 0; i< this.value.length;i++)
+               {
+                 if(this.value[i] != " ")
+                 {
+                    nom += this.value[i];
+                 } else
+                 {
+                    nom += " " + this.value[i+1].toUpperCase();
+                    i++;
+                 }
+               }
+               this.value = nom;
+           }
+           document.querySelector('[name=surname]').onblur= function()
+           {
+               this.value = this.value.trim();
+               this.value = this.value.toLowerCase();
+               this.value = this.value[0].toUpperCase() + this.value.slice(1);
+               let ape = "";
+               for(let i = 0; i< this.value.length;i++)
+               {
+                 if(this.value[i] != " ")
+                 {
+                    ape += this.value[i];
+                 } else
+                 {
+                    ape += " " + this.value[i+1].toUpperCase();
+                    i++;
+                 }
+               }
+               this.value = ape;
+           }
+       }
+   </script>
 </body>
 
 </html>

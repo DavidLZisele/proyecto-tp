@@ -223,7 +223,7 @@
        </div>
       <div class="col-lg-5">
         <article class="publicacion-perfil">
-        <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data">
+        <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data" id="form-insertPos">
              @csrf
               <input type="text" name="publicacion" class="publicacion form-control @error('publicacion') is-invalid @enderror" placeholder="Estado">
               @error('publicacion')
@@ -271,7 +271,7 @@
             <p class="col-9 col-lg-6">
               {{$usuario->name}}
             </p>
-          <form action="{{route('datos.deletePos')}}" method="post" class="col-1">
+          <form action="{{route('datos.deletePos')}}" method="post" class="col-1" id="form-eliminarPos">
               @csrf 
               @method('delete')
             <button type="submit" name ="borrarpublicacion" class="borrar-public rounded-circle redondo" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
@@ -342,7 +342,7 @@
               Agregar amigos
             </h3>
             <div class="sa-2 col-12">
-            <form action="{{route('datos.insertSolicitud',$usuario)}}" method="POST">
+            <form action="{{route('datos.insertSolicitud',$usuario)}}" method="POST" id="form-buscar-amigos">
               @csrf
                 <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">
                 <button type="submit" name="buscaramigo" class="buscaramigo">Buscar</button>
@@ -391,7 +391,10 @@
      </section>
   </div>
   <script>
-    // Accordion
+   
+    window.onload = function()
+    {
+       // Accordion
     function myFunction(id) {
       var x = document.getElementById(id);
       if (x.className.indexOf("w3-show") == -1) {
@@ -413,6 +416,60 @@
         x.className = x.className.replace(" w3-show", "");
       }
     }
+    document.getElementById('form-insertPos').onsubmit = function(event)
+    {
+        let inputs = Array.from(this.elements);
+        inputs.pop();
+        inputs.shift();
+        let resp = false;
+        for(let input of inputs)
+        {
+          if(input.getAttribute('name')=="publicacion")
+          {
+            if(input.value == "")
+            {
+              resp = true;
+              break;
+            }
+          }
+        }
+        if(resp)
+        {
+          event.preventDefault();
+          alert('Campo vacio');
+        }
+    }
+    document.getElementById('form-buscar-amigos').onsubmit = function(event)
+    {
+        let inputs = Array.from(this.elements);
+        inputs.pop();
+        inputs.shift();
+        let resp = false;
+        for(let input of inputs)
+        {
+          if(input.getAttribute('name')=="amigo")
+          {
+            if(input.value == "")
+            {
+              resp = true;
+              break;
+            }
+          }
+        }
+        if(resp)
+        {
+          event.preventDefault();
+          alert('Campo vacio');
+        }
+    }
+    document.getElementById('form-eliminarPos').onsubmit = function(event)
+    {
+      if(!confirm('Desea eliminarlo'))
+      {
+        event.preventDefault();
+      }
+    }
+  }
     </script>
     
 
