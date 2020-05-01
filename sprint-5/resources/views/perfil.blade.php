@@ -463,13 +463,20 @@ Perfil
        @endforeach
        @else 
        @foreach($posteosall as $posteo)
-       <div class="pp col-12">
-        <div class="user-public col-2 col-md-2 col-lg-3">
-          <img src="/storage/{{$posteo->usuario->photo}}" alt="">
-        </div>
-        <p class="col-9 col-lg-6">
-          {{$posteo->usuario->name}}
-        </p>
+
+       <div class="pp">
+         <div class="foto-nombre">
+           <figure class="user-public">
+             <img src="/storage/{{$posteo->usuario->photo}}" alt="">
+            </figure>
+            <span class="nombre-usuario">
+              {{$posteo->usuario->name}} {{$posteo->usuario->surname}} 
+            </span>
+            <span id="categoria-posteo">
+              Peliculas
+            </span>
+          </div>
+            
       <form action="{{route('datos.deletePos')}}" method="post" class="col-1" id="form-eliminarPos">
           @csrf 
           @method('delete')
