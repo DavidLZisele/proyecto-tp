@@ -18,11 +18,6 @@ a
     text-decoration: none;
     display:block;
 }
-.redondo
-{
-    width: 28px;
-    height: 28px;
-}
 .error 
 {
     margin: 0;
@@ -58,7 +53,39 @@ a
  padding: 5px 0;
  border:solid 1px #333;
 }
+.div-megusta, .div-comentar
+{
+    position: relative;
+    width: 50px;
+    text-align: left;
+}
+.div-megusta button, .div-comentar button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 0;
+}
+.div-megusta i, .div-comentar i
+{
+    font-size: 25px;
+    z-index: 1;
+    color:var(--color-fondoBoton);
+}
 
+.span-like, .span-comentar
+{
+    font-size: 25px;
+}
+.form-like-comentar
+{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
 /*----------------------INDEX----------------------------*/
 #index
 {
@@ -995,10 +1022,9 @@ body::-webkit-scrollbar-track{
      }
      .borrar-public
      {
-         color:white;
-         background-color: red ;
-         border: solid 1px red;
-         border-radius: 25px;
+         color: var(--color-fondoBoton);
+         border:0;
+         background-color: white;
      }
      .div-subirfoto
      {
@@ -1104,12 +1130,10 @@ body::-webkit-scrollbar-track{
          width: 20px;
          padding-left:15px;
      }
-     .editar-publicacion-form button
+     .editar-publicacion-form i
      {
-         background-color: black;
-         color: white;
-         border:solid 1px black;
-         border-radius: 25px;
+        font-size: 18px;
+        color:var(--color-fondoBoton);
      }
      .div-foto-modificarpub
      {

@@ -307,7 +307,7 @@ Perfil
           <form action="{{route('datos.deletePos')}}" method="post" class="col-1" id="form-eliminarPos">
               @csrf 
               @method('delete')
-            <button type="submit" name ="borrarpublicacion" class="borrar-public rounded-circle redondo" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
+            <button type="submit" name ="borrarpublicacion" class="borrar-public" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
             </form>
           </div>
            <p class="texto-publicacion">
@@ -320,30 +320,45 @@ Perfil
            @endif
            <div class="interaccion-publicacion">
             @if(buscarLike($posteo,$usuario) == null)
-            <form action="{{route('like.store')}}" method="POST">
+            <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
              @csrf
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
-                    <button type="submit" name ="crearlike">
-                         <i class="fa fa-thumbs-up"></i>  Like ({{$posteo->cant_likes}})
-                    </button>
-                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+                    <div class="div-megusta">
+                      <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      <span class="span-like">
+                        {{$posteo->cant_likes}}
+                      </span>                 
+                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                    </div>
+                     <div class="div-comentar">
+                      <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      <button type="button" name="comentar" style="width: 25px"> </button>
+                     </div>
+                     
               </form>
               @else 
-             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST">
+             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
                @csrf 
                @method('delete')
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
-                    <button type="submit" name ="eliminarlike" style="background-color:red">
-                         <i class="fa fa-thumbs-up"></i> Like {{$posteo->cant_likes}}
-                    </button>
-                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+                    <div class="div-megusta">
+                      <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                      <span class="span-like">
+                        {{$posteo->cant_likes}}
+                      </span>                 
+                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                    </div>
+                    <div class="div-comentar">
+                      <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      <button type="button" name="comentar" style="width: 25px"> </button>
+                     </div>
               </form>
               @endif    
            </div>
            <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
             @csrf 
-               <button type="submit" class="rounded-circle redondo" ><i class="fa fa-pencil" aria-hidden="true"></i>
+               <button type="submit" style="border:0;background-color:white"><i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>
              </form> 
              <div class="separar">
@@ -370,26 +385,41 @@ Perfil
            @endif
            <div class="interaccion-publicacion separar">
             @if(buscarLike($posteo,$usuario) == null)
-            <form action="{{route('like.store')}}" method="POST">
+            <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
              @csrf
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
-                    <button type="submit" name ="crearlike">
-                         <i class="fa fa-thumbs-up"></i>  Like ({{$posteo->cant_likes}})
-                    </button>
-                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+                    <div class="div-megusta">
+                      <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      <span class="span-like">
+                        {{$posteo->cant_likes}}
+                      </span>                 
+                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                    </div>
+                     <div class="div-comentar">
+                      <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      <button type="button" name="comentar" style="width: 25px"> </button>
+                     </div>
+                     
               </form>
               @else 
-             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST">
+             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
                @csrf 
                @method('delete')
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
-                    <button type="submit" name ="eliminarlike" style="background-color:red">
-                         <i class="fa fa-thumbs-up"></i> Like {{$posteo->cant_likes}}
-                    </button>
-                     <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+                    <div class="div-megusta">
+                      <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                      <span class="span-like">
+                        {{$posteo->cant_likes}}
+                      </span>                 
+                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                    </div>
+                    <div class="div-comentar">
+                      <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      <button type="button" name="comentar" style="width: 25px"> </button>
+                     </div>
               </form>
-              @endif           
+              @endif       
            </div>
          @endif
        @endforeach
@@ -405,7 +435,7 @@ Perfil
       <form action="{{route('datos.deletePos')}}" method="post" class="col-1" id="form-eliminarPos">
           @csrf 
           @method('delete')
-        <button type="submit" name ="borrarpublicacion" class="borrar-public rounded-circle redondo" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
+          <button type="submit" name ="borrarpublicacion" class="borrar-public" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
         </form>
       </div>
        <p class="texto-publicacion">
@@ -418,24 +448,39 @@ Perfil
        @endif
        <div class="interaccion-publicacion">
         @if(buscarLike($posteo,$usuario) == null)
-        <form action="{{route('like.store')}}" method="POST">
+        <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
          @csrf
                 <input type="hidden" name="iduser" value="{{$usuario->id}}">
                 <input type="hidden" name="idposteo" value="{{$posteo->id}}">
-                <button type="submit" name ="crearlike">
-                     <i class="fa fa-thumbs-up"></i>  Like ({{$posteo->cant_likes}})
-                </button>
-                 <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+                <div class="div-megusta">
+                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <span class="span-like">
+                    {{$posteo->cant_likes}}
+                  </span>                 
+                  <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                </div>
+                 <div class="div-comentar">
+                  <i class="fa fa-comment-o" aria-hidden="true"></i>
+                  <button type="button" name="comentar" style="width: 25px"> </button>
+                 </div>
+                 
           </form>
           @else 
-         <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST">
+         <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
            @csrf 
            @method('delete')
                 <input type="hidden" name="idposteo" value="{{$posteo->id}}">
-                <button type="submit" name ="eliminarlike" style="background-color:red">
-                     <i class="fa fa-thumbs-up"></i> Like {{$posteo->cant_likes}}
-                </button>
-                 <button type="button" name="comentar"> <i class="fa fa-comment"></i>  Comentar</button>
+                <div class="div-megusta">
+                  <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                  <span class="span-like">
+                    {{$posteo->cant_likes}}
+                  </span>                 
+                  <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                </div>
+                <div class="div-comentar">
+                  <i class="fa fa-comment-o" aria-hidden="true"></i>
+                  <button type="button" name="comentar" style="width: 25px"> </button>
+                 </div>
           </form>
           @endif     
        </div>
