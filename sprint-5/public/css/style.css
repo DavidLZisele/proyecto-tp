@@ -56,7 +56,7 @@ a
 .div-megusta, .div-comentar
 {
     position: relative;
-    width: 50px;
+    width: 45px;
     text-align: left;
 }
 .div-megusta button, .div-comentar button {
@@ -70,14 +70,14 @@ a
 }
 .div-megusta i, .div-comentar i
 {
-    font-size: 25px;
+    font-size: 20px;
     z-index: 1;
     color:var(--color-fondoBoton);
 }
 
 .span-like, .span-comentar
 {
-    font-size: 25px;
+    font-size: 20px;
 }
 .form-like-comentar
 {
@@ -827,28 +827,64 @@ body::-webkit-scrollbar-track{
      .pp
      {
          display:flex;
-         flex-wrap: wrap;
-         justify-content: space-between;
          align-items: center;
-         border-bottom: solid 1px #333;
          padding: 10px 5px;
+         justify-content: space-between;
+         position: relative;
      }
+     .pp .foto-nombre{
+        display: flex;
+        align-items: center;
+        position: relative;
+        min-width: 180px;
+        height: 50px;
+        justify-content: space-between;
+     }
+     .pp .foto-nombre figure{
+         margin: 0;
+         margin-left: 10px;
+     }
+     .pp .foto-nombre .nombre-usuario{
+         position: absolute;
+         top: 0;
+         left: 31%;
+         font-size: 1.4em;
+         width: 100%;
+     }
+     #categoria-posteo{
+         position: absolute;
+         bottom: 0;
+         left: 30%;
+         font-size: .9em;
+         color: rgba(10,10,10,.8);
+     }
+     .pp .menu-mas{
+        position: absolute;
+        right: 5%;
+        top: 5%;
+     }
+
      .publicaciones-perfil .texto-publicacion
      {
          margin:5px 0;
+         font-size: 1.1em;
      }
      .interaccion-publicacion
      {
          margin-top: 10px;
          padding-left:15px;
+         margin-bottom: 12px;
+     }
+     .interaccion-publicacion.amigo{
+         padding-bottom: 15px;
      }
      .separar 
      {
-        border-bottom: solid 25px rgba(75, 87, 100,5);
-        padding-bottom: 15px;
+        border-bottom: 15px solid rgb(75, 87, 100);
+
      }
      .separar:last-child{
-         border-bottom: 0;
+         border: 0;
      }
      .interaccion-publicacion button{
         border-radius: 5px;
@@ -884,11 +920,7 @@ body::-webkit-scrollbar-track{
         padding: 7px 3px;
         border:solid 1px black;
      }
-     .pp p 
-     {
-         padding-top:15px;
-         align-self: center;
-     }
+     
      .user-public img 
      {
         border:solid 1px #333;
@@ -1025,6 +1057,7 @@ body::-webkit-scrollbar-track{
          color: var(--color-fondoBoton);
          border:0;
          background-color: white;
+         outline: 0;
      }
      .div-subirfoto
      {
@@ -1124,15 +1157,14 @@ body::-webkit-scrollbar-track{
      {
         margin-bottom: 10px;
      }
-     .editar-publicacion-form
-     {
-         margin-top:10px;
-         width: 20px;
-         padding-left:15px;
+     .editar-publicacion-form button{
+         background: transparent;
+         border: none;
+         outline: none;
      }
      .editar-publicacion-form i
      {
-        font-size: 18px;
+
         color:var(--color-fondoBoton);
      }
      .div-foto-modificarpub

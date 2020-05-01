@@ -59,7 +59,7 @@ Perfil
             <a class="nav-link socialperfil" href="#" title="Noticias">Social</i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" title="Noticias"><i class="fa fa-globe"></i></a>
+          <a class="nav-link" href="https:\\www.rosario3.com" title="Noticias"><i class="fa fa-globe"></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" title="Configuracion"><i class="fa fa-user"></i></a>
@@ -293,26 +293,57 @@ Perfil
              </form>
             @endif
        </article>
+
        <article class="publicaciones-perfil"> 
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
            @if($posteo->id_user == $usuario->id)
-            <div class="pp col-12">
-            <div class="user-public col-2 col-md-2 col-lg-3">
-              <img src="/storage/{{$usuario->photo}}" alt="">
-            </div>
-            <p class="col-9 col-lg-6">
-              {{$usuario->name}}
-            </p>
-          <form action="{{route('datos.deletePos')}}" method="post" class="col-1" id="form-eliminarPos">
-              @csrf 
-              @method('delete')
-            <button type="submit" name ="borrarpublicacion" class="borrar-public" title="Borrar publicacion" value="{{$posteo->id}}">  <i class="fa fa-times" aria-hidden="true"></i></button>
-            </form>
+            <div class="pp">
+              <div class="foto-nombre">
+                <figure class="user-public ">
+                  <img src="/storage/{{$usuario->photo}}" alt="">
+                </figure>
+                <span class="nombre-usuario">
+                  {{$usuario->name}} {{$usuario->surname}}
+                </span>
+                <span id="categoria-posteo">
+                  Peliculas
+                </span>
+              </div>
+
+
+              {{-- ACA VA EL DESPLEGABLE PARA EDITAR O BORRAR LA PUBLICACION --}}
+              <div class="nav menu-dots">
+                <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                aria-expanded="false" title="Notificaciones">
+                <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                <ul class="dropdown-menu" id="desplegable">
+                  <li class="item">
+                    <form action="{{route('datos.deletePos')}}" method="post" class="" id="form-eliminarPos">
+                      @csrf 
+                      @method('delete')
+                      <button type="submit" name ="borrarpublicacion" class="borrar-public" title="Borrar publicacion" value="{{$posteo->id}}">  
+                        <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                      </button>
+                    </form>
+                  </li>
+                  <li class="item">
+                    <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
+                      @csrf 
+                      <button type="submit" title="Editar Publicacion"><i class="fa fa-pencil" aria-hidden="true"> Editar</i>
+                      </button>
+                    </form> 
+
+                  </li>
+                  
+                </ul>
+              </div>
           </div>
-           <p class="texto-publicacion">
+
+            <p class="texto-publicacion">
             {{$posteo->descripcion}}
            </p>
+
            @if(strlen($posteo->foto)!=0)
            <div class="imagen-public">
            <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
@@ -356,23 +387,30 @@ Perfil
               </form>
               @endif    
            </div>
-           <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
-            @csrf 
-               <button type="submit" style="border:0;background-color:white"><i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-             </form> 
+
+           
              <div class="separar">
 
              </div>
              @else
-            <div class="pp col-12">
-            <div class="user-public col-2 col-md-2 col-lg-3">
-              <img src="storage/{{buscarPosteoAmigo($posteo->id_user,$amigos)->photo}}" alt="">
-            </div>
-            <p class="col-9 col-lg-6">
-              {{buscarPosteoAmigo($posteo->id_user,$amigos)->name}}
-          </p>
-            <form action="perfil.php" method="post" class="col-1">
+
+             {{-- POSTEOS DE AMIGOS --}}
+
+
+            <div class="pp">
+              <div class="foto-nombre">
+                <figure class="user-public">
+                  <img src="storage/{{buscarPosteoAmigo($posteo->id_user,$amigos)->photo}}" alt="">
+                </figure>
+                <span class="nombre-usuario">
+                  {{buscarPosteoAmigo($posteo->id_user,$amigos)->name}} {{buscarPosteoAmigo($posteo->id_user,$amigos)->surname}}
+                </span>
+                <span id="categoria-posteo">
+                  Peliculas
+                </span>
+              </div>
+
+            <form action="perfil.php" method="post" class=""">
             </form>
           </div>
            <p class="texto-publicacion">
@@ -383,7 +421,7 @@ Perfil
            <img src="storage/{{$posteo->foto}}" alt="no se encontro la foto">
            </div>
            @endif
-           <div class="interaccion-publicacion separar">
+           <div class="interaccion-publicacion separar amigo">
             @if(buscarLike($posteo,$usuario) == null)
             <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
              @csrf
