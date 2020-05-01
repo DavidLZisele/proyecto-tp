@@ -168,12 +168,12 @@ $usuario = Auth::user();
                 <i class="fa fa-camera" aria-hidden="true"></i>
                   <span>Cambiar foto</span>
                 <input type="file" name="cambiar-foto" id="cambiar-foto" class="form-control @error('cambiar-foto') is-invalid @enderror">
-                @error('cambiar-foto')
-                     <span class="invalid-feedback" role="alert">
-                         <strong>{{ $message }}</strong>
-                     </span>
-                    @enderror
-                </p>
+              </p>
+              @error('cambiar-foto')
+                   <span id="cambiar-foto" class="invalid-feedback" role="alert">
+                       <strong>El campo Cambiar Foto es obligatorio</strong>
+                   </span>
+                  @enderror
                  <p>
                      <button type="submit" name="cambiarfoto" id="cambiarfoto">Aceptar</button>              
                  </p>        

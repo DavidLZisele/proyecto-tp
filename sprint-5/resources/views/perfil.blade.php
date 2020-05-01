@@ -177,13 +177,13 @@ Perfil
             </div>
           </article>
         <article class="mis-perfil">
-          <div class="w3-card w3-round">
+          <div class="rounded w3-card w3-round">
             <div class="w3-white">
-              <button onclick="myFunction('Demo1')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Mis Grupos</button>
+              <button onclick="myFunction('Demo1')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Mis Grupos</button>
               <div id="Demo1" class="w3-hide w3-container">
                 <p>...</p>
               </div>
-              <button onclick="myFunction('Demo4')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
+              <button onclick="myFunction('Demo4')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
                 @foreach($amigos as $amigo)
                 <p class="p-amigo" class="col-12">
@@ -192,14 +192,14 @@ Perfil
                 </p>
                 @endforeach
               </div>
-              <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
+              <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
               <div id="Demo2" class="w3-hide w3-container">
                 <p>...</p>
               </div>
                <div id="Demo2" class="w3-hide w3-container">
                 <p>...</p>
               </div>
-              <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
+              <button onclick="myFunction('Demo3')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
               <div id="Demo3" class="w3-hide w3-container">
              <div class="w3-row-padding">
              <br>
@@ -508,7 +508,7 @@ Perfil
       var x = document.getElementById(id);
       if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-        x.previousElementSibling.className += " w3-theme-d1";
+
       } else { 
         x.className = x.className.replace("w3-show", "");
         x.previousElementSibling.className = 

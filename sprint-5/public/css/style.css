@@ -490,6 +490,10 @@ background-color:lightslategray;
  {
       padding-left:20%;
   }
+
+  .bloque-foto-perfil .alerta{
+      display: block;
+  }
 /*---------------------------------------------------*/
 
 /*-------------------------FAQ-----------------------*/
@@ -1140,6 +1144,12 @@ body::-webkit-scrollbar-track{
          height: 50px;
          color:white;
          border:solid 1px #607d8b;
+     }
+
+     #cambiar-foto{
+         display: block;
+         font-size: 11px;
+         margin-bottom: 5px;
      }
 
 @media (min-width:576px){

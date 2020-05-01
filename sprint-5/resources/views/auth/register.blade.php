@@ -65,7 +65,7 @@
                     </div>
                         @error('photo')
                         <span class="invalid-feedback alerta" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong>El campo Foto es obligatorio</strong>
                         </span>
                         @enderror
     
@@ -89,7 +89,7 @@
                     <a class="col-12" href="{{route('home')}}">Inicio</a>
                 </div>
                 <div class="col-3">
-                    <a class="col-12" href="{{route('login')}}">LogIn</a>
+                    <a class="col-12" href="{{route('login')}}">Iniciar Sesion</a>
                 </div>
                 <div class="col-3">
                     <a href="{{route("faq.create")}}" class="col-12">F.A.Q</a>
