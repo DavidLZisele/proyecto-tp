@@ -100,4 +100,13 @@ class UsuarioController extends Controller
         }
         
     }
+    public function enviarSolicitud(User $usuario)
+    {
+        Amigos::create([
+            'respuesta' => 3,
+            'id_user' => $usuario->id,
+            'id_amigo'=> request()->idamigo
+        ]);
+        return redirect()->route('categoria.index')->with('aceptado',"Se mando solicitud correctamente");
+    }
 }

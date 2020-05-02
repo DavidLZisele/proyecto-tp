@@ -307,7 +307,7 @@ Perfil
                   {{$usuario->name}} {{$usuario->surname}}
                 </span>
                 <span id="categoria-posteo">
-                  Peliculas
+                   {{$posteo->categoria->descripcion}}
                 </span>
               </div>
 
@@ -406,7 +406,7 @@ Perfil
                   {{buscarPosteoAmigo($posteo->id_user,$amigos)->name}} {{buscarPosteoAmigo($posteo->id_user,$amigos)->surname}}
                 </span>
                 <span id="categoria-posteo">
-                  Peliculas
+                   {{$posteo->categoria->descripcion}}
                 </span>
               </div>
 
@@ -473,7 +473,7 @@ Perfil
               {{$posteo->usuario->name}} {{$posteo->usuario->surname}} 
             </span>
             <span id="categoria-posteo">
-              Peliculas
+              {{$posteo->categoria->descripcion}}
             </span>
           </div>
             
@@ -575,16 +575,24 @@ Perfil
               @method('PUT')
               <button type="submit" name="aceptar" class="col-6 check" value="{{$sol->id}}"> <i class="fa fa-check"></i></button>
               <button type="submit" name="rechazar" class="col-6 remove" value="{{$sol->id}}"> <i class="fa fa-remove"></i></button>
-              @if(session('rechazado'))
-              <p style="color:red;font-size:15px">
-                {{session('rechazado')}}
+            </form>
+            </div>
+            @endforeach
+            <h3>
+              Usuarios de tu ciudad
+            </h3>
+            @foreach($usuarios as $user)
+            <div class="sa col-12">
+              <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
+              <img src="storage/{{$user->photo}}" alt="">
+              </div>
+              <p class="col-6 col-lg-3 col-xl-3">
+                {{$user->name}}
               </p>
-              @endif
-              @if(session('aceptado'))
-                <p style="color:green;font-size:15px">
-                  {{session('aceptado')}}
-                </p>
-              @endif  
+            <form action="{{route('datos.enviarSolicitud',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
+              @csrf 
+              <input type="hidden" name="idamigo" value="{{$user->id}}">
+              <button type="submit" name="aceptar" class="col-6 check" > <i class="fa fa-check"></i></button>
             </form>
             </div>
             @endforeach
