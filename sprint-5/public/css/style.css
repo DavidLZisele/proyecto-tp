@@ -1207,7 +1207,23 @@ body::-webkit-scrollbar-track{
          font-size: 11px;
          margin-bottom: 5px;
      }
-
+     .div-cerrar
+     {
+         display:none;
+     }
+     .div-abrir
+     {
+        display:block;
+     }
+     .btn-lista-usuario
+     {
+         background-color: white;
+         border: solid 1px white;
+     }
+     .btn-lista-usuario i 
+     {
+         color: var(--color-fondoBoton);
+     }
 @media (min-width:576px){
     /*--------L O G I N---------*/
 

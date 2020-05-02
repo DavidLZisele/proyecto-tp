@@ -293,7 +293,7 @@ Perfil
              </form>
             @endif
        </article>
-
+       @if($posteos->isNotEmpty())
        <article class="publicaciones-perfil"> 
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
@@ -535,7 +535,7 @@ Perfil
        @endforeach
        @endif
        </article>
-       
+       @endif
       </div>
        
        <article class="solicitudes-amistad col-11 col-lg-3">
@@ -578,24 +578,27 @@ Perfil
             </form>
             </div>
             @endforeach
-            <h3>
-              Usuarios de tu ciudad
-            </h3>
-            @foreach($usuarios as $user)
-            <div class="sa col-12">
-              <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
-              <img src="storage/{{$user->photo}}" alt="">
+            <div class="div-lista-usuarios div-cerrar">
+              <h3>
+                Usuarios de tu ciudad
+              </h3>
+              @foreach($usuarios as $user)
+              <div class="sa col-12">
+                <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
+                <img src="storage/{{$user->photo}}" alt="">
+                </div>
+                <p class="col-6 col-lg-3 col-xl-3">
+                  {{$user->name}}
+                </p>
+              <form action="{{route('datos.enviarSolicitud',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
+                @csrf 
+                <input type="hidden" name="idamigo" value="{{$user->id}}">
+                <button type="submit" name="aceptar" class="col-6 check" > <i class="fa fa-check"></i></button>
+              </form>
               </div>
-              <p class="col-6 col-lg-3 col-xl-3">
-                {{$user->name}}
-              </p>
-            <form action="{{route('datos.enviarSolicitud',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
-              @csrf 
-              <input type="hidden" name="idamigo" value="{{$user->id}}">
-              <button type="submit" name="aceptar" class="col-6 check" > <i class="fa fa-check"></i></button>
-            </form>
+              @endforeach
             </div>
-            @endforeach
+            <button type="button" class="btn-lista-usuario"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
        </article>
      </section>
   </div>
@@ -671,6 +674,19 @@ Perfil
           alert('Campo vacio');
         }
     }
+    document.querySelector('.btn-lista-usuario').onclick = function()
+    { 
+      let div =  document.querySelector('.div-lista-usuarios ');
+      div.classList.toggle('div-abrir');
+      div.classList.toggle('div-cerrar');
+      if(div.classList.contains('div-cerrar'))
+      {
+        this.innerHTML = "<i class='fa fa-plus' aria-hidden='true0' title='Abrir'></i>"
+      }else 
+      {
+        this.innerHTML = "<i class='fa fa-minus' aria-hidden='true' title='Cerrar'></i>"
+      }
+    }
     document.getElementById('form-eliminarPos').onsubmit = function(event)
     {
       if(!confirm('Desea eliminarlo'))
@@ -678,6 +694,7 @@ Perfil
         event.preventDefault();
       }
     }
+    
   }
     </script>
     
