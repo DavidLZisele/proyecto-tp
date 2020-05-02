@@ -867,6 +867,10 @@ body::-webkit-scrollbar-track{
          font-size: .9em;
          color: rgba(10,10,10,.8);
      }
+     button[name="subircat"],
+     button[name="eliminarcat"]{
+         border-radius: 5px;
+     }
      .pp .menu-mas{
         position: absolute;
         right: 5%;
@@ -877,6 +881,7 @@ body::-webkit-scrollbar-track{
      {
          margin:5px 0;
          font-size: 1.1em;
+         padding-right: 5px;
      }
      .interaccion-publicacion
      {
@@ -1129,6 +1134,10 @@ body::-webkit-scrollbar-track{
          border:solid 1px #607d8b;
          background-color: #607d8b;
          color:white;
+         border-radius: 5px;
+     }
+     .buscaramigo::placeholder{
+         color: white;
      }
      .fa-graduation-cap
      {
@@ -1286,6 +1295,30 @@ span.recordarme-login{
 {
     left:24%;
 }
+/* -----PERFIL----- */
+.informacion{
+    margin: 20px 20px 0 20px;
+    border-radius: 5px;
+}
+.publicacion-perfil{
+    margin: 0 20px 0 20px;
+    border-radius: 5px;
+}
+.publicaciones-perfil{
+    margin: 0 20px 20px 20px;
+    border-radius: 5px;
+}
+article.solicitudes-amistad{
+    border-radius: 5px;
+    margin: 0 20px 0 20px;
+}
+.mis-perfil{
+    border-radius: 5px;
+    margin: 0 20px 0 20px;
+}
+
+
+
 }
 @media (min-width:768px)
 {
@@ -1401,6 +1434,23 @@ span.recordarme-login{
 {
     left:12%;
 }
+    /*-----PERFIL-----*/
+
+    .informacion{
+        display: flex;
+        justify-content: space-evenly;
+        padding: 20px;
+    }
+    .bloke-info{
+        margin: 15px 15px 0 0px;
+        border-top: 0;
+        border-left: 1px solid grey;
+        font-size: 1.1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 2;
+    }
 }
 @media (min-width: 992px)
 {
@@ -1505,40 +1555,48 @@ span.recordarme-login{
       .seccion-perfil
       {
           display: grid;
-          grid-template-columns: 350px 1fr 300px;
+          grid-template-columns: 2fr 3fr 2fr;
+          grid-template-rows: repeat(auto-fit,auto);
           grid-template-areas:  "informacion publicacion-perfil solicitudes-amistad"
-                                "informacion publicaciones-perfil solicitudes-amistad"
-                                "informacion publicaciones-perfil ."
+                                "informacion . solicitudes-amistad"
+                                "informacion . solicitudes-amistad"
                                 "mis-perfil publicaciones-perfil ."
                                 ". publicaciones-perfil ."
-
+                                ;
+        position: relative;
       }
       .informacion{
-          margin-left: 26px;
-          border-radius: 5px;
+          margin: 26px 0 0 26px;
+          flex-direction: column;
 
       }
+      .bloke-info{
+          border-left: none;
+          border-top: 1px solid #eaeaea;
+          margin-top: 20px;
+          padding-top: 10px;
+          font-size: 1em;
+          line-height: 1.5;
+      }
       .publicacion-perfil{
-          margin-top: 26px;
-          border-radius: 5px;
-        
+          margin: 26px 0 0 0;
+          grid-row-end: auto;
+          height: 215px;
+        }
+        article.solicitudes-amistad{
+          margin: 26px 26px 0 0;
+          grid-row-end: auto;
+        }
+        .publicaciones-perfil{
+          width: 100%;
+          position: absolute;
+          top: -65vh;
+          margin-left: 0;
       }
-      article.solicitudes-amistad{
-          margin-top: 26px;
-          margin-right: 26px;
-          border-radius: 5px;
-      }
-      .publicaciones-perfil{
-          border-radius: 5px;
-      }
-      .publicaciones-perfil .publicaciones-usuario{
-          height: 100%;
-      }
-      .publicaciones-perfil .publicaciones-amigos{
-        height: 0;
-    }
       .mis-perfil{
-          margin-left: 26px;
+          margin: 0 0 0 26px;
+          grid-row-start: auto;
+
       }
       .imagen-public img 
       {
@@ -1576,10 +1634,6 @@ span.recordarme-login{
     {
         width: 130px;
     }
-    .user-public img 
-     {
-         width: 75%;
-     }
      .solicitudes-amistad
      {
          margin-top:0;

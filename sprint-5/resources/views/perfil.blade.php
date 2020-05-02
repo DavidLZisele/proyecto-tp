@@ -52,6 +52,12 @@ Perfil
 @endsection
 
 @section('content')
+    <style>
+      body{
+        background: rgb(75, 87, 100);
+      }
+    </style>
+
   <div class="container col-12 contenedor-perfil">
     <header class = "header-perfil col-12">
       <ul class="nav nav-pills col-8">
@@ -159,6 +165,7 @@ Perfil
              <p class="datosusuario"><i class="fa fa-birthday-cake"></i>Cumpleaños</p>
             
              @endif
+             
             </div>
           </article>
 
@@ -166,9 +173,6 @@ Perfil
           <div class="rounded w3-card w3-round">
             <div class="w3-white">
               <button onclick="myFunction('Demo1')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Mis Grupos</button>
-              <div id="Demo1" class="w3-hide w3-container">
-                <p>...</p>
-              </div>
               <button onclick="myFunction('Demo4')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
                 @foreach($amigos as $amigo)
@@ -179,12 +183,6 @@ Perfil
                 @endforeach
               </div>
               <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
-              <div id="Demo2" class="w3-hide w3-container">
-                <p>...</p>
-              </div>
-               <div id="Demo2" class="w3-hide w3-container">
-                <p>...</p>
-              </div>
               <button onclick="myFunction('Demo3')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
               <div id="Demo3" class="w3-hide w3-container">
              <div class="w3-row-padding">
@@ -210,7 +208,6 @@ Perfil
                             <strong>{{ $message }}</strong>
                         </span>
               @enderror
-              <br>
               <br>
                <label for="tipopublicacion">Categoria</label>
                <select name="tipopublicacion" id="tipopublicacion">
@@ -249,7 +246,7 @@ Perfil
               @csrf
                <input type="text" name="descripcion" class="publicacion form-control" placeholder="Categoria">
                <br>
-               <button type="submit" name ="subircat">Subir</button>
+               <button type="submit" name="subircat">Subir</button>
                @if(session('subida'))
                <span style="color:green;font-size:13px">
                  {{session('subida')}}
@@ -284,7 +281,6 @@ Perfil
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
            @if($posteo->id_user == $usuario->id)
-           <div class="publicaciones-usuario">
 
 
             <div class="pp">
@@ -380,12 +376,11 @@ Perfil
            
              <div class="separar">
              </div> 
-             </div>
+
              @else
 
              {{-- POSTEOS DE AMIGOS --}}
 
-             <div class="publicaciones-amigos">
 
              
             <div class="pp">
@@ -522,7 +517,6 @@ Perfil
        </div>
        <div class="separar">
        </div>
-      </div>
        @endforeach
        @endif
        </article>
