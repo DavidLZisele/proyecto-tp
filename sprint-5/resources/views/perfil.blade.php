@@ -101,81 +101,67 @@ Perfil
         </li>
       </ul>
     </header>
-     <section class="seccion-perfil col-12">
-       <div class="col-lg-3">  
+     <section class="seccion-perfil">
+         
         <article class="informacion">
        
             <div class="bloke-imagen-perfil">
               <img src="/storage/{{$usuario->photo}}" alt="foto">
             </div>
-            <div class="bloke-info col-12">
-             <div class="datosusuario-bloque">
+            <div class="bloke-info">
+             
               @if(isset($usuario->escuela))
-              <div class="col-12">
-                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-          </a>
-                    <p class="col-10">{{$usuario->escuela}}</p>
-              </div>
+                    <p class="datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                      {{$usuario->escuela}}
+                    </p>
               @else
-                <div class="col-12">
-                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-          </a>
-                    <p class="col-10">Escuela</p>
-              </div>
+                    <p class="datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                      Escuela
+                    </p>
               @endif
               @if(isset($usuario->universidad))
-                  <div class="col-12">
-                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-          </a>
-                      <p class="col-10">{{$usuario->universidad}}</p>
-                  </div>
+              <p class="datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                {{$usuario->universidad}}
+              </p>
               @else
-                <div class="col-12">
-                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
-          </a>
-                    <p class="col-10">Universidad</p>
-                  </div>
+                    <p class="datosusuario"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                      Universidad
+                    </p>
               @endif
-              @if(isset($usuario->relacion))
-                <div class="col-12">
-                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
-          </a>
-                    <p class="col-10">{{$usuario->relacion}}</p>
-                 </div>
+              @if(isset($usuario->relacion))   
+              <p class="datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                {{$usuario->relacion}}
+              </p>
                 @else
-                  <div class="col-12">
-                    <a href="" class="col-2 a-datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
-          </a>
-                    <p class="col-10">Relacion</p>
-                 </div>
+                <p class="datosusuario"><i class="fa fa-heart" aria-hidden="true"></i>
+                  Relacion
+                </p>
                  @endif
-           </div>
+           
            @if(isset($usuario->ciudad))
-            <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
-          </a>
-              <p class="col-10">{{$usuario->ciudad}}</p>
-            </div>
+            
+              <p class="datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{$usuario->ciudad}}
+              </p>
+            
             @else
-              <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
-          </a>
-              <p class="col-10">Ciudad</p>
-            </div>
+              
+            <p class="datosusuario"><i class="fa fa-map-marker" aria-hidden="true"></i>
+              Ciudad
+            </p>
+            
            @endif
             @if(isset($usuario->fecha_cumpleanios))
-            <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-              <p class="col-10">{{$usuario->fecha_cumpleanios}}</p>
-            </div>
+            
+              <p class="datosusuario"><i class="fa fa-birthday-cake"></i> {{$usuario->fecha_cumpleanios}}</p>
+            
              @else
-              <div>
-              <a href="datosusuario.php" class="col-2 a-datosusuario"><i class="fa fa-birthday-cake"></i></a>
-              <p class="col-10">Cumpleaños</p>
-            </div>
+             <p class="datosusuario"><i class="fa fa-birthday-cake"></i>Cumpleaños</p>
+            
              @endif
             </div>
           </article>
+
         <article class="mis-perfil">
           <div class="rounded w3-card w3-round">
             <div class="w3-white">
@@ -212,8 +198,8 @@ Perfil
               </div>
         </article>
 
-       </div>
-      <div class="col-lg-5">
+       
+      
         <article class="publicacion-perfil">
           @if($usuario->admin != 1)
         <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data" id="form-insertPos">
@@ -298,6 +284,9 @@ Perfil
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
            @if($posteo->id_user == $usuario->id)
+           <div class="publicaciones-usuario">
+
+
             <div class="pp">
               <div class="foto-nombre">
                 <figure class="user-public ">
@@ -390,13 +379,15 @@ Perfil
 
            
              <div class="separar">
-
+             </div> 
              </div>
              @else
 
              {{-- POSTEOS DE AMIGOS --}}
 
+             <div class="publicaciones-amigos">
 
+             
             <div class="pp">
               <div class="foto-nombre">
                 <figure class="user-public">
@@ -530,19 +521,19 @@ Perfil
           @endif     
        </div>
        <div class="separar">
-
+       </div>
       </div>
        @endforeach
        @endif
        </article>
        
-      </div>
+      
        
-       <article class="solicitudes-amistad col-11 col-lg-3">
+       <article class="solicitudes-amistad ">
             <h3>
               Agregar amigos
             </h3>
-            <div class="sa-2 col-12">
+            <div class="buscador">
             <form action="{{route('datos.insertSolicitud',$usuario)}}" method="POST" id="form-buscar-amigos">
               @csrf
                 <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">

@@ -696,6 +696,8 @@ body::-webkit-scrollbar-track{
          justify-content: space-between;
          align-items: center;
          background-color: black;
+         min-height: 55px;
+         font-size: 16px;
      }
 .fa-bell,.fa-envelope,.fa-user,.fa-globe,.fa-cog
      {
@@ -729,7 +731,9 @@ body::-webkit-scrollbar-track{
      }
      .informacion .bloke-imagen-perfil
      {
-         width: 100%;
+         max-width: 100%;
+         display: flex;
+         justify-content: center;
      }
      .informacion
      {
@@ -738,14 +742,16 @@ body::-webkit-scrollbar-track{
         padding-top: 10px;
         padding-left: 30px;
         padding-right: 15px;
-        border-radius: 5px;
         box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
+        grid-area: informacion;
+        margin-top: 25px;
 
      }
      .informacion .bloke-imagen-perfil img
      {
         height: 50vh;
-        width: 100%;
+        max-width: 300px;
+        border-radius: 5px;
      }
      .informacion .nombre-perfil 
      {
@@ -756,33 +762,35 @@ body::-webkit-scrollbar-track{
         border-top: solid 1px #eaeaea;
         margin-top:10px;
      }
-     .bloke-info div
-     {
-         display:flex;
-         flex-wrap: wrap;
-         justify-content: space-between;
-         align-items: center;
-     }
-     .bloke-info div p 
-     {
-         padding-top: 17px;
+     .bloke-info p i{
+         text-align: center;
+         width: 25px;
      }
      .seccion-perfil 
      {
          background: rgb(75, 87, 100);
-         padding:25px;
+         display: grid;
+         grid-template-columns: 1fr;
+         grid-template-areas:   "informacion"
+                                "mis-perfil"
+                                "solicitudes-amistad"
+                                "publicacion-perfil"
+                                "publicaciones-perfil";
+         gap: 30px;
+         justify-content: center;
+         flex-direction: column;
      }
+
      .mis-perfil
      {
-         margin-top:25px;
-         margin-bottom: 40px;
+         grid-area: mis-perfil;
      }
      .publicacion-perfil
      {
          background-color: white;
          padding: 15px 10px;
-         border-radius: 5px;
          box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
+         grid-area: publicacion-perfil;
      }
      .publicacion-perfil input 
      {
@@ -808,12 +816,13 @@ body::-webkit-scrollbar-track{
      .publicaciones-perfil
      {
          background-color: white;
-         margin-top: 15px;
          padding-top: 15px;
          overflow: auto;
-         border-radius: 5px;
          box-shadow: 0px 2px rgba(0, 0, 0,.2), 0 -2px rgba(0, 0, 0,.1);
+         grid-area: publicaciones-perfil;
+         margin-bottom: 35px;
      }
+
      .publicaciones-perfil button:active{
         transition: .2s;
         transform: scale(.9);
@@ -925,7 +934,7 @@ body::-webkit-scrollbar-track{
      {
         border:solid 1px #333;
         border-radius: 50%;
-        width: 100%;
+
      }
      .imagen-public
      {
@@ -937,13 +946,14 @@ body::-webkit-scrollbar-track{
      }
      .solicitudes-amistad
      {
-         height: 40vh;
-         overflow: auto;
+         min-height: 150px;
          background-color: white;
-         margin-top:30px;
-         margin-left:16px;
-         border-radius: 5px;
          box-shadow: 0px 1px 12px rgba(0, 0, 0,.3);
+         grid-area: solicitudes-amistad;
+     }
+     .solicitudes-amistad .buscador{
+         display: flex;
+         justify-content: center;
      }
      .solicitudes-amistad button:active{
         transition: .2s;
@@ -1085,11 +1095,7 @@ body::-webkit-scrollbar-track{
         border-radius: 5px;
         border: none;
      }
-     .a-datosusuario:hover
-     {
-        text-decoration: none;
-        color:black
-     }
+     
      .info-personal
      {
          overflow: auto;
@@ -1498,9 +1504,41 @@ span.recordarme-login{
       /*------PERFIL--------*/
       .seccion-perfil
       {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 350px 1fr 300px;
+          grid-template-areas:  "informacion publicacion-perfil solicitudes-amistad"
+                                "informacion publicaciones-perfil solicitudes-amistad"
+                                "informacion publicaciones-perfil ."
+                                "mis-perfil publicaciones-perfil ."
+                                ". publicaciones-perfil ."
+
+      }
+      .informacion{
+          margin-left: 26px;
+          border-radius: 5px;
+
+      }
+      .publicacion-perfil{
+          margin-top: 26px;
+          border-radius: 5px;
+        
+      }
+      article.solicitudes-amistad{
+          margin-top: 26px;
+          margin-right: 26px;
+          border-radius: 5px;
+      }
+      .publicaciones-perfil{
+          border-radius: 5px;
+      }
+      .publicaciones-perfil .publicaciones-usuario{
+          height: 100%;
+      }
+      .publicaciones-perfil .publicaciones-amigos{
+        height: 0;
+    }
+      .mis-perfil{
+          margin-left: 26px;
       }
       .imagen-public img 
       {
