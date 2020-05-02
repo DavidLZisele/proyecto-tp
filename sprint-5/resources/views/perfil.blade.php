@@ -302,7 +302,7 @@ Perfil
              </form>
             @endif
        </article>
-       @if($posteos->isNotEmpty())
+       @if($posteos->isNotEmpty() || $posteosall->isNotEmpty())
        <article class="publicaciones-perfil"> 
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
