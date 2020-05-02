@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Amigos;
 use Illuminate\Support\Facades\Storage;
+use App\UsuarioFoto;
 class UsuarioController extends Controller
 {
     protected function updateDatos(User $usuario)
@@ -13,7 +14,7 @@ class UsuarioController extends Controller
         
         request()->validate([
             "universidad"=> 'string|required',
-            "ciudad"=> 'string|required',
+            "ciudades"=> 'string|required',
             "relacion"=> 'string|required',
             "escuela"=> 'string|required',
             "fecha_cumpleanios"=> 'date|required',
@@ -21,7 +22,7 @@ class UsuarioController extends Controller
         $usuario->universidad = request()->universidad;
         $usuario->escuela = request()->escuela;
         $usuario->relacion = request()->relacion;
-        $usuario->ciudad = request()->ciudad;
+        $usuario->ciudad = request()->ciudades;
         $usuario->fecha_cumpleanios = request()->fecha_cumpleanios;
         $usuario->update();
             return redirect()->route('categoria.index');
@@ -45,16 +46,27 @@ class UsuarioController extends Controller
     }
     protected function updateFoto(User $usuario)
     {
-           request()->validate([
-            'cambiar-foto'=> 'mimes:rpg,jpg,jpeg|required'
+        $foto = "";
+        if(!request()->foto_vieja)
+        {
+            request()->validate([
+                'cambiar-foto'=> 'mimes:rpg,jpg,jpeg|required'
         ]);
-        Storage::delete('public/'.$usuario->photo);
+        $foto = basename(request()->file('cambiar-foto')->store('public'));
+            
+        UsuarioFoto::create([
+                    'id_user'=>$usuario->id,
+                    'nombre_foto'=> $foto
+        ]);
+        } else 
+        {
+            $foto = request()->foto_vieja;
+        }
+       
         $usuario->update([
-            'photo'=>basename(request()->file('cambiar-foto')->store('public'))
+            'photo'=>$foto
         ]);
         return redirect()->route('categoria.index');
-    
-       
     }
     protected function insertSolicitud(User $usuario)
     {
@@ -99,5 +111,14 @@ class UsuarioController extends Controller
             return redirect()->route('categoria.index')->with('rechazado','Se ha eliminado correctamente');
         }
         
+    }
+    public function enviarSolicitud(User $usuario)
+    {
+        Amigos::create([
+            'respuesta' => 3,
+            'id_user' => $usuario->id,
+            'id_amigo'=> request()->idamigo
+        ]);
+        return redirect()->route('categoria.index')->with('aceptado',"Se mando solicitud correctamente");
     }
 }

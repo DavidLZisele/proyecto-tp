@@ -112,7 +112,7 @@ Perfil
         <article class="informacion">
        
             <div class="bloke-imagen-perfil">
-              <img src="/storage/{{$usuario->photo}}" alt="foto">
+              <img src="/storage/{{$usuario->photo}}" alt="foto" class="foto-actual">
             </div>
             <div class="bloke-info">
              
@@ -177,18 +177,27 @@ Perfil
               <div id="Demo4" class="w3-hide w3-container">
                 @foreach($amigos as $amigo)
                 <p class="p-amigo" class="col-12">
-                <img src="/storage/{{$amigo->photo}}" alt="">
+                <img src="/storage/{{$amigo->photo}}" alt="" class="rounded-circle">
                   {{$amigo->name}} {{$amigo->surname}}
                 </p>
                 @endforeach
               </div>
               <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
               <button onclick="myFunction('Demo3')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
-              <div id="Demo3" class="w3-hide w3-container">
-             <div class="w3-row-padding">
+              <div id="Demo3" class="w3-hide w3-container" style="padding:0">
+             <div class="w3-row-padding" style="padding:0">
              <br>
-               <div class="w3-half">
-                 <img src="" style="width:100%" class="w3-margin-bottom">
+               <div class="w3-half div-fotos-flex" style="padding:0">
+                  @foreach($usuario->fotos as $foto)
+               <form action="{{route('datos.cambiarFoto', $usuario)}}" method ="POST" class="col-3 col-lg-6 col-xl-4 form-cambiar-foto-a-vieja">
+                    @csrf 
+                    @method('put')
+                    <button type="submit" class="btn-foto-usuario">
+                    <input type="hidden" name="foto_vieja" value="{{$foto->nombre_foto}}">
+                      <img src="/storage/{{$foto->nombre_foto}}" style="width:100%" class="w3-margin-bottom fotos-usuario">
+                    </button>  
+               </form>
+                 @endforeach
                </div>
              </div>
               </div>
@@ -277,11 +286,12 @@ Perfil
             @endif
        </article>
 
+
        <article class="publicaciones-perfil"> 
+         
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
            @if($posteo->id_user == $usuario->id)
-
 
             <div class="pp">
               <div class="foto-nombre">
@@ -292,7 +302,7 @@ Perfil
                   {{$usuario->name}} {{$usuario->surname}}
                 </span>
                 <span id="categoria-posteo">
-                  Peliculas
+                   {{$posteo->categoria->descripcion}}
                 </span>
               </div>
 
@@ -392,7 +402,7 @@ Perfil
                   {{buscarPosteoAmigo($posteo->id_user,$amigos)->name}} {{buscarPosteoAmigo($posteo->id_user,$amigos)->surname}}
                 </span>
                 <span id="categoria-posteo">
-                  Peliculas
+                   {{$posteo->categoria->descripcion}}
                 </span>
               </div>
 
@@ -459,7 +469,7 @@ Perfil
               {{$posteo->usuario->name}} {{$posteo->usuario->surname}} 
             </span>
             <span id="categoria-posteo">
-              Peliculas
+              {{$posteo->categoria->descripcion}}
             </span>
           </div>
             
@@ -519,9 +529,8 @@ Perfil
        </div>
        @endforeach
        @endif
+
        </article>
-       
-      
        
        <article class="solicitudes-amistad ">
             <h3>
@@ -560,19 +569,30 @@ Perfil
               @method('PUT')
               <button type="submit" name="aceptar" class="col-6 check" value="{{$sol->id}}"> <i class="fa fa-check"></i></button>
               <button type="submit" name="rechazar" class="col-6 remove" value="{{$sol->id}}"> <i class="fa fa-remove"></i></button>
-              @if(session('rechazado'))
-              <p style="color:red;font-size:15px">
-                {{session('rechazado')}}
-              </p>
-              @endif
-              @if(session('aceptado'))
-                <p style="color:green;font-size:15px">
-                  {{session('aceptado')}}
-                </p>
-              @endif  
             </form>
             </div>
             @endforeach
+            <div class="div-lista-usuarios div-cerrar">
+              <h3>
+                Usuarios de tu ciudad
+              </h3>
+              @foreach($usuarios as $user)
+              <div class="sa col-12">
+                <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
+                <img src="storage/{{$user->photo}}" alt="">
+                </div>
+                <p class="col-6 col-lg-3 col-xl-3">
+                  {{$user->name}}
+                </p>
+              <form action="{{route('datos.enviarSolicitud',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
+                @csrf 
+                <input type="hidden" name="idamigo" value="{{$user->id}}">
+                <button type="submit" name="aceptar" class="col-6 check" > <i class="fa fa-check"></i></button>
+              </form>
+              </div>
+              @endforeach
+            </div>
+            <button type="button" class="btn-lista-usuario"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
        </article>
      </section>
   </div>
@@ -600,6 +620,7 @@ Perfil
         x.className = x.className.replace(" w3-show", "");
       }
     }
+    
     window.onload = function()
     {
     document.getElementById('form-insertPos').onsubmit = function(event)
@@ -648,6 +669,31 @@ Perfil
           alert('Campo vacio');
         }
     }
+    document.querySelector('.btn-lista-usuario').onclick = function()
+    { 
+      let div =  document.querySelector('.div-lista-usuarios ');
+      div.classList.toggle('div-abrir');
+      div.classList.toggle('div-cerrar');
+      if(div.classList.contains('div-cerrar'))
+      {
+        this.innerHTML = "<i class='fa fa-plus' aria-hidden='true0' title='Abrir'></i>"
+      }else 
+      {
+        this.innerHTML = "<i class='fa fa-minus' aria-hidden='true' title='Cerrar'></i>"
+      }
+    }
+  
+    for(let form of Array.from(document.querySelectorAll('.form-cambiar-foto-a-vieja')))
+    {
+      form.onsubmit = function(event)
+      {
+        if(!confirm('Desea cambiar la foto'))
+        {
+          event.preventDefault();
+        }
+      }
+    }
+    
     document.getElementById('form-eliminarPos').onsubmit = function(event)
     {
       if(!confirm('Desea eliminarlo'))
@@ -655,6 +701,7 @@ Perfil
         event.preventDefault();
       }
     }
+    
   }
     </script>
     

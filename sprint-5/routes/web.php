@@ -33,6 +33,7 @@ Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->nam
 Route::put('datos/{usuario}/cambiarPassword', "UsuarioController@updatePassword")->name('datos.cambiarPassword');
 Route::put('datos/{usuario}/cambiarFoto', "UsuarioController@updateFoto")->name('datos.cambiarFoto');
 Route::post('datos/{usuario}/insertSolicitud',"UsuarioController@insertSolicitud")->name('datos.insertSolicitud');
+Route::post('datos/{usuario}/enviarSolicitud',"UsuarioController@enviarSolicitud")->name('datos.enviarSolicitud');
 Route::put('datos/{usuario}/agregarAmigo', "UsuarioController@agregarAmigo")->name('datos.agregarAmigo');
 Route::post('datos/{usuario}/insertPos', "PosteoController@store")->name('datos.insertPos');
 Route::get('datos/{posteo}/editPos',"PosteoController@edit")->name('datos.editPos');

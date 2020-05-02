@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use App\UsuarioFoto;
 class RegisterController extends Controller
 {
     /*
@@ -66,12 +66,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $foto = basename($data['photo']->store('public'));
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'surname'=>$data['surname'],
-            'photo'=> basename($data['photo']->store('public'))
+            'photo'=> $foto
         ]);
+        UsuarioFoto::create([
+            'id_user'=> $user->id,
+            'nombre_foto'=> basename($data['photo']->store('public'))
+        ]);
+        return $user;
     }
 }

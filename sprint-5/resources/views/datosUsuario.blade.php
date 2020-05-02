@@ -81,17 +81,13 @@ $usuario = Auth::user();
                         </span>
                   @enderror
                  </p>
-                 <p>
-                 @if(isset($usuario["ciudad"]))
-                 <input type="text" name="ciudad" id="ciudad" value="{{$usuario->ciudad}}" placeholder="ciudad"  class="form-control @error('ciudad') is-invalid @enderror">
-                 @else
-                  <input type="text" name="ciudad" id="ciudad" value="" placeholder="ciudad"  class="form-control @error('ciudad') is-invalid @enderror">
-                @endif
-                @error('ciudad')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                @enderror
+                 <p class="p-provincias-ciudades">
+                    <select name="provincias" id="provincias" class="col-6">
+
+                    </select>
+                    <select name="ciudades" id="ciudades" class="col-5">
+
+                    </select>
                  </p>
                  <p>
                  Situación sentimental
@@ -126,13 +122,13 @@ $usuario = Auth::user();
         @method('PUT')
             <div>
                 <p>
-                <input type="password" name="password1" id="" value="" placeholder ="Contraseña actual">
+                <input type="password" name="password1" id="password1" value="" placeholder ="Contraseña actual">
                 </p>
                  <p>
-                 <input type="password" name="password2" id="" value="" placeholder ="Contraseña nueva">
+                 <input type="password" name="password2" id="password1" value="" placeholder ="Contraseña nueva">
                  </p>
                  <p>
-                 <input type="password" name="password3" id="" value="" placeholder ="Confirmar contraseña">
+                 <input type="password" name="password3" id="password1" value="" placeholder ="Confirmar contraseña">
                  </p>
                  <p>
                      <button type="submit" name="cambiarcontraseña" id="cambiarcontraseña">Aceptar</button>
@@ -185,8 +181,65 @@ $usuario = Auth::user();
 </div>
     </div>
     <script>
+      function cargarProvincias()
+      {
+        fetch("http://localhost:3000/ciudades")
+        .then(response=>response.json())
+        .then(data =>{
+            let select = document.querySelector('#provincias');
+            let array = [];
+            for(let prov of data )
+            {
+                array.push(prov.provincia);
+            }
+            array = array.sort();
+            for(let prov of array)
+            {
+              let opt = document.createElement('option');
+              opt.append(document.createTextNode(prov))
+              opt.value = prov;
+              select.append(opt);
+            }
+        });
+      }
       window.onload = function()
       {
+        cargarProvincias();
+        document.querySelector('#provincias').onchange = function()
+        {
+          let select = document.querySelector('#ciudades');
+          select.innerHTML = "";
+          fetch("http://localhost:3000/ciudades")
+          .then(response=>response.json())
+          .then(data => 
+          {
+              let provincia = "";
+              data = data.sort();
+              for(let prov of data)
+              {
+                if(prov.provincia == this.options[this.selectedIndex].value)
+                {
+                  provincia = prov;
+                  break;
+                }
+              }
+              select = document.querySelector('#ciudades');
+              let array = [];
+              for(let ciud of  provincia.localidad)
+              {
+                array.push(ciud);
+              }
+              array = array.sort();
+              for(let ciu of array)
+              {
+                let opt = document.createElement('option');
+                opt.append(document.createTextNode(ciu))
+                opt.value = ciu;
+                select.append(opt);
+              }
+          }
+          )
+        }
         document.getElementById('form-cambiarDatos').onsubmit = function(event)
         {
           let inputs = Array.from(this.elements);
@@ -290,24 +343,6 @@ $usuario = Auth::user();
                }
                this.value = esc;
            }  
-           document.querySelector('[name=ciudad]').onblur= function()
-           {
-            this.value = this.value.trim();
-               this.value = this.value[0].toUpperCase() + this.value.slice(1);
-               let ciu = "";
-               for(let i = 0; i< this.value.length;i++)
-               {
-                 if(this.value[i] != " ")
-                 {
-                    ciu += this.value[i];
-                 } else
-                 {
-                    ciu += " " + this.value[i+1].toUpperCase();
-                    i++;
-                 }
-               }
-               this.value = ciu;
-           }    
       }
     </script>
 </body>

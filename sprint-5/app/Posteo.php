@@ -15,4 +15,8 @@ class Posteo extends Model
     {
         return $this->hasMany("App\Like", "id_posteo");
     }
+    public function categoria()
+    {
+        return $this->belongsTo("App\Categoria", "id_categoria");
+    }
 }
