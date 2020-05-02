@@ -1010,16 +1010,13 @@ body::-webkit-scrollbar-track{
         color:white;
         text-decoration: none;
      }
-     #fecha-cumple,#cambiardatos,#cambiarcontraseña,#cambiarfoto
-     {
-         color:grey;
-         width: 221px;
-     }
      #cambiardatos,#cambiarcontraseña,#cambiarfoto
      {
          color:white;
-        padding: 10px 0;
-         background-color: #607d8b;
+         padding: 10px 0;
+         width: 221px;
+         background-color: #333;
+         border: solid 1px  #333;
      }
      .cambiarfotoperfil input
      {
@@ -1038,7 +1035,7 @@ body::-webkit-scrollbar-track{
          width: 221px;
          text-align: center;
          padding: 15px 0;
-         background-color: #607d8b;
+         background-color: var(--color-fondoBoton);
          color:white;
          margin-left: 15px;
      }
@@ -1218,11 +1215,56 @@ body::-webkit-scrollbar-track{
      .btn-lista-usuario
      {
          background-color: white;
-         border: solid 1px white;
+         border: 0;
      }
      .btn-lista-usuario i 
      {
          color: var(--color-fondoBoton);
+     }
+     .div-fotos-flex
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: flex-start;
+         width: 100%;
+     }
+     .sacar-padding
+     {
+         padding:0;
+     }
+     .btn-foto-usuario
+     {
+         background-color:white;
+         border: 0;
+         width: 80px;
+     }
+     .p-provincias-ciudades
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: center;
+     }
+     #provincias, #ciudades
+     {
+         padding: 8px 0;
+         background-color:var( --color-fondoBoton);;
+         color:white;
+         padding-left:9px;
+         border: solid 1px var( --color-fondoBoton);;
+         font-weight:600;
+     }
+     #escuela,#universidad,#relacion,#fecha-cumple,#password1,#password2,#password3{
+         background-color:  var( --color-fondoBoton);
+         font-weight:600;
+     }
+     #password1,#password2,#password3
+     {
+         width: 221px;
+         color:white;
+         border:solid 1px var(--color-fondoBoton);
+         padding: 8px;
+         font-weight:600;
      }
 @media (min-width:576px){
     /*--------L O G I N---------*/

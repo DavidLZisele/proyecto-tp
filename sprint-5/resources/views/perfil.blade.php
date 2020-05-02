@@ -106,7 +106,7 @@ Perfil
         <article class="informacion">
        
             <div class="bloke-imagen-perfil">
-              <img src="/storage/{{$usuario->photo}}" alt="foto">
+              <img src="/storage/{{$usuario->photo}}" alt="foto" class="foto-actual">
             </div>
             <div class="bloke-info col-12">
              <div class="datosusuario-bloque">
@@ -187,7 +187,7 @@ Perfil
               <div id="Demo4" class="w3-hide w3-container">
                 @foreach($amigos as $amigo)
                 <p class="p-amigo" class="col-12">
-                <img src="/storage/{{$amigo->photo}}" alt="">
+                <img src="/storage/{{$amigo->photo}}" alt="" class="rounded-circle">
                   {{$amigo->name}} {{$amigo->surname}}
                 </p>
                 @endforeach
@@ -200,11 +200,20 @@ Perfil
                 <p>...</p>
               </div>
               <button onclick="myFunction('Demo3')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
-              <div id="Demo3" class="w3-hide w3-container">
-             <div class="w3-row-padding">
+              <div id="Demo3" class="w3-hide w3-container" style="padding:0">
+             <div class="w3-row-padding" style="padding:0">
              <br>
-               <div class="w3-half">
-                 <img src="" style="width:100%" class="w3-margin-bottom">
+               <div class="w3-half div-fotos-flex" style="padding:0">
+                  @foreach($usuario->fotos as $foto)
+               <form action="{{route('datos.cambiarFoto', $usuario)}}" method ="POST" class="col-3 col-lg-6 col-xl-4 form-cambiar-foto-a-vieja">
+                    @csrf 
+                    @method('put')
+                    <button type="submit" class="btn-foto-usuario">
+                    <input type="hidden" name="foto_vieja" value="{{$foto->nombre_foto}}">
+                      <img src="/storage/{{$foto->nombre_foto}}" style="width:100%" class="w3-margin-bottom fotos-usuario">
+                    </button>  
+               </form>
+                 @endforeach
                </div>
              </div>
               </div>
@@ -626,6 +635,7 @@ Perfil
         x.className = x.className.replace(" w3-show", "");
       }
     }
+    
     window.onload = function()
     {
     document.getElementById('form-insertPos').onsubmit = function(event)
@@ -687,6 +697,18 @@ Perfil
         this.innerHTML = "<i class='fa fa-minus' aria-hidden='true' title='Cerrar'></i>"
       }
     }
+  
+    for(let form of Array.from(document.querySelectorAll('.form-cambiar-foto-a-vieja')))
+    {
+      form.onsubmit = function(event)
+      {
+        if(!confirm('Desea cambiar la foto'))
+        {
+          event.preventDefault();
+        }
+      }
+    }
+    
     document.getElementById('form-eliminarPos').onsubmit = function(event)
     {
       if(!confirm('Desea eliminarlo'))
