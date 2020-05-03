@@ -1644,6 +1644,8 @@ span.recordarme-login{
         article.solicitudes-amistad{
           margin: 26px 26px 0 0;
           grid-row-end: auto;
+          position: absolute;
+          width: 95%;
         }
         .publicaciones-perfil{
           width: 100%;
