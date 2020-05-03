@@ -302,7 +302,7 @@ Perfil
              </form>
             @endif
        </article>
-       @if($posteos->isNotEmpty() || $posteosall->isNotEmpty())
+
        <article class="publicaciones-perfil"> 
          @if($usuario->admin != 1)
          @foreach($posteos as $posteo)
@@ -544,7 +544,7 @@ Perfil
        @endforeach
        @endif
        </article>
-       @endif
+
       </div>
        
        <article class="solicitudes-amistad col-11 col-lg-3">
