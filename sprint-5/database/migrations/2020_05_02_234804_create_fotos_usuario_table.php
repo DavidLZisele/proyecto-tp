@@ -17,6 +17,8 @@ class CreateFotosUsuarioTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nombre_foto');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

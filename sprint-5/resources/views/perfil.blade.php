@@ -286,7 +286,10 @@ Perfil
             @endif
        </article>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5939ef8ed47a6f75c51f62c05c64ca009978adb7
        <article class="publicaciones-perfil"> 
          
          @if($usuario->admin != 1)
