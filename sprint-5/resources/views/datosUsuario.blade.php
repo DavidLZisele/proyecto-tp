@@ -146,38 +146,6 @@ $usuario = Auth::user();
       </div>
     </div>
   </div>
-  <div class="card">
-    <div class="card-header" id="headingThree">
-      <h2 class="mb-0">
-        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Cambiar foto
-        </button>
-      </h2>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-      <div class="card-body">
-      <form action="{{route('datos.cambiarFoto', $usuario)}}" method = "POST" enctype="multipart/form-data">
-        @csrf 
-        @method('PUT')
-            <div>
-                <p class="cambiarfotoperfil">
-                <i class="fa fa-camera" aria-hidden="true"></i>
-                  <span>Cambiar foto</span>
-                <input type="file" name="cambiar-foto" id="cambiar-foto" class="form-control @error('cambiar-foto') is-invalid @enderror">
-              </p>
-              @error('cambiar-foto')
-                   <span id="cambiar-foto" class="invalid-feedback" role="alert">
-                       <strong>El campo Cambiar Foto es obligatorio</strong>
-                   </span>
-                  @enderror
-                 <p>
-                     <button type="submit" name="cambiarfoto" id="cambiarfoto">Aceptar</button>              
-                 </p>        
-            </div>
-        </form>
-      </div>
-    </div>
-  </div>
 </div>
     </div>
     <script>
