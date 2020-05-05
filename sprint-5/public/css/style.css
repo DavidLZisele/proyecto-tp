@@ -762,6 +762,8 @@ body::-webkit-scrollbar-track{
      {
         border-top: solid 1px #eaeaea;
         margin-top:10px;
+        padding-bottom: 5px;
+        padding-top: 5px;
      }
      .bloke-info p i{
          text-align: center;
@@ -772,11 +774,9 @@ body::-webkit-scrollbar-track{
          background: rgb(75, 87, 100);
          display: grid;
          grid-template-columns: 1fr;
-         grid-template-areas:   "informacion"
-                                "mis-perfil"
+         grid-template-areas:   "contenido-informacion"
                                 "solicitudes-amistad"
-                                "publicacion-perfil"
-                                "publicaciones-perfil";
+                                "contenido-publicaciones";
          gap: 30px;
          justify-content: center;
          flex-direction: column;
@@ -785,6 +785,7 @@ body::-webkit-scrollbar-track{
      .mis-perfil
      {
          grid-area: mis-perfil;
+         margin-top: 26px;
      }
      .publicacion-perfil
      {
@@ -792,6 +793,7 @@ body::-webkit-scrollbar-track{
          padding: 15px 10px;
          box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
          grid-area: publicacion-perfil;
+         margin-bottom: 26px;
      }
      .publicacion-perfil input 
      {
@@ -1708,17 +1710,20 @@ span.recordarme-login{
       {
           display: grid;
           grid-template-columns: 2fr 3fr 2fr;
-          grid-template-rows: repeat(auto-fit,auto);
-          grid-template-areas:  "informacion publicacion-perfil solicitudes-amistad"
-                                "informacion . solicitudes-amistad"
-                                "informacion . solicitudes-amistad"
-                                "mis-perfil publicaciones-perfil ."
-                                ". publicaciones-perfil ."
+          grid-template-areas:  "contenido-informacion contenido-publicaciones solicitudes-amistad"
+                                "contenido-informacion contenido-publicaciones ."
                                 ;
-        position: relative;
+      }
+      .contenido-informacion{
+          grid-area: contenido-informacion;
+      }
+      .contenido-publicaciones{
+          grid-area: contenido-publicaciones;
+          display: flex;
+          flex-direction: column;
       }
       .informacion{
-          margin: 26px 0 0 26px;
+          margin: 26px 0 26px 26px;
           flex-direction: column;
 
       }
@@ -1731,25 +1736,22 @@ span.recordarme-login{
           line-height: 1.5;
       }
       .publicacion-perfil{
-          margin: 26px 0 0 0;
+          margin: 26px 0 26px 0;
           grid-row-end: auto;
           height: 215px;
         }
         article.solicitudes-amistad{
           margin: 26px 26px 0 0;
-          grid-row-end: auto;
-          position: absolute;
-          width: 95%;
+          grid-row-end: span 1;
         }
         .publicaciones-perfil{
-          width: 100%;
-          position: absolute;
-          top: -65vh;
+
           margin-left: 0;
+          margin-right: 0;
+          
       }
       .mis-perfil{
-          margin: 0 0 0 26px;
-          grid-row-start: auto;
+          margin: 0 0 26px 26px;
 
       }
       .imagen-public img 

@@ -109,7 +109,9 @@ Perfil
       </ul>
     </header>
      <section class="seccion-perfil">
-         
+         <div class="contenido-informacion">
+
+
         <article class="informacion">
        
             <div class="bloke-imagen-perfil">
@@ -214,8 +216,10 @@ Perfil
               </div>
         </article>
 
-       
-      
+      </div>
+        <div class="contenido-publicaciones">
+
+
         <article class="publicacion-perfil">
           @if($usuario->admin != 1)
         <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data" id="form-insertPos">
@@ -539,7 +543,7 @@ Perfil
        @endif
 
        </article>
-       
+      </div>
        <article class="solicitudes-amistad ">
             <h3>
               Agregar amigos
@@ -735,28 +739,35 @@ Perfil
     btn.click();
     btn.removeAttribute('type');
    }
-   document.querySelector('.div-megusta').onmouseover = function()
-   {
-     let i = this.querySelector('i');
+
+
+   for(let megusta of Array.from(document.querySelectorAll('.div-megusta'))){
+     let i = megusta.querySelector('i');
+     megusta.onmouseover = () => {
      i.classList.add('animacion-i');
+    }
    }
-   document.querySelector('.div-megusta').onmouseout = function()
-   {
-     let i = this.querySelector('i');
+   for(let megusta of Array.from(document.querySelectorAll('.div-megusta'))){
+     let i = megusta.querySelector('i');
+     megusta.onmouseout = () => {
      i.classList.remove('animacion-i');
-    
+    }
    }
-   document.querySelector('.div-comentar').onmouseover = function()
-   {
-     let i = this.querySelector('i');
+
+
+   for(let comentar of Array.from(document.querySelectorAll('.div-comentar'))){
+     let i = comentar.querySelector('i');
+     comentar.onmouseover = () => {
      i.classList.add('animacion-i');
+    }
    }
-   document.querySelector('.div-comentar').onmouseout = function()
-   {
-     let i = this.querySelector('i');
+   for(let comentar of Array.from(document.querySelectorAll('.div-comentar'))){
+     let i = comentar.querySelector('i');
+     comentar.onmouseout = () => {
      i.classList.remove('animacion-i');
-    
+    }
    }
+
    document.querySelector('#a-not-user').onblur =function()
    {
      return this.style.backgroundColor = "black";
