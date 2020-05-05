@@ -112,7 +112,14 @@ Perfil
         <article class="informacion">
        
             <div class="bloke-imagen-perfil">
-              <img src="/storage/{{$usuario->photo}}" alt="foto" class="foto-actual">
+              <img src="/storage/{{$usuario->photo}}" alt="foto" class="foto-actual" style="height: 310px; width:250px">
+              <form action="{{route('datos.cambiarFoto', $usuario)}}" method = "POST" enctype="multipart/form-data" class="form-btn-actualizar-foto form-cerrar">
+                @csrf 
+                @method('PUT')
+                <input type="file" name="cambiar-foto" id="">
+                <button class="btn-subir-foto-nueva"><i class="fa fa-camera" aria-hidden="true"></i>
+                </button>
+              </form>
             </div>
             <div class="bloke-info">
              
@@ -187,15 +194,16 @@ Perfil
               <div id="Demo3" class="w3-hide w3-container" style="padding:0">
              <div class="w3-row-padding" style="padding:0">
              <br>
-               <div class="w3-half div-fotos-flex" style="padding:0">
+               <div class="w3-half div-fotos-flex" style="padding:0">    
                   @foreach($usuario->fotos as $foto)
                <form action="{{route('datos.cambiarFoto', $usuario)}}" method ="POST" class="col-3 col-lg-6 col-xl-4 form-cambiar-foto-a-vieja">
                     @csrf 
                     @method('put')
+                    <i class="fa fa-camera i-cerrar i-camara" aria-hidden="true"></i>          
                     <button type="submit" class="btn-foto-usuario">
                     <input type="hidden" name="foto_vieja" value="{{$foto->nombre_foto}}">
-                      <img src="/storage/{{$foto->nombre_foto}}" style="width:100%" class="w3-margin-bottom fotos-usuario">
-                    </button>  
+                    <img src="/storage/{{$foto->nombre_foto}}" style="width:100%" class="w3-margin-bottom fotos-usuario">
+                    </button>                        
                </form>
                  @endforeach
                </div>
@@ -286,10 +294,6 @@ Perfil
             @endif
        </article>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5939ef8ed47a6f75c51f62c05c64ca009978adb7
        <article class="publicaciones-perfil"> 
          
          @if($usuario->admin != 1)
@@ -685,18 +689,50 @@ Perfil
         this.innerHTML = "<i class='fa fa-minus' aria-hidden='true' title='Cerrar'></i>"
       }
     }
-  
     for(let form of Array.from(document.querySelectorAll('.form-cambiar-foto-a-vieja')))
     {
+      let i =  form.querySelector('i');
+      let img = form.querySelector('img');
+      img.onmouseover = function()
+      {
+        i.classList.add('i-abrir');
+        i.classList.remove('i-cerrar');
+      }
+      img.onmouseout = function()
+      {
+        
+        i.classList.add('i-cerrar');
+        i.classList.remove('i-abrir');
+      }
       form.onsubmit = function(event)
       {
         if(!confirm('Desea cambiar la foto'))
         {
           event.preventDefault();
         }
-      }
+      }  
     }
-    
+  document.querySelector('.foto-actual').onmouseover = function()
+    {   
+        let form =document.querySelector('.form-btn-actualizar-foto');
+           form.classList.add('form-abrir');
+           form.classList.remove('form-cerrar'); 
+     
+    }
+    document.querySelector('.foto-actual').onmouseout = function()
+    { 
+      let form =document.querySelector('.form-btn-actualizar-foto');
+           form.classList.remove('form-abrir');
+           form.classList.add('form-cerrar');    
+
+    }
+   document.querySelector('[name=cambiar-foto]').onchange = function()
+   {
+    let btn = document.querySelector('.btn-subir-foto-nueva');
+    btn.setAttribute('type', 'submit');
+    btn.click();
+    btn.removeAttribute('type');
+   }
     document.getElementById('form-eliminarPos').onsubmit = function(event)
     {
       if(!confirm('Desea eliminarlo'))
@@ -704,6 +740,7 @@ Perfil
         event.preventDefault();
       }
     }
+    
     
   }
     </script>
