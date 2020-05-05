@@ -1326,6 +1326,45 @@ body::-webkit-scrollbar-track{
      {
          position: relative;
      }
+     .animacion-i 
+     {
+         animation: burbuja 1s 1 ease-in;
+         transform-origin: bottom;
+         will-change: transform;
+         
+     }
+     @keyframes burbuja
+     {
+         0%{
+            transform:rotateX(-60deg);
+         }
+         50%
+        {
+            transform:rotateX(40deg);
+        }  
+        100%{
+            transform:rotateX(-20deg);
+         } 
+     }
+     .a-strikes-mover
+     {
+         position: absolute;
+         top: -45px;
+         text-align: center;
+         left:-40px;
+     }
+     #a-not-user:focus{
+        background-color: black;
+     }
+     .nav-pills a,.nav-pills i
+     {
+        color:white;
+     }
+     #logout-form button{
+         background-color: black;
+         border: 0;
+         padding-top: 6px;
+     }
 @media (min-width:576px){
     /*--------L O G I N---------*/
 
@@ -1418,6 +1457,12 @@ article.solicitudes-amistad{
 .mis-perfil{
     border-radius: 5px;
     margin: 0 20px 0 20px;
+}
+.div-volver-perfil
+{
+    position: absolute;
+    top:185px;
+    left:18%
 }
 
 
@@ -1553,6 +1598,10 @@ span.recordarme-login{
         flex-direction: column;
         justify-content: center;
         line-height: 2;
+    }
+    .div-volver-perfil
+    {
+        left:26%;
     }
 }
 @media (min-width: 992px)
@@ -1758,7 +1807,10 @@ span.recordarme-login{
          max-width: 1199px;
      }
 
-
+     .div-volver-perfil
+     {
+         left:34%;
+     }
      /*--------L O G I N---------*/
 
 

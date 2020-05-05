@@ -1,37 +1,16 @@
+@extends('layouts.head')
+
+@section('funciones')
 <?php
 $usuario = Auth::user();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos usuario</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700&display=swap" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+@endsection
+
+@section('content')
     <div class="container col-12 contenedor-datousuario">
         <div class="accordion col-8 col-md-6 col-xl-4" id="accordionExample">
         <a href="{{route('categoria.index')}}" class="volver">
-              Volver
+          <i class="fa fa-sign-out" aria-hidden="true" style="transform:rotateY(180deg);font-size:20px"></i>
         </a>
   <div class="card">
     <div class="card-header" id="headingOne">
@@ -236,11 +215,11 @@ $usuario = Auth::user();
              if(resp1)
                  {
                    event.preventDefault();
-                    alert('Campo vacio');
+                   toastr.error('Campo vacio');
                 } else if(resp2)
                 {
                     event.preventDefault();
-                    alert('Ciudad no permite numeros');
+                    toastr.error('Ciudad no permite numeros');
                     this.value = "";
                 }
         }
@@ -268,11 +247,11 @@ $usuario = Auth::user();
              if(resp1)
                  {
                     event.preventDefault();
-                    alert('Campo vacio');
+                    toastr.error('Campo vacio');
                 }
             if(resp2){
                     event.preventDefault();
-                    alert('Password solo acepta mas de 6 caracteres');
+                    toastr.error('Password solo acepta mas de 6 caracteres');
             }
         }
         document.querySelector('[name=universidad]').onblur= function()
@@ -313,5 +292,4 @@ $usuario = Auth::user();
            }  
       }
     </script>
-</body>
-</html>
+@endsection

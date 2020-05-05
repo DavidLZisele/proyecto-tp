@@ -93,14 +93,16 @@
                 if(resp1)
                 {
                     event.preventDefault();
-                    alert('Campos vacios');
+                    toastr.error('Campos vacios');
                 }
                 if(resp2)
                 {
                     event.preventDefault();
-                    alert('No es un mail valido');
+                    toastr.error('No es un mail valido');
+                
                 }
             }
         }
     </script>
+    
 @endsection

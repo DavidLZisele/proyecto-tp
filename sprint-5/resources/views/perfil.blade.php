@@ -62,7 +62,7 @@ Perfil
     <header class = "header-perfil col-12">
       <ul class="nav nav-pills col-8">
         <li class="nav-item dropdown">  
-            <a class="nav-link socialperfil" href="#" title="Noticias">Social</i></a>
+            <a class="nav-link socialperfil" href="#" title="Social">Social</i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="https:\\www.rosario3.com" title="Noticias"><i class="fa fa-globe"></i></a>
@@ -74,12 +74,21 @@ Perfil
           <a class="nav-link" href="#" title="Mensajes"><i class="fa fa-envelope"></i></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false" title="Notificaciones"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          @if($usuario->strikes == 0)
+          <a class="nav-link dropdown-toggle" id="a-not-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false" title="Sanciones"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
           </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Estado: {{$usuario->strikes}} Strikes</a>
+          <div class="dropdown-menu" style="background-color:transparent;border:0">
+            <a class="dropdown-item a-strikes-mover" style="color:white;font-weight:bold;background-color:transparent" href="#">{{$usuario->strikes}}</a>        
           </div>
+          @else 
+              <a class="nav-link dropdown-toggle" id="a-not-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                  aria-expanded="false" title="Sanciones"><i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:red"></i>
+             </a>
+              <div class="dropdown-menu" style="background-color:transparent;border:0">
+                  <a class="dropdown-item a-strikes-mover" style="color:red;font-weight:bold;background-color:transparent" href="#">{{$usuario->strikes}}</a>        
+              </div>
+          @endif
         </li>
       </ul>
       <ul class="nav nav-pills col-4 justify-content-end">
@@ -88,19 +97,11 @@ Perfil
         </li>
         <li class="nav-item li-salir">
           <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
+                    <button type="submit">
+                      <i class="fa fa-sign-out" aria-hidden="true" style="font-size:25px" title="Deslogearse"></i>
+                    </button>
                 </form>
             </div>
         </li>
@@ -358,7 +359,7 @@ Perfil
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                     <div class="div-megusta">
-                      <i class="fa fa-heart-o" aria-hidden="true"></i>
+                        <i class="fa fa-heart-o corazon" aria-hidden="true"></i>
                       <span class="span-like">
                         {{$posteo->cant_likes}}
                       </span>                 
@@ -627,7 +628,8 @@ Perfil
         x.className = x.className.replace(" w3-show", "");
       }
     }
-    
+  </script>
+  <script>
     window.onload = function()
     {
     document.getElementById('form-insertPos').onsubmit = function(event)
@@ -733,6 +735,32 @@ Perfil
     btn.click();
     btn.removeAttribute('type');
    }
+   document.querySelector('.div-megusta').onmouseover = function()
+   {
+     let i = this.querySelector('i');
+     i.classList.add('animacion-i');
+   }
+   document.querySelector('.div-megusta').onmouseout = function()
+   {
+     let i = this.querySelector('i');
+     i.classList.remove('animacion-i');
+    
+   }
+   document.querySelector('.div-comentar').onmouseover = function()
+   {
+     let i = this.querySelector('i');
+     i.classList.add('animacion-i');
+   }
+   document.querySelector('.div-comentar').onmouseout = function()
+   {
+     let i = this.querySelector('i');
+     i.classList.remove('animacion-i');
+    
+   }
+   document.querySelector('#a-not-user').onblur =function()
+   {
+     return this.style.backgroundColor = "black";
+   }
     document.getElementById('form-eliminarPos').onsubmit = function(event)
     {
       if(!confirm('Desea eliminarlo'))
@@ -740,9 +768,6 @@ Perfil
         event.preventDefault();
       }
     }
-    
-    
-  }
-    </script>
-    
+}
+</script>
 @endsection

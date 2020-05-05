@@ -152,19 +152,19 @@
                {
                    if(resp1)
                    {
-                    alert('Campos vacios');
+                    toastr.error('Campos vacios');
                    }
                    if(resp2)
                    {
-                    alert('No es un mail valido');
+                    toastr.error('No es un mail valido');
                    }
                    if(resp3)
                    {
-                    alert('Nombre y apellido no aceptan numeros, ni caracteres especiales');
+                    toastr.error('Nombre y apellido no aceptan numeros, ni caracteres especiales');
                    }
                    if(resp4)
                    {
-                    alert('Password demasiado corta, mas de 6 caracteres');
+                    toastr.error('Password demasiado corta, mas de 6 caracteres');
                    }
                    event.preventDefault();
                }
