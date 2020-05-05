@@ -75,8 +75,9 @@ Perfil
         </li>
         <li class="nav-item dropdown">
           @if($usuario->strikes == 0)
-          <a class="nav-link dropdown-toggle" id="a-not-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-            aria-expanded="false" title="Sanciones"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          <a class="nav-link" id="a-not-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false" title="Sanciones"><i id="atencion" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            <span id="strike-info" ><i class="fa fa-question-circle" aria-hidden="true"></i>  </span>
           </a>
           <div class="dropdown-menu" style="background-color:transparent;border:0">
             <a class="dropdown-item a-strikes-mover" style="color:white;font-weight:bold;background-color:transparent" href="#">{{$usuario->strikes}}</a>        
@@ -779,6 +780,13 @@ Perfil
         event.preventDefault();
       }
     }
+
+    document.getElementById('strike-info').onmouseover = () =>{
+      toastr.options.progressBar = false;
+      toastr.info('Si haces click sobre el icono de atención aparecerá la cantidad de strikes que posees. Si tienes un strike significa que un administrador ha borrado una de tus publicaciones por haber sido inapropiada. Si llegas al maximo de 3 strikes tu cuenta será eliminada automáticamente.'
+      ,'Strikes');
+      }
+
 }
 </script>
 @endsection

@@ -1355,9 +1355,21 @@ body::-webkit-scrollbar-track{
          text-align: center;
          left:-40px;
      }
+     #a-not-user{
+         position: relative;
+     }
      #a-not-user:focus{
         background-color: black;
      }
+     #strike-info{
+         font-size: .6em;
+         display: block;
+         color: white;
+         position: absolute;
+         right: 0;
+         bottom: 8%;
+     }
+    
      .nav-pills a,.nav-pills i
      {
         color:white;
@@ -1439,13 +1451,13 @@ span.recordarme-login{
 {
     left:24%;
 }
-/* -----PERFIL----- */
+/* -----------------PERFIL---------------- */
 .informacion{
     margin: 20px 20px 0 20px;
     border-radius: 5px;
 }
 .publicacion-perfil{
-    margin: 0 20px 0 20px;
+    margin: 0 20px 26px 20px;
     border-radius: 5px;
 }
 .publicaciones-perfil{
@@ -1458,7 +1470,7 @@ article.solicitudes-amistad{
 }
 .mis-perfil{
     border-radius: 5px;
-    margin: 0 20px 0 20px;
+    margin: 26px 20px 0 20px;
 }
 .div-volver-perfil
 {
