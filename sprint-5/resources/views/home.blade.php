@@ -54,4 +54,10 @@
     </div>
 
     </footer>
+    <script>
+        window.onload = () => {
+            toastr.success('todo bien','No se como va esto',{timeOut:2000});
+
+        }
+    </script>
 @endsection

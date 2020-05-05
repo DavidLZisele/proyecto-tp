@@ -11,6 +11,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    toastr = require('toastr');
 } catch (e) {}
 
 /**
