@@ -27,6 +27,8 @@ Route::get('perfil', "CategoriaController@index")->name('categoria.index')->midd
 Route::post('categorias/store', "CategoriaController@store")->name('categoria.store');
 Route::delete('categorias/destroy', "CategoriaController@destroy")->name('categoria.destroy');
 Route::post('like/store', "LikeController@store")->name('like.store');
+Route::delete('amigo/destroy', "UsuarioController@eliminarAmigo")->name('datos.eliminarAmigo');
+Route::put('amigo/bloquear', "UsuarioController@bloquearAmigo")->name('datos.bloquearAmigo');
 
 Route::delete('like/{like}/destroy', "LikeController@destroy")->name('like.destroy');
 Route::put('datos/{usuario}/cambiarDatos', "UsuarioController@updateDatos")->name('datos.cambiarDatos');

@@ -38,19 +38,19 @@ class User extends Authenticatable
     ];
     public function amigosMiSolicitud()
     {
-       return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('respuesta',1);
+       return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('respuesta',1)->wherePivot('bloqueado',0);
     }
     public function amigosSuSolicitud()
     {
-       return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',1);
+       return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',1)->wherePivot('bloqueado',0);
     }
     public function miSolicitudes()
     {
-       return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',3);
+       return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('respuesta',3)->wherePivot('bloqueado',0);
     }
     public function envioSolicitudes()
     {
-       return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('respuesta',3);
+       return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('respuesta',3)->wherePivot('bloqueado',0);
     }
     public function posteos()
     {
@@ -63,5 +63,26 @@ class User extends Authenticatable
     public function fotos()
     {
         return $this->hasMany("App\UsuarioFoto", "id_user");
+    }
+    public function amigosMiSolicitudBloqueados()
+    {
+        return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('bloqueado',"!=",0)->wherePivot('bloqueado','!=',$this->id);
+    }
+    public function amigosSuSolicitudBloqueados()
+    {
+        return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('bloqueado',"!=",0)->wherePivot('bloqueado','!=',$this->id);
+    }
+    public function bloqueados()
+    {
+        $usuariosBloqueados = [];
+        foreach($this->amigosMiSolicitudBloqueados as $amigo)
+        {
+             $usuariosBloqueados[] = $amigo;
+        }
+        foreach($this->amigosSuSolicitudBloqueados as $amigo)
+        {
+            $usuariosBloqueados[] = $amigo;
+        }
+        return $usuariosBloqueados;
     }
 }

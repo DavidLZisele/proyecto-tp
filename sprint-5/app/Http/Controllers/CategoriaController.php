@@ -23,6 +23,8 @@ class CategoriaController extends Controller
                     $resp2 = false;
                     $resp3 = false;
                     $resp4 = false;
+                    $resp5 = false;
+                    $resp6 = false;
                     foreach($usuario->amigosMiSolicitud as $amigo)
                     {
                         
@@ -52,11 +54,27 @@ class CategoriaController extends Controller
                         break;
                         }
                     }
-                if(!$resp1 && !$resp2 && !$resp3 &&!$resp4)
+                    foreach($usuario->amigosMiSolicitudBloqueados as $amigo)
+                    {
+                    if($user->id == $amigo->id){
+                        $resp5 = true;
+                        break;
+                        }
+                    }
+                    foreach($usuario->amigosSuSolicitudBloqueados as $amigo)
+                    {
+                    if($user->id == $amigo->id){
+                        $resp6 = true;
+                        break;
+                        }
+                    }
+                    if(!$resp1 && !$resp2 && !$resp3 &&!$resp4 && !$resp5 && !$resp6)
                 {
                     $usuariosValidos[] = $user;
                 }
-              }
+                }
+                
+              
             }  
         $usuarios = collect($usuariosValidos);
         $categorias = Categoria::all();

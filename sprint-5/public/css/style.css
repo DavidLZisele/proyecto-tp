@@ -53,7 +53,7 @@ a
  padding: 5px 0;
  border:solid 1px #333;
 }
-.div-megusta, .div-comentar
+/*.div-megusta, .div-comentar
 {
     position: relative;
     width: 45px;
@@ -68,6 +68,7 @@ a
     opacity: 0;
     z-index: 0;
 }
+*/
 .div-megusta i, .div-comentar i
 {
     font-size: 20px;
@@ -1115,11 +1116,16 @@ body::-webkit-scrollbar-track{
         color:green;
         font-size:10px;
      }
-     .p-amigo
+     .div-amigo
      {
          font-size:1em;
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         align-items: center;
+         margin-bottom: 4px;
      }
-     .p-amigo img 
+     .div-amigo img 
      {
          width: 40px;
          height: 40px;
@@ -1222,11 +1228,26 @@ body::-webkit-scrollbar-track{
          font-size: 11px;
          margin-bottom: 5px;
      }
-     .div-cerrar, .form-cerrar, .i-cerrar
+     .div-cerrar, .form-cerrar, .i-cerrar,.li-cerrar
      {
          display:none;
      }
-     .div-abrir, .form-abrir, .i-abrir
+     .i-mover 
+     {
+         position:absolute;
+         top:15px;
+         left:-1px;
+     }
+     .div-mover 
+     {
+        position: relative;
+        top:-5px;
+     }
+     .ul-position 
+     {
+         position: relative;
+     }
+     .div-abrir, .form-abrir, .i-abrir,.li-abrir
      {
         display:block;
      }

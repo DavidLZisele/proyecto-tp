@@ -85,7 +85,7 @@ class UsuarioController extends Controller
             return redirect()->route('categoria.index')->with('aceptado',"Se mando solicitud correctamente");
           } else 
           {
-            return redirect()->route('categoria.index')->with('rechazado',"Error!, es amigo o solicitud en curso");
+            return redirect()->route('categoria.index')->with('rechazado',"Error!, es amigo o solicitud en curso o te bloqueo");
           }
 
         }else 
@@ -120,5 +120,34 @@ class UsuarioController extends Controller
             'id_amigo'=> request()->idamigo
         ]);
         return redirect()->route('categoria.index')->with('aceptado',"Se mando solicitud correctamente");
+    }
+    public function eliminarAmigo()
+    {
+        $amigos = Amigos::where('id_user',"=", request()->id_user)->where('id_amigo',"=",request()->id_amigo)->get();
+            if($amigos->isEmpty())
+            {
+                $amigos= Amigos::where('id_amigo',"=", request()->id_user)->where('id_user',"=",request()->id_amigo)->get();
+            }
+            $amigos->first()->delete();
+        if(request()->btn_eliminar)
+        {
+            return redirect()->route('categoria.index')->with('aceptado',"Se elimino correctamente");
+        } else 
+        {
+            return redirect()->route('categoria.index')->with('aceptado',"Se desbloqueo correctamente");
+        }
+      
+    }
+    public function bloquearAmigo()
+    {
+        $amigos = Amigos::where('id_user',"=", request()->id_user)->where('id_amigo',"=",request()->id_amigo)->get();
+        if($amigos->isEmpty())
+        {
+            $amigos= Amigos::where('id_amigo',"=", request()->id_user)->where('id_user',"=",request()->id_amigo)->get();
+        }
+        $amigos->first()->update([
+            'bloqueado'=> request()->id_amigo
+        ]);
+        return redirect()->route('categoria.index')->with('aceptado',"Se bloqueo correctamente");
     }
 }

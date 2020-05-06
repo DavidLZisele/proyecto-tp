@@ -2,7 +2,7 @@
 @section('funciones')
 <?php
  $usuario = Auth::user();
- 
+
  $amigos = [];
   foreach($usuario->amigosMiSolicitud as $amigo)
   {
@@ -187,13 +187,61 @@ Perfil
               <button onclick="myFunction('Demo4')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
                 @foreach($amigos as $amigo)
-                <p class="p-amigo" class="col-12">
-                <img src="/storage/{{$amigo->photo}}" alt="" class="rounded-circle">
-                  {{$amigo->name}} {{$amigo->surname}}
-                </p>
+                <div class="div-amigo" class="col-12">
+                  <div>
+                    <img src="/storage/{{$amigo->photo}}" alt="" class="rounded-circle">
+                    {{$amigo->name}} {{$amigo->surname[0]}}
+                  </div>
+                  <ul>
+                    <i class="fa fa-ellipsis-h" aria-hidden="true" style="color:lightslategrey;cursor:pointer;"></i>   
+                    <li style="list-style-type:none;" class="li-cerrar">
+                    <form action="{{route('datos.eliminarAmigo')}}" method="post">
+                        @csrf 
+                        @method('delete')
+                      <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                      <input type="hidden" name="id_amigo" value="{{$amigo->id}}">
+                      <button type="submit" style="border:0;background-color:white" name="btn_eliminar" value="true">
+                          <i class="fa fa-times" aria-hidden="true" style="color:lightslategrey"> Eliminar</i>
+                      </button>
+                      </form>
+                      <form action="{{route('datos.bloquearAmigo')}}" method="post">
+                        @csrf 
+                        @method('put')
+                        <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                        <input type="hidden" name="id_amigo" value="{{$amigo->id}}">
+                        <input type="hidden" name="bloqueado" value="{{$amigo->id}}">
+                        <button type="submit" style="border:0;background-color:white">
+                          <i class="fa fa-ban" aria-hidden="true" style="color:lightslategrey">Bloquear</i>
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
+                  </div>
+                
                 @endforeach
               </div>
-              <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-calendar-check-o fa-fw w3-margin-right"></i> Mis Eventos</button>
+              <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-unlock fa-fw w3-margin-right"></i>Usuarios Bloqueados</button>
+              <div id="Demo2" class="w3-hide w3-container">
+                
+                @foreach($usuario->bloqueados() as $amigo)
+                <div class="div-amigo" class="col-12">
+                  <div>
+                    <img src="/storage/{{$amigo->photo}}" alt="" class="rounded-circle">
+                    {{$amigo->name}} {{$amigo->surname[0]}}
+                  </div>
+                    <form action="{{route('datos.eliminarAmigo')}}" method="post">
+                        @csrf 
+                        @method('delete')
+                      <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                      <input type="hidden" name="id_amigo" value="{{$amigo->id}}">
+                      <button type="submit" style="border:0;background-color:white;color:lightslategrey" name="btn_desbloquear" value="true">
+                         Desbloquear
+                      </button>
+                      </form>
+                  </div>
+                
+                @endforeach
+              </div>
               <button onclick="myFunction('Demo3')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-camera fa-fw w3-margin-right"></i> Mis Fotos</button>
               <div id="Demo3" class="w3-hide w3-container" style="padding:0">
              <div class="w3-row-padding" style="padding:0">
@@ -364,15 +412,19 @@ Perfil
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                     <div class="div-megusta">
+                      <button type="submit" name ="crearlike" class="megusta" style="width:25px;border:0;background-color:white;">
                         <i class="fa fa-heart-o corazon" aria-hidden="true"></i>
+                      </button>
                       <span class="span-like">
                         {{$posteo->cant_likes}}
                       </span>                 
-                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                      
                     </div>
                      <div class="div-comentar">
-                      <i class="fa fa-comment-o" aria-hidden="true"></i>
-                      <button type="button" name="comentar" style="width: 25px"> </button>
+                      
+                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      </button>
                      </div>
                      
               </form>
@@ -382,15 +434,20 @@ Perfil
                @method('delete')
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                     <div class="div-megusta">
+                      <button type="submit" name ="crearlike" class="megusta" style="width:25px;border:0;background-color:white;">
                       <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                    </button>
                       <span class="span-like">
                         {{$posteo->cant_likes}}
                       </span>                 
-                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                      
                     </div>
                     <div class="div-comentar">
-                      <i class="fa fa-comment-o" aria-hidden="true"></i>
-                      <button type="button" name="comentar" style="width: 25px"> </button>
+                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      </button>
+                      
+                      
                      </div>
               </form>
               @endif    
@@ -437,15 +494,19 @@ Perfil
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                     <div class="div-megusta">
-                      <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      <button type="submit" name ="crearlike" class="megusta" style="width:25px;border:0;background-color:white;">
+                          <i class="fa fa-heart-o" aria-hidden="true"></i>
+                      </button>
                       <span class="span-like">
                         {{$posteo->cant_likes}}
                       </span>                 
-                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                      
                     </div>
                      <div class="div-comentar">
-                      <i class="fa fa-comment-o" aria-hidden="true"></i>
-                      <button type="button" name="comentar" style="width: 25px"> </button>
+                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px">
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                      </button>
+                      
                      </div>
                      
               </form>
@@ -455,15 +516,19 @@ Perfil
                @method('delete')
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                     <div class="div-megusta">
-                      <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                      <button type="submit" name ="crearlike" class="megusta" style="width:25px;border:0;background-color:white;">
+                          <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                      </button>
                       <span class="span-like">
                         {{$posteo->cant_likes}}
                       </span>                 
-                      <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                      
                     </div>
                     <div class="div-comentar">
+                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px">
                       <i class="fa fa-comment-o" aria-hidden="true"></i>
-                      <button type="button" name="comentar" style="width: 25px"> </button>
+                      </button>
+                      
                      </div>
               </form>
               @endif       
@@ -507,15 +572,19 @@ Perfil
                 <input type="hidden" name="iduser" value="{{$usuario->id}}">
                 <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                 <div class="div-megusta">
-                  <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  <button type="submit" name ="crearlike" class="megusta" style="width:25px;border:0;background-color:white;">
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  </button>
                   <span class="span-like">
                     {{$posteo->cant_likes}}
                   </span>                 
-                  <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                  
                 </div>
                  <div class="div-comentar">
-                  <i class="fa fa-comment-o" aria-hidden="true"></i>
-                  <button type="button" name="comentar" style="width: 25px"> </button>
+                  
+                  <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                  </button>
                  </div>
                  
           </form>
@@ -525,15 +594,19 @@ Perfil
            @method('delete')
                 <input type="hidden" name="idposteo" value="{{$posteo->id}}">
                 <div class="div-megusta">
+                  <button type="submit" name ="crearlike" class="megusta" style="width:25px;border:0;background-color:white;">
                   <i class="fa fa-heart heart-red" aria-hidden="true" style="color:red"></i>
+                </button>
                   <span class="span-like">
                     {{$posteo->cant_likes}}
                   </span>                 
-                  <button type="submit" name ="crearlike" class="megusta" style="width: 25px"></button>
+                  
                 </div>
                 <div class="div-comentar">
-                  <i class="fa fa-comment-o" aria-hidden="true"></i>
-                  <button type="button" name="comentar" style="width: 25px"> </button>
+                  
+                  <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
+                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                  </button>
                  </div>
           </form>
           @endif     
@@ -768,7 +841,17 @@ Perfil
      i.classList.remove('animacion-i');
     }
    }
-
+   for(let div of Array.from(document.querySelectorAll('.div-amigo'))) 
+   {
+      div.querySelector('i').onclick = function()
+      {
+        div.querySelector('li').classList.toggle('li-abrir');
+        div.querySelector('li').classList.toggle('li-cerrar');
+        div.querySelector('ul').classList.toggle('ul-position');
+        this.classList.toggle('i-mover');
+        div.querySelector('div').classList.toggle('div-mover');
+      }
+   }
    document.querySelector('#a-not-user').onblur =function()
    {
      return this.style.backgroundColor = "black";
