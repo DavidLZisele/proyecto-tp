@@ -912,7 +912,6 @@ Perfil
       toastr.info('Si haces click sobre el icono de atención aparecerá la cantidad de strikes que posees. Si tienes un strike significa que un administrador ha borrado una de tus publicaciones por haber sido inapropiada. Si llegas al maximo de 3 strikes tu cuenta será eliminada automáticamente.'
       ,'Strikes');
       }
-<<<<<<< HEAD
       document.getElementById('form-actPos').onsubmit = function(event)
             {
                 let inputs = Array.from(this.elements);
@@ -936,7 +935,6 @@ Perfil
                  toastr.error('Campo vacio');
              }
            }
-=======
 
        document.onclick = (e) => {
           e = e || event;
@@ -962,8 +960,6 @@ Perfil
               subirPublic.style.opacity = .7;
               subirPublic.style.cursor = 'not-allowed';
           }
-
->>>>>>> 42ac695faa77bd35c36d50a10dc39a670715ca31
 }
 </script>
 @endsection
