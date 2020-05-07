@@ -220,7 +220,7 @@ Perfil
                 
                 @endforeach
               </div>
-              <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-unlock fa-fw w3-margin-right"></i>Usuarios Bloqueados</button>
+              <button onclick="myFunction('Demo2')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-unlock fa-fw w3-margin-right"></i> Usuarios Bloqueados</button>
               <div id="Demo2" class="w3-hide w3-container">
                 
                 @foreach($usuario->bloqueados() as $amigo)
@@ -273,35 +273,44 @@ Perfil
           @if($usuario->admin != 1)
         <form action="{{route('datos.insertPos',$usuario)}}" method ="post" enctype="multipart/form-data" id="form-insertPos">
              @csrf
-              <input type="text" name="publicacion" class="publicacion form-control @error('publicacion') is-invalid @enderror" placeholder="Estado">
-              @error('publicacion')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-              @enderror
-              <br>
-               <label for="tipopublicacion">Categoria</label>
-               <select name="tipopublicacion" id="tipopublicacion">
-                 @foreach($categorias as $cat)
+              <div class="foto-estado">
+                <figure class="user-public ">
+                  <img src="/storage/{{$usuario->photo}}" alt="">
+                </figure>
+                <input type="text" name="publicacion" id="form-control-public" class="publicacion  form-control @error('publicacion') is-invalid @enderror" placeholder="Hola {{$usuario->name}}, comparte algo con tus amigos!">
+                @error('publicacion')
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+              </div>
+              <div class="categ cat-disp-none">
+
+                <label for="tipopublicacion">Categoria</label>
+                <select name="tipopublicacion" id="tipopublicacion">
+                  @foreach($categorias as $cat)
                   <option value="{{$cat->id}}">
-                      {{$cat->descripcion}}
+                    {{$cat->descripcion}}
                   </option>
-                 @endforeach
-               </select>
-               <div class="div-subirfoto">
+                  @endforeach
+                </select>
+              </div>
+              <div class="foto-publicar">
+
+                <div class="div-subirfoto">
                   <span>
-                  <i class="fa fa-camera" aria-hidden="true"></i> Subir imagen
+                    <i class="fa fa-camera" aria-hidden="true"></i> Subir imagen
                   </span>
                   <input type="file" name="fotopublic" id="fotopublic" class="form-control @error('fotopublic') is-invalid @enderror">
                   @error('fotopublic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                 @enderror
-               </div>
-              <br>
-              <button type="submit" name ="subir-publicacion"> <i class="fa fa-pencil"></i> Publicar</button>
-               @if(session('eliminada'))
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+                </div>
+                <br>
+                <button type="submit" name ="subir-publicacion" disabled> <i class="fa fa-pencil"></i> Publicar</button>
+                @if(session('eliminada'))
                 <span style="color:red;font-size:13px">
                   {{session('eliminada')}}
                 </span>
@@ -311,7 +320,8 @@ Perfil
                    {{session('categoria')}}
                  </span>
                  @endif
-            </form>
+                </form>
+              </div>
             @else
             <form action="{{route('categoria.store')}}" method ="post">
               @csrf
@@ -320,9 +330,12 @@ Perfil
                <button type="submit" name="subircat">Subir</button>
                @if(session('subida'))
                <span style="color:green;font-size:13px">
-                 {{session('subida')}}
-               </span>
-               @endif
+                {{session('subida')}}
+              </span>
+              @endif
+
+
+
                <br>
                <br>
             </form>
@@ -869,6 +882,31 @@ Perfil
       toastr.info('Si haces click sobre el icono de atención aparecerá la cantidad de strikes que posees. Si tienes un strike significa que un administrador ha borrado una de tus publicaciones por haber sido inapropiada. Si llegas al maximo de 3 strikes tu cuenta será eliminada automáticamente.'
       ,'Strikes');
       }
+
+       document.onclick = (e) => {
+          e = e || event;
+          let target = e.target || e.srcElement;
+          let elemento = document.querySelector('.publicacion-perfil');
+          const categoria = document.querySelector('.categ');
+          const public = document.querySelector('.publicaciones-perfil');
+          const subirPublic = document.querySelector('[name=subir-publicacion]');
+          do {
+            if (elemento == target) {
+              categoria.classList.add('cat-disp-block');
+              categoria.classList.remove('cat-disp-none');
+              subirPublic.style.opacity = 1;
+              subirPublic.removeAttribute('disabled');
+              subirPublic.style.cursor = 'pointer';
+            return;
+            }
+            target = target.parentNode;
+          } while (target)
+              categoria.classList.add('cat-disp-none');
+              categoria.classList.remove('cat-disp-block');
+              subirPublic.setAttribute('disabled',"");
+              subirPublic.style.opacity = .7;
+              subirPublic.style.cursor = 'not-allowed';
+          }
 
 }
 </script>

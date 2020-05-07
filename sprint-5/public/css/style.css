@@ -33,6 +33,22 @@ a
     color:white;
     border-radius:5px;
 }
+
+.foto-estado{
+    display: flex;
+    align-items: center;
+    margin-left: 5%;
+    width: 90%;
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0 0;
+}
+.foto-estado .user-public{
+    margin: 10px;
+}
+.foto-estado .user-public img{
+    width: 55px;
+    height: 55px;
+}
 .form-control 
 {
  background-color: #333;
@@ -44,6 +60,37 @@ a
     background-color: #333;
     color:white;
     border:solid 1px #333;
+}
+#form-control-public
+{
+    background: none;
+    border: none;
+    outline: none;
+    height: inherit;
+    font-size: 1.2em;
+    color: black;
+}
+.publicacion-perfil.form-control::placeholder{
+    font-size: 1em;
+}
+.categ{
+    background: #f5f6fa;
+    text-align: center;
+    padding-top: 10px;
+}
+.cat-disp-none{
+    display: none;
+}
+.cat-disp-block{
+    display: block;
+}
+.foto-publicar{
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+}
+.div-subirfoto{
+    margin-right: 25px;
 }
 .boton-registro
 {
@@ -788,10 +835,10 @@ body::-webkit-scrollbar-track{
          grid-area: mis-perfil;
          margin-top: 26px;
      }
+
      .publicacion-perfil
      {
          background-color: white;
-         padding: 15px 10px;
          box-shadow: 0px 1px 12px rgba(0, 0, 0,.4);
          grid-area: publicacion-perfil;
          margin-bottom: 26px;
@@ -1100,6 +1147,8 @@ body::-webkit-scrollbar-track{
      button[name='subir-publicacion']{
         border-radius: 5px;
         border: none;
+        opacity: .7;
+        cursor: not-allowed;
      }
      
      .info-personal
@@ -1754,6 +1803,7 @@ span.recordarme-login{
           grid-area: contenido-publicaciones;
           display: flex;
           flex-direction: column;
+          z-index: 2;
       }
       .informacion{
           margin: 26px 0 26px 26px;
@@ -1771,7 +1821,6 @@ span.recordarme-login{
       .publicacion-perfil{
           margin: 26px 0 26px 0;
           grid-row-end: auto;
-          height: 215px;
         }
         article.solicitudes-amistad{
           margin: 26px 26px 0 0;
