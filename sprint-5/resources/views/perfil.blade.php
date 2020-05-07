@@ -57,28 +57,29 @@ Perfil
         background: rgb(75, 87, 100);
       }
     </style>
-   
-      <div class="container contenedor-modpub col-12 div-cerrar">
-        <div class="div-volver-perfil">
-            <a href="{{route('categoria.index')}}" class="volver">
-                <i class="fa fa-times cerrar-actpos" aria-hidden="true" style="font-size:20px;display:block;color:lightslategray;cursor: pointer;"></i>
-            </a>
-        </div>
-        <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos"style="padding-top:30px">
-            @csrf 
-            @method('PUT') 
-             <div>
-                <input type="text" name="contenido" id="contenido" value="{{$posteo->descripcion}}" class="col-12 contenido-posteo">
-            </div>
-            <div class="div-foto-modificarpub">
-                <span>
-                    FOTO
-                </span>
-                <input type="file" name="fotopub" id="foto-pub">
-            </div>
-            <button type="submit">Aceptar</button>
-        </form>
+  @if(count($posteos) !=0)
+  <div class="container contenedor-modpub col-12 div-cerrar">
+    <div class="div-volver-perfil">
+        <a href="{{route('categoria.index')}}" class="volver">
+            <i class="fa fa-times cerrar-actpos" aria-hidden="true" style="font-size:20px;display:block;color:lightslategray;cursor: pointer;"></i>
+        </a>
     </div>
+    <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos"style="padding-top:30px">
+        @csrf 
+        @method('PUT') 
+         <div>
+            <input type="text" name="contenido" id="contenido" value="{{$posteo->descripcion}}" class="col-12 contenido-posteo">
+        </div>
+        <div class="div-foto-modificarpub">
+            <span>
+                FOTO
+            </span>
+            <input type="file" name="fotopub" id="foto-pub">
+        </div>
+        <button type="submit">Aceptar</button>
+    </form>
+</div>
+@endif
 
   <div class="container col-12 contenedor-perfil">
     <header class = "header-perfil col-12">
@@ -331,17 +332,19 @@ Perfil
                 </div>
                 <br>
                 <button type="submit" name ="subir-publicacion" disabled> <i class="fa fa-pencil"></i> Publicar</button>
+                </form>
+                <br>
+                <br>
                 @if(session('eliminada'))
-                <span style="color:red;font-size:13px">
+                <p style="color:red;font-size:13px">
                   {{session('eliminada')}}
-                </span>
+                </p>
                 @endif
                 @if(session('subida'))
-                 <span style="color:green;font-size:13px">
-                   {{session('categoria')}}
-                 </span>
+                 <p style="color:green;font-size:13px">
+                   {{session('subida')}}
+                 </p>
                  @endif
-                </form>
               </div>
             @else
             <form action="{{route('categoria.store')}}" method ="post">
@@ -419,7 +422,7 @@ Perfil
                   </li>
                   <li class="item">
                     <div class="editar-publicacion-form" style="padding-left:7px">
-                     <i class="fa fa-pencil" aria-hidden="true"> Editar</i>
+                     <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                     </div> 
 
                   </li>
@@ -886,33 +889,16 @@ Perfil
    }
    document.querySelector('#a-not-user').onblur =function()
    {
-     return this.style.backgroundColor = "black";
+      this.style.backgroundColor = "black";
    }
-    document.getElementById('form-eliminarPos').onsubmit = function(event)
-    {
-      if(!confirm('Desea eliminarlo'))
-      {
-        event.preventDefault();
-      }
-    }
-    document.querySelector('.editar-publicacion-form i').onclick = function()
-    {
-      document.querySelector('.contenedor-modpub').classList.remove('div-cerrar');
-      document.querySelector('.contenedor-modpub form').classList.add('overlord');
-      document.querySelector('.contenedor-perfil').classList.add('overlay'); 
-    }
-    document.querySelector('.cerrar-actpos').onclick = function()
-    {
-      document.querySelector('.contenedor-modpub').classList.add('div-cerrar');
-      document.querySelector('.contenedor-modpub form').classList.remove('overlord');
-      document.querySelector('.contenedor-perfil').classList.remove('overlay');
-    }
     document.getElementById('strike-info').onmouseover = () =>{
       toastr.options.progressBar = false;
       toastr.info('Si haces click sobre el icono de atención aparecerá la cantidad de strikes que posees. Si tienes un strike significa que un administrador ha borrado una de tus publicaciones por haber sido inapropiada. Si llegas al maximo de 3 strikes tu cuenta será eliminada automáticamente.'
       ,'Strikes');
       }
-      document.getElementById('form-actPos').onsubmit = function(event)
+      if(document.getElementById('form-actPos')!=null)
+      {
+        document.getElementById('form-actPos').onsubmit = function(event)
             {
                 let inputs = Array.from(this.elements);
                 inputs.pop();
@@ -935,6 +921,8 @@ Perfil
                  toastr.error('Campo vacio');
              }
            }
+      }
+      
 
        document.onclick = (e) => {
           e = e || event;
@@ -960,6 +948,39 @@ Perfil
               subirPublic.style.opacity = .7;
               subirPublic.style.cursor = 'not-allowed';
           }
+    if(document.querySelector('.editar-publicacion-form i')!=null)
+    {
+      for(let i of Array.from(document.querySelectorAll('.editar-publicacion-form i')))
+      {
+        i.onclick = function()
+        {
+          document.querySelector('.contenedor-modpub').classList.remove('div-cerrar');
+        document.querySelector('.contenedor-modpub form').classList.add('overlord');
+        document.querySelector('.contenedor-perfil').classList.add('overlay'); 
+        }
+       
+      }
+      for(let i of Array.from(document.querySelectorAll('.cerrar-actpos')))
+      {
+        i.onclick = function()
+        {
+          document.querySelector('.contenedor-modpub').classList.add('div-cerrar');
+        document.querySelector('.contenedor-modpub form').classList.remove('overlord');
+        document.querySelector('.contenedor-perfil').classList.remove('overlay');
+        } 
+       
+      }
+    }
+    if(document.getElementById('form-eliminarPos')!=null){
+      document.getElementById('form-eliminarPos').onsubmit = function(event)
+    {
+      if(!confirm('Desea eliminarlo'))
+      {
+        event.preventDefault();
+      }
+    }
+    } 
+    
 }
 </script>
 @endsection
