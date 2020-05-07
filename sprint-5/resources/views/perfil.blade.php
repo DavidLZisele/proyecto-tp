@@ -57,6 +57,28 @@ Perfil
         background: rgb(75, 87, 100);
       }
     </style>
+   
+      <div class="container contenedor-modpub col-12 div-cerrar">
+        <div class="div-volver-perfil">
+            <a href="{{route('categoria.index')}}" class="volver">
+                <i class="fa fa-times cerrar-actpos" aria-hidden="true" style="font-size:20px;display:block;color:lightslategray;cursor: pointer;"></i>
+            </a>
+        </div>
+        <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos"style="padding-top:30px">
+            @csrf 
+            @method('PUT') 
+             <div>
+                <input type="text" name="contenido" id="contenido" value="{{$posteo->descripcion}}" class="col-12 contenido-posteo">
+            </div>
+            <div class="div-foto-modificarpub">
+                <span>
+                    FOTO
+                </span>
+                <input type="file" name="fotopub" id="foto-pub">
+            </div>
+            <button type="submit">Aceptar</button>
+        </form>
+    </div>
 
   <div class="container col-12 contenedor-perfil">
     <header class = "header-perfil col-12">
@@ -104,7 +126,6 @@ Perfil
                       <i class="fa fa-sign-out" aria-hidden="true" style="font-size:25px" title="Deslogearse"></i>
                     </button>
                 </form>
-            </div>
         </li>
         </li>
       </ul>
@@ -384,11 +405,9 @@ Perfil
                     </form>
                   </li>
                   <li class="item">
-                    <form action="{{route('datos.editPos',$posteo)}}" method="GET" class="editar-publicacion-form">
-                      @csrf 
-                      <button type="submit" title="Editar Publicacion"><i class="fa fa-pencil" aria-hidden="true"> Editar</i>
-                      </button>
-                    </form> 
+                    <div class="editar-publicacion-form" style="padding-left:7px">
+                     <i class="fa fa-pencil" aria-hidden="true"> Editar</i>
+                    </div> 
 
                   </li>
                   
@@ -863,13 +882,46 @@ Perfil
         event.preventDefault();
       }
     }
-
+    document.querySelector('.editar-publicacion-form i').onclick = function()
+    {
+      document.querySelector('.contenedor-modpub').classList.remove('div-cerrar');
+      document.querySelector('.contenedor-modpub form').classList.add('overlord');
+      document.querySelector('.contenedor-perfil').classList.add('overlay'); 
+    }
+    document.querySelector('.cerrar-actpos').onclick = function()
+    {
+      document.querySelector('.contenedor-modpub').classList.add('div-cerrar');
+      document.querySelector('.contenedor-modpub form').classList.remove('overlord');
+      document.querySelector('.contenedor-perfil').classList.remove('overlay');
+    }
     document.getElementById('strike-info').onmouseover = () =>{
       toastr.options.progressBar = false;
       toastr.info('Si haces click sobre el icono de atención aparecerá la cantidad de strikes que posees. Si tienes un strike significa que un administrador ha borrado una de tus publicaciones por haber sido inapropiada. Si llegas al maximo de 3 strikes tu cuenta será eliminada automáticamente.'
       ,'Strikes');
       }
-
+      document.getElementById('form-actPos').onsubmit = function(event)
+            {
+                let inputs = Array.from(this.elements);
+                inputs.pop();
+                inputs.shift();
+                let resp = false;
+            for(let input of inputs)
+            {
+                if(input.getAttribute('name')=="contenido")
+                 {
+                     if(input.value == "")
+                    {
+                        resp = true;
+                        break;
+                    }
+                 }
+            }
+            if(resp)
+            {
+                 event.preventDefault();
+                 toastr.error('Campo vacio');
+             }
+           }
 }
 </script>
 @endsection
