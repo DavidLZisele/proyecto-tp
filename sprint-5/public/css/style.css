@@ -91,6 +91,9 @@ a
 }
 .div-subirfoto{
     margin-right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .boton-registro
 {
@@ -107,7 +110,10 @@ a
     z-index: 1;
     color:var(--color-fondoBoton);
 }
-
+.div-comentar i{
+    position: relative;
+    top: -1px;
+}
 .span-like, .span-comentar
 {
     font-size: 20px;
@@ -928,6 +934,9 @@ body::-webkit-scrollbar-track{
      .interaccion-publicacion.amigo{
          padding-bottom: 15px;
      }
+     .interaccion-publicacion:last-child{
+         margin-bottom: 0;
+     }
      .separar 
      {
         border-bottom: 15px solid rgb(75, 87, 100);
@@ -995,6 +1004,9 @@ body::-webkit-scrollbar-track{
      .solicitudes-amistad .buscador{
          display: flex;
          justify-content: center;
+     }
+     .solicitudes-amistad .buscador #amigo{
+        margin-right: 10px;
      }
      .solicitudes-amistad button:active{
         transition: .2s;

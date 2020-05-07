@@ -336,14 +336,12 @@ Perfil
                 <br>
                 <br>
                 @if(session('eliminada'))
-                <p style="color:red;font-size:13px">
-                  {{session('eliminada')}}
-                </p>
+                <span id="mensaje-post-ok" class="{{session('eliminada')}}">
+                </span>
                 @endif
                 @if(session('subida'))
-                 <p style="color:green;font-size:13px">
-                   {{session('subida')}}
-                 </p>
+                 <span id="mensaje-post-ok" class="{{session('subida')}}">
+                 </span>
                  @endif
               </div>
             @else
@@ -663,14 +661,12 @@ Perfil
                 <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">
                 <button type="submit" name="buscaramigo" class="buscaramigo">Buscar</button>
                 @if(session('rechazado'))
-                <p style="color:red;font-size:15px">
-                  {{session('rechazado')}}
-                </p>
+                <span id="mensaje-post-ok" class="{{session('rechazado')}}">
+                </span>
                 @endif
                 @if(session('aceptado'))
-                  <p style="color:green;font-size:15px">
-                    {{session('aceptado')}}
-                  </p>
+                <span id="mensaje-post-ok" class="{{session('aceptado')}}">
+                </span>
                 @endif
               </form>
             </div>
@@ -980,7 +976,11 @@ Perfil
       }
     }
     } 
-    
+    const msjeOk = document.getElementById('mensaje-post-ok');
+    if(msjeOk){
+      const txt = msjeOk.getAttribute('class');
+      toastr.success(txt);
+    }
 }
 </script>
 @endsection
