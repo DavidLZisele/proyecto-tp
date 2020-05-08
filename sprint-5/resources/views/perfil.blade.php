@@ -661,7 +661,7 @@ Perfil
                 <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">
                 <button type="submit" name="buscaramigo" class="buscaramigo">Buscar</button>
                 @if(session('rechazado'))
-                <span id="mensaje-post-ok" class="{{session('rechazado')}}">
+                <span id="mensaje-post-error" class="{{session('rechazado')}}">
                 </span>
                 @endif
                 @if(session('aceptado'))
@@ -980,6 +980,11 @@ Perfil
     if(msjeOk){
       const txt = msjeOk.getAttribute('class');
       toastr.success(txt);
+    }
+    const msjeError = document.getElementById('mensaje-post-error');
+    if(msjeError){
+      const txt = msjeError.getAttribute('class');
+      toastr.error(txt);
     }
 }
 </script>
