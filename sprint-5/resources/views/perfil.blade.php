@@ -467,7 +467,7 @@ Perfil
               <div class="col-12">
                 
                 @if($posteo->comentarios->count() >0)
-                <hr>
+                <hr style="margin-top: 5px">
                 @endif
                 @forelse($posteo->comentarios as $com)
                 
@@ -500,7 +500,7 @@ Perfil
                         <form action="{{route('comentario.destroy', $com)}}" method="post">
                             @csrf 
                             @method('delete')
-                            <button id="eliminar-comentario" type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px;width:100%;text-align:left">  
+                            <button type="submit" name ="" id="borrar-comentario" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;padding-left:6px;width:100%;text-align:left">  
                               <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                             </button>
                           </form>
@@ -519,7 +519,7 @@ Perfil
                
                 @empty
                 @endforelse
-                <hr>
+                <hr style="margin-top: 5px">
               <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
                 
                 @csrf
@@ -562,7 +562,7 @@ Perfil
               <div class="col-12">
                 
                 @if(count($posteo->comentarios)>0)
-                <hr>
+                <hr style="margin-top: 5px">
                 @endif
                 @forelse($posteo->comentarios as $com)
                 
@@ -595,7 +595,7 @@ Perfil
                         <form action="{{route('comentario.destroy', $com)}}" method="post">
                             @csrf 
                             @method('delete')
-                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                            <button type="submit" name ="" class=""id="borrar-comentario" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;padding-left:6px">  
                               <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                             </button>
                           </form>
@@ -614,7 +614,7 @@ Perfil
                
                 @empty
                 @endforelse
-               <hr>
+               <hr style="margin-top: 5px">
 
               <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
                 @csrf
@@ -696,7 +696,7 @@ Perfil
               <div class="col-12">
                 
                 @if(count($posteo->comentarios)>0)
-                <hr>
+                <hr style="margin-top: 5px">
                 @endif
                 @forelse($posteo->comentarios as $com)
                
@@ -729,7 +729,7 @@ Perfil
                         <form action="{{route('comentario.destroy', $com)}}" method="post">
                             @csrf 
                             @method('delete')
-                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px;width:100%;text-align:left">  
+                            <button type="submit" name ="" class="" id="borrar-comentario" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;padding-left:6px;width:100%;text-align:left">  
                               <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                             </button>
                           </form>
@@ -748,7 +748,7 @@ Perfil
                
                 @empty
                 @endforelse
-               <hr>
+               <hr style="margin-top: 5px">
               <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
                 @csrf
                     <div class="col-1">
@@ -790,7 +790,7 @@ Perfil
               <div class="col-12">
                 
                 @if(count($posteo->comentarios)>0)
-                <hr>
+                <hr style="margin-top: 5px">
                 @endif
                 @forelse($posteo->comentarios as $com)
                 
@@ -823,7 +823,7 @@ Perfil
                         <form action="{{route('comentario.destroy', $com)}}" method="post">
                             @csrf 
                             @method('delete')
-                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                            <button type="submit" name ="" class="" id="borrar-comentario"  title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;padding-left:6px">  
                               <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                             </button>
                           </form>
@@ -842,7 +842,7 @@ Perfil
              
                 @empty
                 @endforelse
-               <hr>
+               <hr style="margin-top: 5px">
               <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
                 @csrf
                     <div class="col-1">
@@ -920,7 +920,7 @@ Perfil
           <div class="col-12">
             
             @if(count($posteo->comentarios)>0)
-            <hr>
+            <hr style="margin-top: 5px">
             @endif
             @forelse($posteo->comentarios as $com)
 
@@ -953,7 +953,7 @@ Perfil
                     <form action="{{route('comentario.destroy', $com)}}" method="post">
                         @csrf 
                         @method('delete')
-                        <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                        <button type="submit" name ="" class="" id="borrar-comentario" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;padding-left:6px">  
                           <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                         </button>
                       </form>
@@ -998,10 +998,10 @@ Perfil
                   </span> 
                  </div>  
           </form>
-          <div class="col-12">
+          <div class="col-12">  
             
             @if(count($posteo->comentarios)>0)
-            <hr>
+            <hr style="margin-top: 5px">
             @endif
             @forelse($posteo->comentarios as $com)
             
@@ -1034,7 +1034,7 @@ Perfil
                     <form action="{{route('comentario.destroy', $com)}}" method="post">
                         @csrf 
                         @method('delete')
-                        <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                        <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;padding-left:6px">  
                           <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                         </button>
                       </form>
@@ -1081,26 +1081,30 @@ Perfil
                 @endif
               </form>
             </div>
-            <h3>
-              Solicitudes de amistad
-            </h3>
+            
+            <div class="usuario-solicitud-a">
+              <button style="text-align:left"  type="button" class="btn-lista-usuario-sol"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
+              <h3 id="usuario-sol">Solicitudes de amistad</h3>
+            </div>
+            <div class="div-lista-solicitudes div-cerrar">
             @foreach($usuario->miSolicitudes as $sol)
-            <div class="sa col-12">
-              <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
+            <div id="solicitud-a" class="sa ">
+              <div class=" foto-solicitud">
               <img src="storage/{{$sol->photo}}" alt="">
               </div>
-              <p class="col-6 col-lg-3 col-xl-3">
-                {{$sol->name}}
+              <p class="">
+                {{$sol->name}}  {{$sol->surname}}
+
               </p>
-            <form action="{{route('datos.agregarAmigo',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
+            <form action="{{route('datos.agregarAmigo',$usuario)}}" method="POST" class="form-sol">
               @csrf 
               @method('PUT')
-              <button type="submit" name="aceptar" class="col-6 check" value="{{$sol->id}}"> <i class="fa fa-check"></i></button>
-              <button type="submit" name="rechazar" class="col-6 remove" value="{{$sol->id}}"> <i class="fa fa-remove"></i></button>
+              <button type="submit" name="aceptar" class=" check" value="{{$sol->id}}"> <i class="fa fa-check"></i></button>
+              <button type="submit" name="rechazar" class=" remove" value="{{$sol->id}}"> <i class="fa fa-remove"></i></button>
             </form>
             </div>
             @endforeach
-            
+            </div>
             <div class="usuario-ciudad-a">
               <button style="text-align:left"  type="button" class="btn-lista-usuario"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
               <h3 id="usuario-ciudad">Usuarios de tu ciudad</h3>
@@ -1108,17 +1112,17 @@ Perfil
 
             <div class="div-lista-usuarios div-cerrar">
               @foreach($usuarios as $user)
-              <div class="sa col-12">
-                <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
+              <div class="sa">
+                <div class=" foto-solicitud">
                 <img src="storage/{{$user->photo}}" alt="">
                 </div>
-                <p class="col-6 col-lg-3 col-xl-3">
-                  {{$user->name}}
+                <p class="">
+                  {{$user->name}} {{$user->surname}}
                 </p>
-              <form action="{{route('datos.enviarSolicitud',$usuario)}}" method="POST" class="col-3 col-lg-5 col-xl-5">
+              <form action="{{route('datos.enviarSolicitud',$usuario)}}" method="POST" class="">
                 @csrf 
                 <input type="hidden" name="idamigo" value="{{$user->id}}">
-                <button type="submit" name="aceptar" class="col-6 check" > <i class="fa fa-check"></i></button>
+                <button type="submit" name="aceptar" class=" check" > <i class="fa fa-check"></i></button>
               </form>
               </div>
               @endforeach
@@ -1204,6 +1208,21 @@ Perfil
     document.querySelector('.btn-lista-usuario').onclick = function()
     { 
       let div =  document.querySelector('.div-lista-usuarios ');
+      div.classList.toggle('div-abrir');
+      div.classList.toggle('div-cerrar');
+      if(div.classList.contains('div-cerrar'))
+      {
+        this.innerHTML = "<i class='fa fa-plus' aria-hidden='true0' title='Abrir'></i>"
+      }else 
+      {
+        this.innerHTML = "<i class='fa fa-minus' aria-hidden='true' title='Cerrar'></i>"
+      }
+    }
+
+
+    document.querySelector('.btn-lista-usuario-sol').onclick = function()
+    { 
+      let div =  document.querySelector('.div-lista-solicitudes');
       div.classList.toggle('div-abrir');
       div.classList.toggle('div-cerrar');
       if(div.classList.contains('div-cerrar'))

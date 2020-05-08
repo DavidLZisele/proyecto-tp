@@ -1,5 +1,7 @@
 :root{
     --color-fondoBoton: lightslategray;
+    --color-fondoBloques: #f5f6fa;
+
 }
 
 body 
@@ -915,12 +917,18 @@ body::-webkit-scrollbar-track{
      button[name="eliminarcat"]{
          border-radius: 5px;
      }
+     #borrar-comentario{
+        width: 100%;
+        text-align: left;
+     }
      .pp .menu-mas{
         position: absolute;
         right: 5%;
         top: 5%;
      }
-
+     #hr-comentarios{
+         margin: 5px 0 20px;
+     }
      .publicaciones-perfil .texto-publicacion
      {
          margin:5px 0;
@@ -1018,7 +1026,7 @@ body::-webkit-scrollbar-track{
      {
          text-align: center;
      }
-     .usuario-ciudad-a{
+     .usuario-ciudad-a,.usuario-solicitud-a{
          border-top: 1px solid lightgray;
          width: 95%;
          display: flex;
@@ -1026,30 +1034,41 @@ body::-webkit-scrollbar-track{
          margin-left: 2.5%;
          align-items: center;
      }
-     .usuario-ciudad-a .btn-lista-usuario{
+     .usuario-solicitud-a{
+         border: none;
+         margin-top: 5px;
+     }
+     .usuario-ciudad-a .btn-lista-usuario, .usuario-solicitud-a .btn-lista-usuario-sol{
         outline: none;
         padding: 0;
         position: relative;
         top: 3px;
      }
-     #usuario-ciudad{
+     .usuario-ciudad-a{
+         margin-bottom: 5px;
+     }
+     #usuario-ciudad,#usuario-sol {
          width: 95%;
          display: inline-flex;
          justify-content: center;
          padding: 0;
      }
+     
      .sa 
      {
          display:flex;
          flex-wrap: wrap;
-         justify-content: center;
+         justify-content: space-around;
          align-items: center;
          margin-bottom: 10px;
          padding:15px;
+         background: var(--color-fondoBloques);
      }
      .foto-solicitud img 
      {
-         width: 100%;
+         width: 70px;
+         height: 70px;
+         border-radius: 50%;
      }
      .foto-solicitud 
      {
@@ -1058,22 +1077,31 @@ body::-webkit-scrollbar-track{
      .sa p 
      {
          padding-top: 15px;
+         padding-left: 0;
+     }
+     .sa form{
+         display: flex;
+         flex-direction: column;
      }
      .sa form .check 
      {
-        background-color: green;
+        background-color: rgb(66, 197, 66);
         color:white;
-        padding: 10px 5px;
-        border:solid 1px green;
-        width: 75px;
+        width: 30px;
+        height: 30px;
+        border:none;
+        border-radius: 50%;
+        margin-bottom: 5px;
      }
+
      .sa form .remove 
      {
-        background-color: red;
+        background-color: rgba(255, 0, 0, 0.829);
         color:white;
-        padding: 10px 5px;
-        border:solid 1px red;
-        width: 75px;
+        width: 30px;
+        height: 30px;
+        border:none;
+        border-radius: 50%;
      }
      .contenedor-datousuario
      {
@@ -1311,6 +1339,10 @@ body::-webkit-scrollbar-track{
      {
          display:none;
      }
+     .div-abrir{
+        background: var(--color-fondoBloques);
+
+     }
      .i-mover 
      {
          position:absolute;
@@ -1334,12 +1366,13 @@ body::-webkit-scrollbar-track{
      {
          display:inline;
      }
-     .btn-lista-usuario
+     .btn-lista-usuario,
+     .btn-lista-usuario-sol
      {
          background-color: white;
          border: 0;
      }
-     .btn-lista-usuario i 
+     .btn-lista-usuario i ,.btn-lista-usuario-sol i 
      {
          color: var(--color-fondoBoton);
      }
