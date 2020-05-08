@@ -19,4 +19,8 @@ class Posteo extends Model
     {
         return $this->belongsTo("App\Categoria", "id_categoria");
     }
+    public function comentarios()
+    {
+        return $this->hasMany('App\Comentario', "id_posteo");
+    }
 }

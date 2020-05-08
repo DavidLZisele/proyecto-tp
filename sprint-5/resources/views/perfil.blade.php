@@ -456,11 +456,85 @@ Perfil
                      <div class="div-comentar">
                       
                       <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
-                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i> 
                       </button>
-                     </div>
-                     
+                      <span class="span-like">
+                        {{$posteo->comentarios->count()}}
+                      </span> 
+                     </div>                
               </form>
+              
+              <div class="col-12">
+                
+                @if($posteo->comentarios->count() >0)
+                <hr>
+                @endif
+                @forelse($posteo->comentarios as $com)
+                
+                <div class="div-comentarios col-12" style="margin-bottom:10px;">
+                  <div class="col-1 padding-top:8px">
+                    <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
+                    </div>
+                    <div class="col-10 div-comentario-user">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                        <span class="span-abrir">
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                             {{$com->descripcion}} 
+                           </span>
+                          <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
+                          @csrf 
+                          @method('put')
+                          <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;color:lightslategrey;position:absolute;right:5%"></i>
+                          <input type="text" name="comentario" id=""style="padding-top:5px;padding-left:5px;background-color:#f2f3f5;border:0;width:100%" value="{{$com->descripcion}}">
+                           <button style="visibility:hidden"></button>
+                        </form>
+                      </div>
+                    </div>
+                    @if($usuario->id == $com->id_user)
+                    <div class="nav menu-dots col-1">
+                      <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                      aria-expanded="false" title="Notificaciones">
+                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu" id="desplegable">
+                        <li class="item">
+                        <form action="{{route('comentario.destroy', $com)}}" method="post">
+                            @csrf 
+                            @method('delete')
+                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                              <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                            </button>
+                          </form>
+                        </li>
+                        <li class="item">
+                          <div class="editar-publicacion-form" style="padding-left:7px">
+                           <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                          </div> 
+      
+                        </li>
+                        
+                      </ul>
+                    </div>
+                    @endif
+                </div>
+               
+                @empty
+                @endforelse
+                <hr>
+              <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
+                
+                @csrf
+                    <div class="col-1">
+                      <img src="/storage/{{$usuario->photo}}" alt="" style="width:40px;height:40px" class="rounded-circle">
+                    </div>
+                     <div class="col-11" style="padding-top:4px">
+                     <input type="hidden" name="id_posteo"value="{{$posteo->id}}">
+                      <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                      <input type="text" name="comentario" class="text-comentario" placeholder="Escribe un comentario...">
+                     </div>
+                      
+                      <button class="subir-comentario" style="visibility:hidden"></button>
+                  </form>
+              </div>
               @else 
              <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
                @csrf 
@@ -476,13 +550,86 @@ Perfil
                       
                     </div>
                     <div class="div-comentar">
+                      
                       <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
-                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i> 
                       </button>
-                      
-                      
-                     </div>
+                      <span class="span-like">
+                        {{$posteo->comentarios->count()}}
+                      </span> 
+                     </div>  
               </form>
+              <div class="col-12">
+                
+                @if(count($posteo->comentarios)>0)
+                <hr>
+                @endif
+                @forelse($posteo->comentarios as $com)
+                
+                <div class="div-comentarios col-12" style="margin-bottom:10px;">
+                  <div class="col-1 padding-top:8px">
+                    <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
+                    </div>
+                    <div class="col-10 div-comentario-user">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                        <span class="span-abrir">
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                             {{$com->descripcion}} 
+                           </span>
+                          <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
+                          @csrf 
+                          @method('put')
+                          <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;color:lightslategrey;position:absolute;right:5%"></i>
+                          <input type="text" name="comentario" id=""style="padding-top:5px;padding-left:5px;background-color:#f2f3f5;border:0;width:100%" value="{{$com->descripcion}}">
+                           <button style="visibility:hidden"></button>
+                        </form>
+                      </div>
+                    </div>
+                    @if($usuario->id == $com->id_user)
+                    <div class="nav menu-dots col-1">
+                      <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                      aria-expanded="false" title="Notificaciones">
+                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu" id="desplegable">
+                        <li class="item">
+                        <form action="{{route('comentario.destroy', $com)}}" method="post">
+                            @csrf 
+                            @method('delete')
+                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                              <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                            </button>
+                          </form>
+                        </li>
+                        <li class="item">
+                          <div class="editar-publicacion-form" style="padding-left:7px">
+                           <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                          </div> 
+      
+                        </li>
+                        
+                      </ul>
+                    </div>
+                    @endif
+                </div>
+               
+                @empty
+                @endforelse
+               <hr>
+
+              <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
+                @csrf
+                    <div class="col-1">
+                      <img src="/storage/{{$usuario->photo}}" alt="" style="width:40px;height:40px" class="rounded-circle">
+                    </div>
+                     <div class="col-11" style="padding-top:4px">
+                     <input type="hidden" name="id_posteo"value="{{$posteo->id}}">
+                      <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                      <input type="text" name="comentario" class="text-comentario" placeholder="Escribe un comentario...">
+                     </div>
+                      
+                      <button class="subir-comentario" style="visibility:hidden"></button>
+                  </form>
+              </div>
               @endif    
            </div>
 
@@ -535,14 +682,87 @@ Perfil
                       </span>                 
                       
                     </div>
-                     <div class="div-comentar">
-                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px">
-                        <i class="fa fa-comment-o" aria-hidden="true"></i>
-                      </button>
+                    <div class="div-comentar">
                       
-                     </div>
+                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
+                        <i class="fa fa-comment-o" aria-hidden="true"></i> 
+                      </button>
+                      <span class="span-like">
+                        {{$posteo->comentarios->count()}}
+                      </span> 
+                     </div>  
                      
               </form>
+              <div class="col-12">
+                
+                @if(count($posteo->comentarios)>0)
+                <hr>
+                @endif
+                @forelse($posteo->comentarios as $com)
+               
+                <div class="div-comentarios col-12" style="margin-bottom:10px;">
+                  <div class="col-1 padding-top:8px">
+                    <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
+                    </div>
+                    <div class="col-10 div-comentario-user">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                        <span class="span-abrir">
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                             {{$com->descripcion}} 
+                           </span>
+                          <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
+                          @csrf 
+                          @method('put')
+                          <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;color:lightslategrey;position:absolute;right:5%"></i>
+                          <input type="text" name="comentario" id=""style="padding-top:5px;padding-left:5px;background-color:#f2f3f5;border:0;width:100%" value="{{$com->descripcion}}">
+                           <button style="visibility:hidden"></button>
+                        </form>
+                      </div>
+                    </div>
+                    @if($usuario->id == $com->id_user)
+                    <div class="nav menu-dots col-1">
+                      <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                      aria-expanded="false" title="Notificaciones">
+                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu" id="desplegable">
+                        <li class="item">
+                        <form action="{{route('comentario.destroy', $com)}}" method="post">
+                            @csrf 
+                            @method('delete')
+                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                              <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                            </button>
+                          </form>
+                        </li>
+                        <li class="item">
+                          <div class="editar-publicacion-form" style="padding-left:7px">
+                           <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                          </div> 
+      
+                        </li>
+                        
+                      </ul>
+                    </div>
+                    @endif
+                </div>
+               
+                @empty
+                @endforelse
+               <hr>
+              <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
+                @csrf
+                    <div class="col-1">
+                      <img src="/storage/{{$usuario->photo}}" alt="" style="width:40px;height:40px" class="rounded-circle">
+                    </div>
+                     <div class="col-11" style="padding-top:4px">
+                     <input type="hidden" name="id_posteo"value="{{$posteo->id}}">
+                      <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                      <input type="text" name="comentario" class="text-comentario" placeholder="Escribe un comentario...">
+                     </div>
+                      
+                      <button class="subir-comentario" style="visibility:hidden"></button>
+                  </form>
+              </div>
               @else 
              <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
                @csrf 
@@ -558,12 +778,85 @@ Perfil
                       
                     </div>
                     <div class="div-comentar">
-                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px">
-                      <i class="fa fa-comment-o" aria-hidden="true"></i>
-                      </button>
                       
-                     </div>
+                      <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
+                        <i class="fa fa-comment-o" aria-hidden="true"></i> 
+                      </button>
+                      <span class="span-like">
+                        {{$posteo->comentarios->count()}}
+                      </span> 
+                     </div>  
               </form>
+              <div class="col-12">
+                
+                @if(count($posteo->comentarios)>0)
+                <hr>
+                @endif
+                @forelse($posteo->comentarios as $com)
+                
+                <div class="div-comentarios col-12" style="margin-bottom:10px;">
+                  <div class="col-1 padding-top:8px">
+                    <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
+                    </div>
+                    <div class="col-10 div-comentario-user">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                        <span class="span-abrir">
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                             {{$com->descripcion}} 
+                           </span>
+                          <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
+                          @csrf 
+                          @method('put')
+                          <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;color:lightslategrey;position:absolute;right:5%"></i>
+                          <input type="text" name="comentario" id=""style="padding-top:5px;padding-left:5px;background-color:#f2f3f5;border:0;width:100%" value="{{$com->descripcion}}">
+                           <button style="visibility:hidden"></button>
+                        </form>
+                      </div>
+                    </div>
+                    @if($usuario->id == $com->id_user)
+                    <div class="nav menu-dots col-1">
+                      <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                      aria-expanded="false" title="Notificaciones">
+                      <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                      <ul class="dropdown-menu" id="desplegable">
+                        <li class="item">
+                        <form action="{{route('comentario.destroy', $com)}}" method="post">
+                            @csrf 
+                            @method('delete')
+                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                              <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                            </button>
+                          </form>
+                        </li>
+                        <li class="item">
+                          <div class="editar-publicacion-form" style="padding-left:7px">
+                           <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                          </div> 
+      
+                        </li>
+                        
+                      </ul>
+                    </div>
+                    @endif
+                </div>
+             
+                @empty
+                @endforelse
+               <hr>
+              <form action="{{route('comentario.store')}}" method="POST" class="form-comentarios">
+                @csrf
+                    <div class="col-1">
+                      <img src="/storage/{{$usuario->photo}}" alt="" style="width:40px;height:40px" class="rounded-circle">
+                    </div>
+                     <div class="col-11" style="padding-top:4px">
+                     <input type="hidden" name="id_posteo"value="{{$posteo->id}}">
+                      <input type="hidden" name="id_user" value="{{$usuario->id}}">
+                      <input type="text" name="comentario" class="text-comentario" placeholder="Escribe un comentario...">
+                     </div>
+                      
+                      <button class="subir-comentario" style="visibility:hidden"></button>
+                  </form>
+              </div>
               @endif       
            </div>
          @endif
@@ -613,14 +906,74 @@ Perfil
                   </span>                 
                   
                 </div>
-                 <div class="div-comentar">
-                  
+                <div class="div-comentar">
+                      
                   <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
-                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <i class="fa fa-comment-o" aria-hidden="true"></i> 
                   </button>
-                 </div>
+                  <span class="span-like">
+                    {{$posteo->comentarios->count()}}
+                  </span> 
+                 </div>  
                  
           </form>
+          <div class="col-12">
+            
+            @if(count($posteo->comentarios)>0)
+            <hr>
+            @endif
+            @forelse($posteo->comentarios as $com)
+
+            <div class="div-comentarios col-12" style="margin-bottom:10px;">
+              <div class="col-1 padding-top:8px">
+                <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
+                </div>
+                <div class="col-10 div-comentario-user">
+                  <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                    <span class="span-abrir">
+                       <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                         {{$com->descripcion}} 
+                       </span>
+                      <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
+                      @csrf 
+                      @method('put')
+                      <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;color:lightslategrey;position:absolute;right:5%"></i>
+                      <input type="text" name="comentario" id=""style="padding-top:5px;padding-left:5px;background-color:#f2f3f5;border:0;width:100%" value="{{$com->descripcion}}">
+                       <button style="visibility:hidden"></button>
+                    </form>
+                  </div>
+                </div>
+                @if($usuario->id == $com->id_user)
+                <div class="nav menu-dots col-1">
+                  <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                  aria-expanded="false" title="Notificaciones">
+                  <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                  <ul class="dropdown-menu" id="desplegable">
+                    <li class="item">
+                    <form action="{{route('comentario.destroy', $com)}}" method="post">
+                        @csrf 
+                        @method('delete')
+                        <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                          <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                        </button>
+                      </form>
+                    </li>
+                    <li class="item">
+                      <div class="editar-publicacion-form" style="padding-left:7px">
+                       <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                      </div> 
+  
+                    </li>
+                    
+                  </ul>
+                </div>
+                @endif
+            </div>
+           
+            @empty
+            @endforelse
+            
+          </div>
           @else 
          <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
            @csrf 
@@ -636,12 +989,70 @@ Perfil
                   
                 </div>
                 <div class="div-comentar">
-                  
+                      
                   <button type="button" name="comentar" style="width:25px;border:0;background-color:white;margin-left:5px"> 
-                    <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    <i class="fa fa-comment-o" aria-hidden="true"></i> 
                   </button>
-                 </div>
+                  <span class="span-like">
+                    {{$posteo->comentarios->count()}}
+                  </span> 
+                 </div>  
           </form>
+          <div class="col-12">
+            
+            @if(count($posteo->comentarios)>0)
+            <hr>
+            @endif
+            @forelse($posteo->comentarios as $com)
+            
+            <div class="div-comentarios col-12" style="margin-bottom:10px;">
+              <div class="col-1 padding-top:8px">
+                <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
+                </div>
+                <div class="col-10 div-comentario-user">
+                  <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                    <span class="span-abrir">
+                       <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                         {{$com->descripcion}} 
+                       </span>
+                      <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
+                      @csrf 
+                      @method('put')
+                      <i class="fa fa-times" aria-hidden="true" style="cursor: pointer;color:lightslategrey;position:absolute;right:5%"></i>
+                      <input type="text" name="comentario" id=""style="padding-top:5px;padding-left:5px;background-color:#f2f3f5;border:0;width:100%" value="{{$com->descripcion}}">
+                       <button style="visibility:hidden"></button>
+                    </form>
+                  </div>
+                </div>
+                @if($usuario->id == $com->id_user)
+                <div class="nav menu-dots col-1">
+                  <a class="nav-link menu-mas" data-toggle="dropdown" href="#" role="button" 
+                  aria-expanded="false" title="Notificaciones">
+                  <i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                  <ul class="dropdown-menu" id="desplegable">
+                    <li class="item">
+                    <form action="{{route('comentario.destroy', $com)}}" method="post">
+                        @csrf 
+                        @method('delete')
+                        <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                          <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
+                        </button>
+                      </form>
+                    </li>
+                    <li class="item">
+                      <div class="editar-publicacion-form" style="padding-left:7px">
+                       <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                      </div> 
+  
+                    </li>
+                    
+                  </ul>
+                </div>
+                @endif
+            </div>
+            @empty
+            @endforelse       
+          </div>
           @endif     
        </div>
        <div class="separar">
@@ -985,6 +1396,114 @@ Perfil
     if(msjeError){
       const txt = msjeError.getAttribute('class');
       toastr.error(txt);
+    }
+    for(let form of Array.from(document.querySelectorAll('.form-comentarios')))
+    {
+      form.onsubmit = function(event)
+      {
+        let inputs = Array.from(this.elements);
+        inputs.pop();
+        inputs.shift();
+        let resp = false;
+        for(let input of inputs)
+        {
+          if(input.getAttribute('name')=="comentario")
+          {
+           
+            if(input.value == " ")
+            {
+              resp = true;
+              break;
+            }
+          }
+        }
+        if(resp){
+          event.preventDefault();
+          toastr.error('Campo vacio');
+        }
+      }
+    }
+    for(let form of Array.from(document.querySelectorAll(".form-comentarios"))){
+      let input = form.querySelector("[name=comentario]");
+      input.onkeydown = function(event)
+      {
+        if(event.key == "Enter")
+        {
+          let boton = form.querySelector('button');
+          boton.setAttribute("type","submit");
+          boton.click();
+          boton.removeAttribute("type");
+        }
+      }
+    }
+    for(let form of Array.from(document.querySelectorAll('.form-act-comentario')))
+    {
+      form.onsubmit = function(event)
+      {
+        let inputs = Array.from(this.elements);
+        inputs.pop();
+        inputs.shift();
+        let resp = false;
+        for(let input of inputs)
+        {
+          if(input.getAttribute('name')=="comentario")
+          {
+           
+            if(input.value == " ")
+            {
+              resp = true;
+              break;
+            }
+          }
+        }
+        if(resp){
+          event.preventDefault();
+          toastr.error('Campo vacio');
+        }
+      }
+    }
+    for(let form of Array.from(document.querySelectorAll(".form-act-comentario"))){
+      let input = form.querySelector("[name=comentario]");
+      input.onkeydown = function(event)
+      {
+        if(event.key == "Enter")
+        {
+          let boton = form.querySelector('button');
+          boton.setAttribute("type","submit");
+          boton.click();
+          boton.removeAttribute("type");
+        }
+      }
+    }
+    for(let div of Array.from(document.querySelectorAll('.div-comentarios')))
+    {
+      if( div.querySelector('.fa-pencil')!=null)
+      {
+        div.querySelector('.fa-pencil').onclick = function()
+        {
+          div.querySelector('span').classList.remove('span-abrir');
+          div.querySelector('span').classList.add('span-cerrar');
+          div.querySelector('.div-comentario-user div').style.padding = "0";
+          div.querySelector('.div-comentario-user div').style.height= "35px";
+          div.querySelector('.form-act-comentario').classList.add('form-abrir');
+          div.querySelector('.form-act-comentario').classList.remove('form-cerrar');      
+          
+        }
+      }
+      
+      if(div.querySelector('.fa-times')!=null)
+      {
+        div.querySelector('.fa-times').onclick = function()
+        {
+          div.querySelector('span').classList.remove('span-cerrar');
+          div.querySelector('span').classList.add('span-abrir');
+          div.querySelector('.div-comentario-user div').style.padding = "7px";
+          div.querySelector('.div-comentario-user div').style.height= " ";
+          div.querySelector('.form-act-comentario').classList.remove('form-abrir');  
+          div.querySelector('.form-act-comentario').classList.add('form-cerrar');
+        }
+      }
+      
     }
 }
 </script>
