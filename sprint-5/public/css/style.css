@@ -865,6 +865,8 @@ body::-webkit-scrollbar-track{
          margin-bottom: 35px;
      }
 
+
+
      .publicaciones-perfil button:active{
         transition: .2s;
         transform: scale(.9);
@@ -1015,6 +1017,26 @@ body::-webkit-scrollbar-track{
      .solicitudes-amistad h3
      {
          text-align: center;
+     }
+     .usuario-ciudad-a{
+         border-top: 1px solid lightgray;
+         width: 95%;
+         display: flex;
+         justify-content: center;
+         margin-left: 2.5%;
+         align-items: center;
+     }
+     .usuario-ciudad-a .btn-lista-usuario{
+        outline: none;
+        padding: 0;
+        position: relative;
+        top: 3px;
+     }
+     #usuario-ciudad{
+         width: 95%;
+         display: inline-flex;
+         justify-content: center;
+         padding: 0;
      }
      .sa 
      {

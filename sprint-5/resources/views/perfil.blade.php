@@ -500,7 +500,7 @@ Perfil
                         <form action="{{route('comentario.destroy', $com)}}" method="post">
                             @csrf 
                             @method('delete')
-                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                            <button id="eliminar-comentario" type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px;width:100%;text-align:left">  
                               <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                             </button>
                           </form>
@@ -729,7 +729,7 @@ Perfil
                         <form action="{{route('comentario.destroy', $com)}}" method="post">
                             @csrf 
                             @method('delete')
-                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px">  
+                            <button type="submit" name ="" class="" title="Borrar comentario" value="" style="background-color:white;border:0;color:lightslategray;width:70px;padding-left:6px;width:100%;text-align:left">  
                               <i class="fa fa-times" aria-hidden="true"> Eliminar</i>
                             </button>
                           </form>
@@ -1100,10 +1100,13 @@ Perfil
             </form>
             </div>
             @endforeach
+            
+            <div class="usuario-ciudad-a">
+              <button style="text-align:left"  type="button" class="btn-lista-usuario"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
+              <h3 id="usuario-ciudad">Usuarios de tu ciudad</h3>
+            </div>
+
             <div class="div-lista-usuarios div-cerrar">
-              <h3>
-                Usuarios de tu ciudad
-              </h3>
               @foreach($usuarios as $user)
               <div class="sa col-12">
                 <div class="col-3 col-lg-4 col-xl-4 foto-solicitud">
@@ -1120,7 +1123,7 @@ Perfil
               </div>
               @endforeach
             </div>
-            <button type="button" class="btn-lista-usuario"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
+            
        </article>
      </section>
   </div>
