@@ -1,7 +1,7 @@
 :root{
     --color-fondoBoton: lightslategray;
     --color-fondoBloques: #f5f6fa;
-
+    --verde:rgb(66, 197, 66);
 }
 
 body 
@@ -159,7 +159,7 @@ a
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color:#333;
+    background: linear-gradient(lightslategray,#333);
 }
 .registrate a
 {
@@ -175,7 +175,7 @@ a
     border:solid 1px white;
     margin-bottom: 15px;
     border-radius: 100px;
-    padding: 5px;
+    padding: 5px;   
     background: white ;
     color:#333;
 }
@@ -183,7 +183,7 @@ a
 {
     text-decoration: none;
     background-color:lightslategray;
-    border: solid 1px #333;
+    border: solid 1px lightslategray;
     color:white;
     transition: .25s;
 }
@@ -253,7 +253,7 @@ a
 }
 .contenedor-login
 {
-    background-color: #333;
+    background: rgb(75, 87, 100);
     padding:0;
     margin: 0;
     height: 100vh;
@@ -266,7 +266,7 @@ a
     text-align: center;
     align-items: center;
     width: 300px;
-    border: solid 2px #eaeaea;
+    background: #333;
     align-items: center;
     border-radius: 5px;
     padding: 30px;
@@ -274,6 +274,7 @@ a
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    will-change: transform;
 }
 #form-login{
     display: flex;
@@ -291,25 +292,24 @@ a
 }
 #input-login, #input-login2
 {
-    border: solid 2px white;
+    background: none;
+    border: solid 2px var(--color-fondoBoton);
     padding: 4px 15px;
     color:white;
     font-size:0.8em;
     border-radius: 14px;
     margin: 10px auto;
     width: 200px;
-    outline: none;
+    outline: 0;
     transition: 0.25s;
     text-align: center;
 }
-#input-login:focus,#input-login:hover{
-    border: var(--color-fondoBoton) 2px solid;
-    width: 250px;
-}
+#input-login:focus,#input-login:hover,
 #input-login2:focus,#input-login2:hover{
-    border: var(--color-fondoBoton) 2px solid;
+    border: var(--verde) 2px solid;
     width: 250px;
 }
+
 input.recordarme-login,
 span.recordarme-login{
     position: absolute;
@@ -346,11 +346,11 @@ span.recordarme-login{
 #boton-login
 {
     border-radius: 25px;
-    border: solid 2px black;
+    border: solid 2px var(--verde);
     padding: 4px 15px;
     font-size:0.8em;
     color:white;
-    background-color: black;
+    background: none;
     font-weight: bold;
     display: block;
     text-align: center;
@@ -358,11 +358,10 @@ span.recordarme-login{
     transform: translateY(25%);
     transition: .35s;
     width: 200px;
+    outline: none;
 }
 #boton-login:hover{
-    background: var(--color-fondoBoton);
-    border: var(--color-fondoBoton) solid 2px;
-
+    background: var(--verde);
 }
 
 
@@ -431,6 +430,7 @@ div p
     padding-top: 5vh;
     padding-bottom: 5vh;
     border-bottom: solid 0.5px;
+    
 }
 
 .bloque-registro input,
@@ -1574,15 +1574,14 @@ body::-webkit-scrollbar-track{
      }
      .label-cat
      {
-         font-weight: bold;
+         font-weight: 500;
          color:#333;
      }
      #tipopublicacion
      {
-         background-color:  #333;
-         border:solid 1px  #333;
-         color:white;
-         font-weight: bold;
+         outline: none;
+         color:black;
+         border-radius: 4px;
          width: 200px;
          padding-left:6px;
      }

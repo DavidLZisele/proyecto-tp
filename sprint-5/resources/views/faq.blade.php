@@ -81,7 +81,7 @@
                     <a class="col-12" href="{{route("home")}}">Inicio</a>
                 </div>
                 <div class="col-3">
-                        <a class="col-12" href="{{route("login")}}">Login</a>
+                        <a class="col-12" href="{{route("login")}}">Iniciar Sesion</a>
                     </div>
                 <div class="col-3">
                     <a href="{{route("register")}}" class="col-12">Registro</a>

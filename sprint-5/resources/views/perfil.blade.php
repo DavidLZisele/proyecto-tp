@@ -344,7 +344,9 @@ Perfil
                  </span>
                  @endif
               </div>
+              
             @else
+
             <form action="{{route('categoria.store')}}" method ="post">
               @csrf
                <input type="text" name="descripcion" class="publicacion form-control" placeholder="Categoria">
