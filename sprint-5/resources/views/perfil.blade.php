@@ -1081,10 +1081,13 @@ Perfil
                 @endif
               </form>
             </div>
-            
             <div class="usuario-solicitud-a">
               <button style="text-align:left"  type="button" class="btn-lista-usuario-sol"><i class="fa fa-plus" aria-hidden="true" title="Abrir lista"></i></button>
-              <h3 id="usuario-sol">Solicitudes de amistad</h3>
+              @if($usuario->miSolicitudes->count() == 0)
+            <h3 id="usuario-sol">Solicitudes de amistad</h3>
+            @else
+            <h3 id="usuario-sol">Solicitudes de amistad <strong id="cant-sol">{{$usuario->miSolicitudes->count()}}</strong></h3> 
+            @endif
             </div>
             <div class="div-lista-solicitudes div-cerrar">
             @foreach($usuario->miSolicitudes as $sol)
