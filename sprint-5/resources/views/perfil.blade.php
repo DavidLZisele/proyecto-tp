@@ -215,15 +215,15 @@ Perfil
                     {{$amigo->name}} {{$amigo->surname[0]}}
                   </div>
                   <ul>
-                    <i class="fa fa-ellipsis-h" aria-hidden="true" style="color:lightslategrey;cursor:pointer;"></i>   
+                    <i class="fa fa-ellipsis-h" aria-hidden="true" style="color:lightslategray;cursor:pointer;"></i>   
                     <li style="list-style-type:none;" class="li-cerrar">
                     <form action="{{route('datos.eliminarAmigo')}}" method="post">
                         @csrf 
                         @method('delete')
                       <input type="hidden" name="id_user" value="{{$usuario->id}}">
                       <input type="hidden" name="id_amigo" value="{{$amigo->id}}">
-                      <button type="submit" style="border:0;background-color:white" name="btn_eliminar" value="true">
-                          <i class="fa fa-times" aria-hidden="true" style="color:lightslategrey"> Eliminar</i>
+                      <button type="submit" style="border:0;background-color:lightslategray" name="btn_eliminar" value="true">
+                          <i class="fa fa-times" aria-hidden="true" style="color:white"> Eliminar</i>
                       </button>
                       </form>
                       <form action="{{route('datos.bloquearAmigo')}}" method="post">
@@ -308,7 +308,7 @@ Perfil
               </div>
               <div class="categ cat-disp-none">
 
-                <label for="tipopublicacion">Categoria</label>
+                <label for="tipopublicacion" class="label-cat">Categoria</label>
                 <select name="tipopublicacion" id="tipopublicacion">
                   @foreach($categorias as $cat)
                   <option value="{{$cat->id}}">

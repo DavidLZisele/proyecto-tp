@@ -150,4 +150,33 @@ class UsuarioController extends Controller
         ]);
         return redirect()->route('categoria.index')->with('aceptado',"Se bloqueo correctamente");
     }
+    public function destroy(User $usuario)
+    {
+        foreach($usuario->posteos as $posteo)
+        {
+           $posteo->delete();
+        }
+        foreach($usuario->amigosMiSolicitud as $amigo)
+        {
+           $amistad = Amigos::where("id_user", "=", $usuario->id)->where("id_amigo","=", $amigo->id)->get();
+           $amistad->first()->delete();
+        }
+        foreach($usuario->amigosSuSolicitud as $amigo)
+        {
+           $amistad = Amigos::where("id_user", "=", $amigo->id)->where("id_amigo","=", $usuario->id)->get();
+           $amistad->first()->delete();
+        }
+        foreach($usuario->miSolicitudes as $amigo)
+        {
+           $amistad = Amigos::where("id_user", "=", $amigo->id)->where("id_amigo","=", $usuario->id)->get();
+           $amistad->first()->delete();
+        }
+        foreach($usuario->envioSolicitudes as $amigo)
+        {
+           $amistad = Amigos::where("id_user", "=", $usuario->id)->where("id_amigo","=", $amigo->id)->get();
+           $amistad->first()->delete();
+        }
+        $usuario->delete();
+        return redirect()->route('home')->with('status',"Vuelva pronto, espero que haya si grata su experiencia con nosotros");
+    }
 }

@@ -1403,7 +1403,7 @@ body::-webkit-scrollbar-track{
      }
      .btn-foto-usuario
      {
-         background-color:white;
+         background-color:transparent;
          border: 0;
          width: 80px;
      }
@@ -1565,6 +1565,34 @@ body::-webkit-scrollbar-track{
          justify-content: flex-start;
          flex-wrap: wrap;
          align-items: center;
+     }
+     #Demo1,#Demo2,#Demo3,#Demo4 
+     {
+         background-color: whitesmoke;
+         color:#333;
+         font-weight: bold;
+     }
+     .label-cat
+     {
+         font-weight: bold;
+         color:#333;
+     }
+     #tipopublicacion
+     {
+         background-color:  #333;
+         border:solid 1px  #333;
+         color:white;
+         font-weight: bold;
+         width: 200px;
+         padding-left:6px;
+     }
+     .btn-eliminar-cuenta
+     {
+         width: 250px;
+         background-color: #333;
+         color:white;
+         border:solid 1px  #333;
+         padding:top
      }
 @media (min-width:576px){
     /*--------L O G I N---------*/

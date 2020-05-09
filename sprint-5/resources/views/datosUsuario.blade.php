@@ -125,6 +125,20 @@ $usuario = Auth::user();
       </div>
     </div>
   </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+      <form action="{{route('usuario.destroy',$usuario)}}" method="POST" class="form-eliminar-usuario">
+          @csrf
+          @method('delete') 
+          <button type="submit" style="background-color:#607d8b !important;border:0;color:white;padding-left:15px;font-size:14px;">
+            Eliminar cuenta
+          </button>  
+        </form>
+      </h2>
+    </div>
+    </div>
+  </div>
 </div>
     </div>
     <script>
@@ -289,7 +303,14 @@ $usuario = Auth::user();
                  }
                }
                this.value = esc;
-           }  
+           }
+           document.querySelector('.form-eliminar-usuario').onsubmit = function(e)
+           {
+             if(!confirm('Estas seguro de eliminar tu cuenta?'))
+             {
+               e.preventDefault();
+             }
+           }
       }
     </script>
 @endsection

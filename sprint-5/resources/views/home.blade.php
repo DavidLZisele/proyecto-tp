@@ -3,6 +3,11 @@
     Home
   @endsection
 @section('content')
+    @if(session('status'))
+    <span id="cuenta-eliminada" class="{{session('status')}}">
+
+    </span>
+    @endif
     <div class="container col-12 col-md-12 col-lg-12 col-xl-12" id="index">
         <div class="bloque-nombre-red col-12 col-xl-8">
 
@@ -54,4 +59,14 @@
     </div>
 
     </footer>
+    <script>
+        window.onload = function()
+        {
+            const msjeOk = document.getElementById('cuenta-eliminada');
+            if(msjeOk){
+            const txt = msjeOk.getAttribute('class');
+            toastr.success(txt);
+    }
+        }
+    </script>
 @endsection
