@@ -95,4 +95,33 @@
 
         </footer>
     </div>
+    <script>
+        window.onload = function()
+        {
+            document.querySelector('form').onsubmit = function(event)
+            {
+                let inputs = Array.from(this.elements);
+                inputs.pop();
+                inputs.shift();
+                console.log(inputs);
+                let resp = false;
+                for(let input of inputs)
+                {
+                    if(input.getAttribute('name')== "email" || input.getAttribute('name')== "mensaje")
+                    {
+                        input.value = input.value.trim();
+                        if(input.value == "")
+                        {
+                            resp = true;
+                            break;
+                        }
+                    }
+                }
+                if(resp){
+                    toastr.error('Campos vacios');
+                    event.preventDefault();
+                }
+            }
+        }
+    </script>
 @endsection
