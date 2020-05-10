@@ -344,7 +344,7 @@ Perfil
                  </span>
                  @endif
               </div>
-              
+
             @else
 
             <form action="{{route('categoria.store')}}" method ="post">
@@ -357,8 +357,6 @@ Perfil
                 {{session('subida')}}
               </span>
               @endif
-
-
 
                <br>
                <br>

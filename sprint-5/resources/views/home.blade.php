@@ -8,12 +8,12 @@
 
     </span>
     @endif
-    <div class="container col-12 col-md-12 col-lg-12 col-xl-12" id="index">
-        <div class="bloque-nombre-red col-12 col-xl-8">
+    <div class="container col-12" id="index">
+        <div class="bloque-nombre-red col-12 col-xl-7">
 
         </div>
 
-        <section id="index-section" class="col-12 col-xl-4">
+        <section id="index-section" class="col-12 col-xl-5">
             <article class="article-index" class="col-8 col-xl-12">
                 <div class="bloque-article">
                     <i class="fa fa-search col-1" aria-hidden="true"></i>

@@ -159,34 +159,25 @@ a
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(lightslategray,#333);
+    background:rgb(75, 87, 100);
 }
-.registrate a
+.article-index{
+    background: white;
+    padding: 10px;
+    width: 100%;
+    box-shadow: 0 3px 20px rgba(0, 0, 0,.3);
+}
+.registrate a, .login a
 {
-    border:solid 1px white;
+    text-decoration: none;
     margin-bottom: 15px;
     border-radius: 100px;
     padding: 5px 0;
-    background-color:white ;
-    color:#333;
-}
-.login a
-{
-    border:solid 1px white;
-    margin-bottom: 15px;
-    border-radius: 100px;
-    padding: 5px;   
-    background: white ;
-    color:#333;
-}
-.login a:hover, .registrate a:hover 
-{
-    text-decoration: none;
-    background-color:lightslategray;
-    border: solid 1px lightslategray;
+    background-color:#607d8b ;
     color:white;
-    transition: .25s;
 }
+
+
 .contenedor-header
 {
    margin:0 auto;
@@ -202,15 +193,21 @@ a
 }
 .bloque-article i
 {
-    font-size:1.7em;
-    color:white;
+    font-size:1.5em;
+    color:black;
     line-height: 43px;
     height: 50px;
 }
 .bloque-article h3
 {
-    font-size:1.5em;
-    color:white;
+    font-size:1.3em;
+    color:black;
+}
+.bloque-article:nth-child(1){
+    margin-top:15px;
+}
+.bloque-article:nth-child(3){
+    margin-bottom:15px;
 }
 .bloque-footer 
 {
@@ -266,15 +263,16 @@ a
     text-align: center;
     align-items: center;
     width: 300px;
-    background: #333;
+    background: white;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 30px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     will-change: transform;
+    box-shadow: 0px 3px 25px  rgba(0, 0, 0,.3);
 }
 #form-login{
     display: flex;
@@ -287,15 +285,15 @@ a
     text-align: center;
     font-size: 0.75em;
     margin: 0;
-    color: white;
-    font-weight: bold;
+    color: black;
+    font-weight: 600;
 }
 #input-login, #input-login2
 {
-    background: none;
-    border: solid 2px var(--color-fondoBoton);
+    background: var(--color-fondoBloques);
+    border: solid 2px  #607d8b;
     padding: 4px 15px;
-    color:white;
+    color:black;
     font-size:0.8em;
     border-radius: 14px;
     margin: 10px auto;
@@ -306,14 +304,13 @@ a
 }
 #input-login:focus,#input-login:hover,
 #input-login2:focus,#input-login2:hover{
-    border: var(--verde) 2px solid;
     width: 250px;
 }
 
 input.recordarme-login,
 span.recordarme-login{
     position: absolute;
-    color:white;
+    color:black;
     font-size:0.8em;
     display: inline;
     }
@@ -334,7 +331,7 @@ span.recordarme-login{
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
-    color:white;
+    color:black;
     font-size:0.8em;
     padding-left: 18%;
 }
@@ -346,11 +343,10 @@ span.recordarme-login{
 #boton-login
 {
     border-radius: 25px;
-    border: solid 2px var(--verde);
     padding: 4px 15px;
     font-size:0.8em;
     color:white;
-    background: none;
+    background: #607d8b;
     font-weight: bold;
     display: block;
     text-align: center;
@@ -359,10 +355,9 @@ span.recordarme-login{
     transition: .35s;
     width: 200px;
     outline: none;
+    border: none;
 }
-#boton-login:hover{
-    background: var(--verde);
-}
+
 
 
 .contenedor-login main div
@@ -373,12 +368,13 @@ span.recordarme-login{
     padding:15px;
     position: absolute;
     top: -35px;
-    background-color:black;
-    z-index: 50;
+    background-color:rgb(75, 87, 100);
+    z-index: 500;
+    box-shadow: 0 0 5px rgba(0, 0, 0,.4);
 }
 .contenedor-login main svg
 {
-    width: 30px;
+    width: 20px;
    color: white;
    transform: translateX(-15%);
 }
@@ -395,7 +391,7 @@ div p
 }
 
 .tamaño {
-    width: 250 px;
+    width: 250px;
     height: 80px;
     padding: 0;
   
@@ -1594,6 +1590,20 @@ body::-webkit-scrollbar-track{
          padding:top
      }
 @media (min-width:576px){
+
+    /*--------I N D E X --------*/
+
+    .article-index{
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 8px;
+
+    }
+
+
+
+
+
     /*--------L O G I N---------*/
 
 
@@ -1702,6 +1712,23 @@ article.solicitudes-amistad{
 }
 @media (min-width:768px)
 {
+
+    /*--------I N D E X -------*/
+
+    .article-index{
+        margin-left: 26px;
+        margin-right: 26px;
+    }
+    .bloque-article, .registrate a, .login a{
+        margin-left: 6%;
+        margin-right: 6%;
+    }
+    .registrate a, .login a{
+        margin-bottom: 20px;
+    }
+    
+
+
     .div-volver-perfil  
     {
          left: 71%;
@@ -1854,11 +1881,7 @@ span.recordarme-login{
     {
         max-width: 1199px;
     }
-    /*------------INDEX----------*/
-    .bloque-nombre-red
-    {
-        height: 50vh;
-    }
+
     /*---------------------------*/
     
     /*--------Registro-----------*/
@@ -1912,7 +1935,7 @@ span.recordarme-login{
 {
     position: relative;
     left:-18%;
-};
+}
       /*---------------------------*/
 
       /*-------------FAQ-------------*/
@@ -2062,7 +2085,7 @@ span.recordarme-login{
 .contenedor-login main 
 { 
     width: 35vw;
-    padding: 5%;
+    padding: 4%;
 }
 
 #input-login,#input-login2
@@ -2123,6 +2146,7 @@ span.recordarme-login
         max-width: 1399px;
     }
     /*------------INDEX----------*/
+
     #index
     {
         display:flex;
@@ -2136,6 +2160,7 @@ span.recordarme-login
         height: 100vh;
         transition:3s;
         transform: rotateY(360deg);
+        will-change: transform;
     } 
     /*---------------------------*/
     /*-------------REGISTRO-------------*/
