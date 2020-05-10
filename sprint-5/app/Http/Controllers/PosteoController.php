@@ -98,7 +98,7 @@ class PosteoController extends Controller
        {
         $posteo->update([
             'descripcion'=>request()->contenido,
-            'foto'=> ""
+            'foto'=> $posteo->foto
           ]);
        }
        return redirect()->route('categoria.index')->with('posact','Se ha actualizado la publicacion');

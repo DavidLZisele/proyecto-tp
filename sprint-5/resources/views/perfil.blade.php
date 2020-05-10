@@ -413,7 +413,7 @@ Perfil
                         <i class="fa fa-times cerrar-actpos" aria-hidden="true" style="font-size:20px;display:block;color:lightslategray;cursor: pointer;"></i>
                     </a>
                 </div>
-                <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos"style="padding-top:30px">
+                <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4 overlord" id="form-actPos"style="padding-top:30px">
                     @csrf 
                     @method('PUT') 
                      <div>
@@ -1391,7 +1391,6 @@ Perfil
           let cont = document.querySelector('.contenedor-modpub');
           cont.innerHTML = p.querySelector('.contenedor-modpub').innerHTML;
           cont.classList.remove('div-cerrar');
-          cont.querySelector('form').classList.add('overlord'); 
           document.querySelector('.contenedor-perfil').classList.add('overlay'); 
         }
        
@@ -1402,7 +1401,6 @@ Perfil
         i.onclick = function()
         {
           document.querySelector('.contenedor-modpub').classList.add('div-cerrar');
-          document.querySelector('.contenedor-modpub form').classList.remove('overlord');
           document.querySelector('.contenedor-perfil').classList.remove('overlay');
         } 
        
