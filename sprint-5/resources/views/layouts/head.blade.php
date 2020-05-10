@@ -21,7 +21,11 @@
     </title>
    
 </head>
-
+<style>
+  body{
+    background: rgb(75, 87, 100);
+  }
+</style>
 <body>
     @yield('content')
 </body>

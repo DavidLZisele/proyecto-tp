@@ -13,47 +13,50 @@
                 <img src="img/road-to-the-social.jpg" alt="foto">
             </header>
             <section class="section-faq ">
-                <article class="article-faq col-lg-6">
+                <article class="article-faq col-lg-10 col-xl-6">
                     <h1 class="">
                          Preguntas frecuentes
                     </h1>
-                    <div class="col-lg-6 ">
-                        <h2 class="col-6">
-                             ¿Cómo funciona Social?
-                        </h2>
-                        <p class="col-6">
-                            Muy sencillo, registrate, te logeas y empezas a disfrutar
-                             de todo lo que te ofrecemos.
-                        </p>
-                    </div>
-                    <div class="col-lg-6">
-                        <h2 class="col-6">
-                                ¿Es pago?
-                        </h2>
-                        <p class="col-6">
-                            Es gratis, y lo seguira siendo.
-                         </p>
-                    </div>
-                     <div class="col-lg-6 ">
-                        <h2 class="col-6">
-                            ¿Puedes eliminar tu cuenta?
-                        </h2>
-                         <p class="col-6">
-                            Puedes hacerlo en cualquier momento que lo desees.
-                        </p>
-                     </div>
-                    <div class="col-lg-6">
-                         <h2 class="col-6">
-                            ¿Alguien te molesta?
-                        </h2>
-                         <p class="col-6">
-                            Puedes bloquearlo y reportarlo, nuestros administradores
-                            se haran cargo del problema.
-                         </p>
-                    </div>
-            </article>
+                    <div class="preguntas">
 
-            <article class="article-faq-form col-12 col-lg-6" >
+                        <div class="col-12 ">
+                            <h2 class="col-6">
+                                ¿Cómo funciona Social?
+                            </h2>
+                            <p class="col-6">
+                                Muy sencillo, registrate, te logeas y empezas a disfrutar
+                                de todo lo que te ofrecemos.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <h2 class="col-6">
+                                ¿Es pago?
+                            </h2>
+                            <p class="col-6">
+                                Es gratis, y lo seguira siendo.
+                            </p>
+                        </div>
+                        <div class="col-12 ">
+                            <h2 class="col-6">
+                                ¿Puedes eliminar tu cuenta?
+                            </h2>
+                            <p class="col-6">
+                                Puedes hacerlo en cualquier momento que lo desees.
+                            </p>
+                        </div>
+                        <div class="col-12">
+                            <h2 class="col-6">
+                                ¿Alguien te molesta?
+                            </h2>
+                            <p class="col-6">
+                                Puedes bloquearlo y reportarlo, nuestros administradores
+                                se haran cargo del problema.
+                            </p>
+                        </div>
+                    </div>
+                    </article>
+                    
+            <article class="article-faq-form col-12 col-lg-10 col-xl-5" >
             <h2>   
                  Envianos tus dudas
             </h2>
@@ -68,7 +71,7 @@
             <textarea class="col-10" name="mensaje" id="mensaje" value="{{old('mensaje')}}" cols="30" rows="7" class="form-control @error('mensaje') is-invalid @enderror"
             @error('mensaje') placeholder="{{ $message }}"@enderror></textarea>
                 <br>
-                <button class="btn btn-dark col-10" type="submit">Enviar</button>
+                <button class=" col-10" type="submit">Enviar</button>
  
 
             </form>
