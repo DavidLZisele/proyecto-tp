@@ -1338,7 +1338,7 @@ body::-webkit-scrollbar-track{
          border: none;
          outline: none;
      }
-     .editar-publicacion-form i
+     .editar-publicacion-form i,.editar-comentario-form i
      {
 
         color:var(--color-fondoBoton);

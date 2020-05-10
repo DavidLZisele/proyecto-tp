@@ -57,29 +57,8 @@ Perfil
         background: rgb(75, 87, 100);
       }
     </style>
-  @if(count($posteos) !=0)
-  <div class="container contenedor-modpub col-12 div-cerrar">
-    <div class="div-volver-perfil">
-        <a href="{{route('categoria.index')}}" class="volver">
-            <i class="fa fa-times cerrar-actpos" aria-hidden="true" style="font-size:20px;display:block;color:lightslategray;cursor: pointer;"></i>
-        </a>
+    <div class="container contenedor-modpub col-12 div-cerrar">
     </div>
-    <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos"style="padding-top:30px">
-        @csrf 
-        @method('PUT') 
-         <div>
-            <input type="text" name="contenido" id="contenido" value="{{$posteo->descripcion}}" class="col-12 contenido-posteo">
-        </div>
-        <div class="div-foto-modificarpub">
-            <span>
-                FOTO
-            </span>
-            <input type="file" name="fotopub" id="foto-pub">
-        </div>
-        <button type="submit">Aceptar</button>
-    </form>
-</div>
-@endif
 
   <div class="container col-12 contenedor-perfil">
     <header class = "header-perfil col-12">
@@ -420,13 +399,35 @@ Perfil
                   </li>
                   <li class="item">
                     <div class="editar-publicacion-form" style="padding-left:7px">
-                     <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
+                     <i class="fa fa-pencil i-edit-post" aria-hidden="true" style="cursor: pointer"> Editar</i>
                     </div> 
 
                   </li>
                   
                 </ul>
               </div>
+              
+              <div class="container contenedor-modpub col-12 div-cerrar">
+                <div class="div-volver-perfil">
+                    <a href="{{route('categoria.index')}}" class="volver">
+                        <i class="fa fa-times cerrar-actpos" aria-hidden="true" style="font-size:20px;display:block;color:lightslategray;cursor: pointer;"></i>
+                    </a>
+                </div>
+                <form action="{{route('datos.updatePos',$posteo)}}" method = "POST" enctype="multipart/form-data" class="col-8 col-md-6 col-lg-4" id="form-actPos"style="padding-top:30px">
+                    @csrf 
+                    @method('PUT') 
+                     <div>
+                        <input type="text" name="contenido" id="contenido" value="{{$posteo->descripcion}}" class="col-12 contenido-posteo">
+                    </div>
+                    <div class="div-foto-modificarpub">
+                        <span>
+                            FOTO
+                        </span>
+                        <input type="file" name="fotopub" id="foto-pub">
+                    </div>
+                    <button type="submit">Aceptar</button>
+                </form>
+            </div>
           </div>
 
             <p class="texto-publicacion">
@@ -506,7 +507,7 @@ Perfil
                           </form>
                         </li>
                         <li class="item">
-                          <div class="editar-publicacion-form" style="padding-left:7px">
+                          <div class="editar-comentario-form" style="padding-left:7px">
                            <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                           </div> 
       
@@ -601,7 +602,7 @@ Perfil
                           </form>
                         </li>
                         <li class="item">
-                          <div class="editar-publicacion-form" style="padding-left:7px">
+                          <div class="editar-comentario-form" style="padding-left:7px">
                            <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                           </div> 
       
@@ -735,7 +736,7 @@ Perfil
                           </form>
                         </li>
                         <li class="item">
-                          <div class="editar-publicacion-form" style="padding-left:7px">
+                          <div class="editar-comentario-form" style="padding-left:7px">
                            <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                           </div> 
       
@@ -829,7 +830,7 @@ Perfil
                           </form>
                         </li>
                         <li class="item">
-                          <div class="editar-publicacion-form" style="padding-left:7px">
+                          <div class="editar-comentario-form" style="padding-left:7px">
                            <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                           </div> 
       
@@ -959,7 +960,7 @@ Perfil
                       </form>
                     </li>
                     <li class="item">
-                      <div class="editar-publicacion-form" style="padding-left:7px">
+                      <div class="editar-comentario-form" style="padding-left:7px">
                        <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                       </div> 
   
@@ -1040,7 +1041,7 @@ Perfil
                       </form>
                     </li>
                     <li class="item">
-                      <div class="editar-publicacion-form" style="padding-left:7px">
+                      <div class="editar-comentario-form" style="padding-left:7px">
                        <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer"> Editar</i>
                       </div> 
   
@@ -1380,29 +1381,33 @@ Perfil
               subirPublic.style.opacity = .7;
               subirPublic.style.cursor = 'not-allowed';
           }
-    if(document.querySelector('.editar-publicacion-form i')!=null)
-    {
-      for(let i of Array.from(document.querySelectorAll('.editar-publicacion-form i')))
+    
+      for(let p of Array.from(document.querySelectorAll('.pp')))
       {
-        i.onclick = function()
+        if(p.querySelector('.i-edit-post')!=null)
+        {     
+        p.querySelector('.i-edit-post').onclick = function()
         {
-          document.querySelector('.contenedor-modpub').classList.remove('div-cerrar');
-        document.querySelector('.contenedor-modpub form').classList.add('overlord');
-        document.querySelector('.contenedor-perfil').classList.add('overlay'); 
+          let cont = document.querySelector('.contenedor-modpub');
+          cont.innerHTML = p.querySelector('.contenedor-modpub').innerHTML;
+          cont.classList.remove('div-cerrar');
+          cont.querySelector('form').classList.add('overlord'); 
+          document.querySelector('.contenedor-perfil').classList.add('overlay'); 
         }
        
       }
+    }
       for(let i of Array.from(document.querySelectorAll('.cerrar-actpos')))
       {
         i.onclick = function()
         {
           document.querySelector('.contenedor-modpub').classList.add('div-cerrar');
-        document.querySelector('.contenedor-modpub form').classList.remove('overlord');
-        document.querySelector('.contenedor-perfil').classList.remove('overlay');
+          document.querySelector('.contenedor-modpub form').classList.remove('overlord');
+          document.querySelector('.contenedor-perfil').classList.remove('overlay');
         } 
        
       }
-    }
+    
     if(document.getElementById('form-eliminarPos')!=null){
       document.getElementById('form-eliminarPos').onsubmit = function(event)
     {
