@@ -30,8 +30,8 @@ a
 }
 .form-registro input
 {
-    background-color:#333;
-    border:solid 1px #333;
+    background-color:#f5f6fa;
+    border:solid 1px rgb(75, 87, 100);
     color:white;
     border-radius:5px;
 }
@@ -56,13 +56,8 @@ a
  background-color: #333;
  color:white;
 }
-.form-control:focus
-{
-    
-    background-color: #333;
-    color:white;
-    border:solid 1px #333;
-}
+
+
 #form-control-public
 {
     background: none;
@@ -460,10 +455,10 @@ div p
 }
 .form-registro div button
 {
-    border:solid 1px #333;
+    border: none;
     border-radius: 100px;
     padding: 4px 0;
-    background-color: #333;
+    background-color: #607d8b;
     color:white;
     display: block;
     text-transform: uppercase;
@@ -472,11 +467,6 @@ div p
     line-height: 25px;
     margin-bottom: 35px;
 }
-.form-registro div button:hover
-{
-    text-decoration: none;
-background-color:lightslategray;
-}
 
 .bloque-p-registro
 {
@@ -484,9 +474,8 @@ background-color:lightslategray;
 }
 .bloque-foto-perfil .bloque-foto
 {
-    border:solid 1px #333;
     position: relative;
-    background-color: #333;
+    background-color: #607d8b;
     border-radius: 5px;
 }
 

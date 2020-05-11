@@ -477,9 +477,9 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
-                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
                            </span>
                           <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
@@ -572,9 +572,9 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
-                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
                            </span>
                           <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
@@ -706,9 +706,9 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
-                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
                            </span>
                           <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
@@ -800,9 +800,9 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
-                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                           <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
                            </span>
                           <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
@@ -930,9 +930,9 @@ Perfil
                 <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                 </div>
                 <div class="col-10 div-comentario-user">
-                  <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                  <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
                     <span class="span-abrir">
-                       <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                       <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                          {{$com->descripcion}} 
                        </span>
                       <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">
@@ -1011,9 +1011,9 @@ Perfil
                 <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                 </div>
                 <div class="col-10 div-comentario-user">
-                  <div style="padding:7px;background-color:#f2f3f5;border-radius:100px">
+                  <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
                     <span class="span-abrir">
-                       <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname[0]}}:</b>
+                       <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                          {{$com->descripcion}} 
                        </span>
                       <form action="{{route('comentario.update', $com)}}" method="POST" class="form-cerrar form-act-comentario" style="position:relative">

@@ -3,6 +3,11 @@
    Registro
    @endsection
 @section('content')
+<style>
+    body{
+        background: white;
+    }
+</style>
     <div class="container col-12 col-md-12 col-lg-12 col-xl-12 contenedor-registro">
         <div class="fondo col-lg-12 mb-5 mb-xl-0 col-xl-7">
 
