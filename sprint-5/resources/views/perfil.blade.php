@@ -326,10 +326,10 @@ Perfil
 
             @else
 
-            <form action="{{route('categoria.store')}}" method ="post">
+            <form action="{{route('categoria.store')}}" method ="post" id="categoria-post-subir">
               @csrf
                <input type="text" name="descripcion" class="publicacion form-control" placeholder="Categoria">
-               <br>
+
                <button type="submit" name="subircat">Subir</button>
                @if(session('subida'))
                <span style="color:green;font-size:13px">
@@ -338,26 +338,27 @@ Perfil
               @endif
 
                <br>
-               <br>
             </form>
-            <form action="{{route('categoria.destroy')}}" method = "post">
+            <form action="{{route('categoria.destroy')}}" method = "post" id="categoria-post-eliminar">
                 @csrf
                 @method("delete")
-                <label for="tipopublicacion">Categoria</label>
-                <select name="tipopublicacion" id="tipopublicacion">
-                  @foreach($categorias as $cat)
-                   <option value="{{$cat->id}}">
-                       {{$cat->descripcion}}
-                   </option>
-                  @endforeach
-                </select>
+                <div class="categoria-nombre">
+                  <label for="tipopublicacion">Categoria</label>
+                  <select name="tipopublicacion" id="tipopublicacion">
+                    @foreach($categorias as $cat)
+                    <option value="{{$cat->id}}">
+                      {{$cat->descripcion}}
+                    </option>
+                    @endforeach
+                  </select>
+                </div>
                 <button type="submit" name ="eliminarcat">Eliminar</button>  
                 <br>   
                 @if(session('eliminada'))
                  <span style="color:red;font-size:13px">
                    {{session('eliminada')}}
                  </span>
-                 @endif       
+                 @endif
              </form>
             @endif
        </article>
@@ -477,7 +478,7 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
+                      <div style="position: relative;left:5px;padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
                            <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
@@ -572,7 +573,7 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
+                      <div style="position: relative;left:5px;padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
                            <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
@@ -706,7 +707,7 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
+                      <div style="position: relative;left:5px;padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
                            <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
@@ -800,7 +801,7 @@ Perfil
                     <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                     </div>
                     <div class="col-10 div-comentario-user">
-                      <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
+                      <div style="position: relative;left:5px;padding:7px;background-color:#f2f3f5;border-radius:20px">
                         <span class="span-abrir">
                            <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                              {{$com->descripcion}} 
@@ -930,7 +931,7 @@ Perfil
                 <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                 </div>
                 <div class="col-10 div-comentario-user">
-                  <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
+                  <div style="position: relative;left:5px;padding:7px;background-color:#f2f3f5;border-radius:20px">
                     <span class="span-abrir">
                        <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                          {{$com->descripcion}} 
@@ -1011,7 +1012,7 @@ Perfil
                 <img src="/storage/{{$com->usuario->photo}}" alt="" class="foto-user-comentario rounded-circle">
                 </div>
                 <div class="col-10 div-comentario-user">
-                  <div style="padding:7px;background-color:#f2f3f5;border-radius:20px">
+                  <div style="position: relative;left:5px;padding:7px;background-color:#f2f3f5;border-radius:20px">
                     <span class="span-abrir">
                        <b style="color:lightslategrey">{{$com->usuario->name}} {{$com->usuario->surname}}:</b>
                          {{$com->descripcion}} 

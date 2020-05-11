@@ -70,6 +70,26 @@ a
 .publicacion-perfil.form-control::placeholder{
     font-size: 1em;
 }
+#categoria-post-subir{
+    padding: 20px;
+    padding-bottom: 0;
+}
+#categoria-post-subir input{
+    background: var(--color-fondoBloques);
+    border: 1px solid rgb(75, 87, 100);
+    margin-bottom: 10px;
+}
+#categoria-post-subir button{
+    margin-bottom: 20px;
+
+}
+#categoria-post-eliminar{
+    padding: 20px;
+    padding-top: 0;
+}
+#categoria-post-eliminar select {
+    background: var(--color-fondoBloques);
+}
 .categ{
     background: #f5f6fa;
     text-align: center;
@@ -265,10 +285,21 @@ a
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    animation: aparecer .7s forwards;
     will-change: transform;
     box-shadow: 0px 3px 25px  rgba(0, 0, 0,.3);
 }
+    @keyframes aparecer{
+        from{
+            transform: translate(0,0);
+
+        }
+        to{
+            transform: translate(-50%,-50%);
+
+        }
+    }
+
 #form-login{
     display: flex;
     justify-content: center;
@@ -1312,10 +1343,20 @@ body::-webkit-scrollbar-track{
      {
          position: fixed;
          top:50%;
+         border-radius: 5px;
+
+     }
+     .overlord #contenido{
+         background: var(--color-fondoBloques);
+         border-radius: 8px;
+         border: 1px solid rgb(75, 87, 100);
+     }
+     .overlord button{
+         border-radius: 6px;
      }
      .contenedor-modpub form
      {
-         padding:20px;
+         padding:22px;
          background-color:white;
      }
      .contenedor-modpub div
@@ -1343,6 +1384,7 @@ body::-webkit-scrollbar-track{
          flex-wrap: wrap;
          justify-content: center;
          align-items: center;
+         border-radius: 6px;
      }
      .div-foto-modificarpub input 
      {
@@ -2231,10 +2273,18 @@ span.recordarme-login
     .bloque-nombre-red
     {
         height: 100vh;
-        transition:3s;
-        transform: rotateY(360deg);
+        animation: rotar 2.5s;
         will-change: transform;
     } 
+    @keyframes rotar{
+       from{
+           transform: rotateY(0deg);
+    } 
+    to{
+        transform: rotateY(360deg);
+    }
+
+    }
     /*---------------------------*/
     /*-------------REGISTRO-------------*/
     .fondo

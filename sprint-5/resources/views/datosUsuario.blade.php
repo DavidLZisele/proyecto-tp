@@ -7,6 +7,11 @@ $usuario = Auth::user();
 @endsection
 
 @section('content')
+<style>
+  body{
+    background: #333;
+  }
+</style>
     <div class="container col-12 contenedor-datousuario">
         <div class="accordion col-8 col-md-6 col-xl-4" id="accordionExample">
         <a href="{{route('categoria.index')}}" class="volver">
