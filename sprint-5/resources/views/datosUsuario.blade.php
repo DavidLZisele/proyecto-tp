@@ -113,7 +113,7 @@ $usuario = Auth::user();
                        <option value="Divorciado" selected>Divorciado</option>
                        </select> 
                      @endif
-                     @if($usuario->relacion != "Divorciado" && $usuario->relacion != "Casado" && $usuario->relacion != "En pareja" && $usuario->relacion != "Soltero")         
+                     @if($usuario->relacion == null)         
                      <select style="color:white;"name="relacion" id="relacion" class="form-control">
                       <option value="Soltero" >Soltero</option>
                       <option value="En pareja">En pareja</option>
