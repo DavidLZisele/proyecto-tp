@@ -1658,6 +1658,49 @@ body::-webkit-scrollbar-track{
          border:solid 1px  #333;
          padding:top
      }
+     .p-buscador-theme
+     {
+         background: linear-gradient(black, lightgray);
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: left;
+         width: 40px;
+         margin-left: 15px;
+         padding-left: 0;
+         border-radius:100px;
+     }
+     .btn-buscador-theme 
+     {
+        width:25px;
+        height:25px;
+        border:solid 1px  var(--color-fondoBoton);
+        background: linear-gradient(var(--color-fondoBoton),lightgray);
+
+     }
+     .btn-buscador-theme:focus 
+     {
+         outline:none;
+     }
+     .justify-right 
+     {
+         justify-content: right;
+     }
+     .div-buscador-theme
+     {
+         display:flex;
+         flex-wrap: wrap;
+         justify-content: right;
+         text-align: center;
+     }
+     .div-buscador-theme span
+     {
+         font-size:15px;
+     }
+     .btn-denegar-buscador
+     {
+        border:solid 1px #333;
+       background: linear-gradient(#333,lightgray);
+     }
 @media (min-width:576px){
 
     /*--------I N D E X --------*/

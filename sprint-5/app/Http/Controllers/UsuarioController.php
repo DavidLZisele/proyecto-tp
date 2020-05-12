@@ -18,6 +18,7 @@ class UsuarioController extends Controller
         isset(request()->fecha_cumpleanios) ? $usuario->fecha_cumpleanios = request()->fecha_cumpleanios : $usuario->fecha_cumpleanios = null;
         $usuario->ciudad = request()->ciudades;
         $usuario->provincia = request()->provincias;
+        $usuario->buscar = request()->buscar;
         $usuario->update(); 
             return redirect()->route('categoria.index');
     }

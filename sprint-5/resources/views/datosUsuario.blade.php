@@ -122,7 +122,25 @@ $usuario = Auth::user();
                       </select>  
                      @endif
                     </p>
-                 <p>
+                    <div class="div-buscador-theme">
+                      <span>
+                        Desea aparecer en el buscador 
+                      </span>
+                      @if($usuario->buscar == 0)
+                      <p class="p-buscador-theme justify-right">
+                      <input type="hidden" name="buscar" value="{{$usuario->buscar}}">
+                        <button type="button" class="rounded-circle btn-buscador-theme btn-denegar-buscador" name ="btn_buscar"></button>  
+                      </p>
+                     @else 
+                     <p class="p-buscador-theme">
+                      <input type="hidden" name="buscar" value="{{$usuario->buscar}}">
+                      <button type="button" class="rounded-circle btn-buscador-theme" name ="btn_buscar"></button>  
+                    </p>
+                     @endif
+                    </div>
+                    
+                    
+                 <p>               
                      <button style="background-color:#607d8b;border:solid 1px #607d8b;"type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
                  </p>        
             </div>
@@ -375,6 +393,25 @@ $usuario = Auth::user();
              if(!confirm('Estas seguro de eliminar tu cuenta?'))
              {
                e.preventDefault();
+             }
+           }
+           document.querySelector('.p-buscador-theme').onclick = function()
+           {
+             let btn  = document.querySelector('.btn-buscador-theme');
+             let input = document.querySelector('[name=buscar]');
+             if(this.classList.contains('justify-right'))
+             {
+                this.classList.remove('justify-right');
+                btn.classList.remove('btn-denegar-buscador');
+                input.value =1;
+                toastr.info('Los otros usuarios te podran ver en el buscador');
+             } else {
+              this.classList.add('justify-right');
+              btn.classList.add('btn-denegar-buscador');
+              input.value=0;
+              toastr.info('Los otros usuarios no te podran ver en el buscador');
+              
+
              }
            }
       }

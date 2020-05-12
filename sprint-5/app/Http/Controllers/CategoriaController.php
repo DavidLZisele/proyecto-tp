@@ -16,7 +16,7 @@ class CategoriaController extends Controller
         if(Auth::user()->ciudad != "")
         {
                 
-            $usuarios = User::where("ciudad","=", $usuario->ciudad)->where("id","!=",$usuario->id)->get();
+            $usuarios = User::where("ciudad","=", $usuario->ciudad)->where("id","!=",$usuario->id)->where("buscar","=", 1)->get();
             foreach($usuarios as $user)
             {  
                     $resp1 = false;
