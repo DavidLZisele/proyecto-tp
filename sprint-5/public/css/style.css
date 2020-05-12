@@ -1673,7 +1673,7 @@ body::-webkit-scrollbar-track{
          background: linear-gradient(black, lightgray);
          display: flex;
          flex-wrap: wrap;
-         justify-content: left;
+         justify-content: flex-start;
          width: 40px;
          margin-left: 15px;
          padding-left: 0;
@@ -1693,13 +1693,13 @@ body::-webkit-scrollbar-track{
      }
      .justify-right 
      {
-         justify-content: right;
+         justify-content: flex-end;
      }
      .div-buscador-theme
      {
          display:flex;
          flex-wrap: wrap;
-         justify-content: right;
+         justify-content: flex-end;
          text-align: center;
      }
      .div-buscador-theme span
