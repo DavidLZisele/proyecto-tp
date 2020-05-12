@@ -1117,7 +1117,7 @@ Perfil
 
             <div class="div-lista-usuarios div-cerrar">
               @foreach($usuarios as $user)
-              <div class="sa">
+              <div class="sa " id="sa-usuario-ciudad">
                 <div class=" foto-solicitud">
                 <img src="storage/{{$user->photo}}" alt="">
                 </div>

@@ -1132,6 +1132,16 @@ body::-webkit-scrollbar-track{
          padding:15px;
          background: var(--color-fondoBloques);
      }
+     #sa-usuario-ciudad{
+         display: grid;
+         grid-template-columns: repeat(3,1fr);
+         justify-items: center;
+         align-items: center;
+     }
+     #sa-usuario-ciudad p{
+        text-align: center;
+
+     }
      .foto-solicitud img 
      {
          width: 70px;
