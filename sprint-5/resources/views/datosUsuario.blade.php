@@ -43,9 +43,9 @@ $usuario = Auth::user();
                  </p>
                  <p>
                  @if(isset($usuario->escuela))
-                 <input type="text" name="escuela" id="escuela" value="{{$usuario->escuela}}" placeholder="Escuela"  class="form-control @error('escuela') is-invalid @enderror">
+                 <input style="color:white" type="text" name="escuela" id="escuela" value="{{$usuario->escuela}}" placeholder="Escuela"  class="form-control @error('escuela') is-invalid @enderror">
                  @else 
-                  <input type="text" name="escuela" id="escuela" value="" placeholder="Escuela" class="form-control @error('escuela') is-invalid @enderror">
+                  <input style="color:white" type="text" name="escuela" id="escuela" value="" placeholder="Escuela" class="form-control @error('escuela') is-invalid @enderror">
                  @endif
                  @error('escuela')
                         <span class="invalid-feedback" role="alert">
@@ -55,9 +55,9 @@ $usuario = Auth::user();
                  </p>
                  <p>
                  @if(isset($usuario->universidad))
-                 <input type="text" name="universidad" id="universidad" value="{{$usuario->universidad}}" placeholder="Universidad"  class="form-control @error('universidad') is-invalid @enderror">
+                 <input style="color:white"  type="text" name="universidad" id="universidad" value="{{$usuario->universidad}}" placeholder="Universidad"  class="form-control @error('universidad') is-invalid @enderror">
                  @else
-                  <input type="text" name="universidad" id="universidad" value="" placeholder="Universidad"  class="form-control @error('universidad') is-invalid @enderror">
+                  <input style="color:white"  type="text" name="universidad" id="universidad" value="" placeholder="Universidad"  class="form-control @error('universidad') is-invalid @enderror">
                  @endif
                  @error('universidad')
                         <span class="invalid-feedback" role="alert">
@@ -65,26 +65,57 @@ $usuario = Auth::user();
                         </span>
                   @enderror
                  </p>
+               
                  <p class="p-provincias-ciudades">
-                    <select name="provincias" id="provincias" class="col-6">
-
-                    </select>
-                    <select name="ciudades" id="ciudades" class="col-5">
-
-                    </select>
-                 </p>
+                   <select name="provincias" id="provincias" class="col-6">
+                    @if(isset($usuario->provincia))
+                   <option value="{{$usuario->provincia}}" selected id="option-provincia">{{$usuario->provincia}}</option>
+                    @endif
+                   </select>
+                   <select name="ciudades" id="ciudades" class="col-5">
+                    @if(isset($usuario->ciudad))
+                    <option value="{{$usuario->ciudad}}" selected id="option-ciudad">{{$usuario->ciudad}}</option>
+                     @endif
+                   </select>
+                </p>
                  <p>
                  Situación sentimental
                  <br>
-                 <select name="relacion" id="relacion" value ="{{$usuario->relacion}}" class="form-control">
-                    <option value="Soltero">Soltero</option>
+                 @if($usuario->relacion == "Soltero")
+                 <select style="color:white;"name="relacion" id="relacion" class="form-control">
+                    <option value="Soltero" selected>Soltero</option>
                     <option value="En pareja">En pareja</option>
                     <option value="Casado">Casado</option>
                     <option value="Divorciado">Divorciado</option>
-                    </select>           
+                    </select> 
+                  @endif
+                  @if($usuario->relacion == "En pareja")
+                  <select style="color:white;"name="relacion" id="relacion" class="form-control">
+                     <option value="Soltero">Soltero</option>
+                     <option value="En pareja" selected>En pareja</option>
+                     <option value="Casado">Casado</option>
+                     <option value="Divorciado">Divorciado</option>
+                     </select> 
+                   @endif
+                   @if($usuario->relacion == "Casado")
+                   <select style="color:white;"name="relacion" id="relacion" class="form-control">
+                      <option value="Soltero">Soltero</option>
+                      <option value="En pareja">En pareja</option>
+                      <option value="Casado" selected>Casado</option>
+                      <option value="Divorciado">Divorciado</option>
+                      </select> 
+                    @endif
+                    @if($usuario->relacion == "Divorciado")
+                    <select style="color:white;"name="relacion" id="relacion" class="form-control">
+                       <option value="Soltero" >Soltero</option>
+                       <option value="En pareja">En pareja</option>
+                       <option value="Casado">Casado</option>
+                       <option value="Divorciado" selected>Divorciado</option>
+                       </select> 
+                     @endif         
                  </p>
                  <p>
-                     <button type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
+                     <button style="background-color:#607d8b;border:solid 1px #607d8b;"type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
                  </p>        
             </div>
         </form>
@@ -115,7 +146,7 @@ $usuario = Auth::user();
                  <input type="password" name="password3" id="password1" value="" placeholder ="Confirmar contraseña">
                  </p>
                  <p>
-                     <button type="submit" name="cambiarcontraseña" id="cambiarcontraseña">Aceptar</button>
+                     <button style="background-color:#607d8b; border:solid 1px #607d8b;";type="submit" name="cambiarcontraseña" id="cambiarcontraseña">Aceptar</button>
                      <br>
                    
                      @if(session('status'))
@@ -149,6 +180,12 @@ $usuario = Auth::user();
     <script>
       function cargarProvincias()
       {
+        let prov_user = "";
+        if(document.getElementById('option-provincia')!=null)
+        {
+          prov_user = document.getElementById('option-provincia').value;
+          document.querySelector('#provincias').innerHTML = "";
+        } 
         fetch("http://localhost:3000/ciudades")
         .then(response=>response.json())
         .then(data =>{
@@ -161,18 +198,70 @@ $usuario = Auth::user();
             array = array.sort();
             for(let prov of array)
             {
-              let opt = document.createElement('option');
-              opt.append(document.createTextNode(prov))
-              opt.value = prov;
-              select.append(opt);
+                let opt = document.createElement('option');
+                opt.append(document.createTextNode(prov))
+                opt.value = prov;
+                if(prov_user == prov)
+                {
+                  opt.setAttribute('selected', true);
+                }
+                select.append(opt); 
             }
         });
+      }
+      function cargarCiudades()
+      {
+          let select = document.querySelector('#ciudades');
+
+          let ciu_user = "";
+          if(document.getElementById('option-ciudad')!=null)
+          {
+            ciu_user = document.getElementById('option-ciudad').value;
+            select.innerHTML = "";
+          } 
+          select.innerHTML = "";
+          fetch("http://localhost:3000/ciudades")
+          .then(response=>response.json())
+          .then(data => 
+          {
+              let provincia = "";
+              data = data.sort();
+              for(let prov of data)
+              {
+                if(prov.provincia == document.querySelector('#provincias').options[document.querySelector('#provincias').selectedIndex].value)
+                {
+                  provincia = prov;
+                  break;
+                }
+              }
+              select = document.querySelector('#ciudades');
+              let array = [];
+              for(let ciud of  provincia.localidad)
+              {
+                array.push(ciud);
+              }
+              array = array.sort();
+              for(let ciu of array)
+              {
+                let opt = document.createElement('option');
+                opt.append(document.createTextNode(ciu))
+                opt.value = ciu;
+                if(ciu_user == ciu)
+                {
+                  opt.setAttribute('selected', true);
+                }
+                select.append(opt);
+              }
+          }
+          )
       }
       window.onload = function()
       {
         cargarProvincias();
-        document.querySelector('#provincias').onchange = function()
+        cargarCiudades();
+          document.querySelector('#provincias').onchange = function()
         {
+
           let select = document.querySelector('#ciudades');
           select.innerHTML = "";
           fetch("http://localhost:3000/ciudades")

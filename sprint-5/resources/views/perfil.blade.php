@@ -70,7 +70,7 @@ Perfil
           <a class="nav-link" href="https:\\www.rosario3.com" title="Noticias"><i class="fa fa-globe"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" title="Configuracion"><i class="fa fa-user"></i></a>
+        <a class="nav-link" href="{{route('datos.index')}}" title="Configuracion"><i class="fa fa-user"></i></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" title="Mensajes"><i class="fa fa-envelope"></i></a>

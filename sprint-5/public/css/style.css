@@ -1414,7 +1414,7 @@ body::-webkit-scrollbar-track{
          font-size: 11px;
          margin-bottom: 5px;
      }
-     .div-cerrar, .form-cerrar, .i-cerrar,.li-cerrar,.span-cerrar
+     .div-cerrar, .form-cerrar, .i-cerrar,.li-cerrar,.span-cerrar,.p-cerrar
      {
          display:none;
      }

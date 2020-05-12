@@ -11,12 +11,14 @@ class UsuarioController extends Controller
 {
     protected function updateDatos(User $usuario)
     {
+        
         isset(request()->universidad) ? $usuario->universidad = request()->universidad : $usuario->universidad = null;
         isset(request()->escuela) ? $usuario->escuela = request()->escuela: $usuario->escuela = null;
         isset(request()->relacion) ? $usuario->relacion = request()->relacion : $usuario->relacion = null;
-        isset(request()->ciudad) ? $usuario->ciudad = request()->ciudades : $usuario->ciudad = null;
         isset(request()->fecha_cumpleanios) ? $usuario->fecha_cumpleanios = request()->fecha_cumpleanios : $usuario->fecha_cumpleanios = null;
-        $usuario->update();
+        $usuario->ciudad = request()->ciudades;
+        $usuario->provincia = request()->provincias;
+        $usuario->update(); 
             return redirect()->route('categoria.index');
     }
     protected function updatePassword(User $usuario)
