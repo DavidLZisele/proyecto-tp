@@ -1184,7 +1184,8 @@ Perfil
         if(resp)
         {
           event.preventDefault();
-          alert('Campo vacio');
+          toastr.error("Campo vacío");
+          
         }
     }
     document.getElementById('form-buscar-amigos').onsubmit = function(event)
@@ -1207,7 +1208,7 @@ Perfil
         if(resp)
         {
           event.preventDefault();
-          alert('Campo vacio');
+          toastr.error("Campo vacío");
         }
     }
     document.querySelector('.btn-lista-usuario').onclick = function()
