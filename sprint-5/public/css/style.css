@@ -958,7 +958,7 @@ body::-webkit-scrollbar-track{
          top: 0;
          left: 31%;
          font-size: 1.4em;
-         width: 100%;
+         width: 400px;
      }
      #categoria-posteo{
          position: absolute;

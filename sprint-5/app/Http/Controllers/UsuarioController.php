@@ -168,7 +168,12 @@ class UsuarioController extends Controller
            $amistad = Amigos::where("id_user", "=", $usuario->id)->where("id_amigo","=", $amigo->id)->get();
            $amistad->first()->delete();
         }
+        foreach($usuario->fotos as $foto){
+            $img = UsuarioFoto::where("id_user", "=", $usuario->id)->where("id","=", $foto->id)->get();
+           $img->first()->delete();
+
+        }
         $usuario->delete();
-        return redirect()->route('home')->with('status',"Vuelva pronto, espero que haya si grata su experiencia con nosotros");
+        return redirect()->route('home')->with('status',"Vuelva pronto, espero que haya sido grata su experiencia con nosotros");
     }
 }
