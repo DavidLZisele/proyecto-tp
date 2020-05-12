@@ -64,7 +64,7 @@ a
     border: none;
     outline: none;
     height: inherit;
-    font-size: 1.2em;
+    font-size: 1.1em;
     color: black;
 }
 .publicacion-perfil.form-control::placeholder{
@@ -1131,6 +1131,16 @@ body::-webkit-scrollbar-track{
          margin-bottom: 10px;
          padding:15px;
          background: var(--color-fondoBloques);
+     }
+     #sa-usuario-ciudad{
+         display: grid;
+         grid-template-columns: repeat(3,1fr);
+         justify-items: center;
+         align-items: center;
+     }
+     #sa-usuario-ciudad p{
+        text-align: center;
+
      }
      .foto-solicitud img 
      {

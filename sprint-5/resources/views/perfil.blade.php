@@ -1117,7 +1117,7 @@ Perfil
 
             <div class="div-lista-usuarios div-cerrar">
               @foreach($usuarios as $user)
-              <div class="sa">
+              <div class="sa " id="sa-usuario-ciudad">
                 <div class=" foto-solicitud">
                 <img src="storage/{{$user->photo}}" alt="">
                 </div>
@@ -1184,7 +1184,8 @@ Perfil
         if(resp)
         {
           event.preventDefault();
-          alert('Campo vacio');
+          toastr.error("Campo vacío");
+          
         }
     }
     document.getElementById('form-buscar-amigos').onsubmit = function(event)
@@ -1207,7 +1208,7 @@ Perfil
         if(resp)
         {
           event.preventDefault();
-          alert('Campo vacio');
+          toastr.error("Campo vacío");
         }
     }
     document.querySelector('.btn-lista-usuario').onclick = function()
