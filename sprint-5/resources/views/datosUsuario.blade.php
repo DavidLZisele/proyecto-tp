@@ -112,8 +112,16 @@ $usuario = Auth::user();
                        <option value="Casado">Casado</option>
                        <option value="Divorciado" selected>Divorciado</option>
                        </select> 
-                     @endif         
-                 </p>
+                     @endif
+                     @if($usuario->relacion != "Divorciado" && $usuario->relacion != "Casado" && $usuario->relacion != "En pareja" && $usuario->relacion != "Soltero")         
+                     <select style="color:white;"name="relacion" id="relacion" class="form-control">
+                      <option value="Soltero" >Soltero</option>
+                      <option value="En pareja">En pareja</option>
+                      <option value="Casado">Casado</option>
+                      <option value="Divorciado">Divorciado</option>
+                      </select>  
+                     @endif
+                    </p>
                  <p>
                      <button style="background-color:#607d8b;border:solid 1px #607d8b;"type="submit" name="cambiardatos" id="cambiardatos">Aceptar</button>
                  </p>        
