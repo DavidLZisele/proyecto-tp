@@ -174,7 +174,7 @@ Perfil
               <p class="datosusuario"><i class="fa fa-birthday-cake"></i> {{$usuario->fecha_cumpleanios}}</p>
             
              @else
-             <p class="datosusuario"><i class="fa fa-birthday-cake"></i>Cumpleaños</p>
+             <p class="datosusuario"><i class="fa fa-birthday-cake" style="margin-right:6px"></i>Cumpleaños</p>
             
              @endif
              
@@ -201,8 +201,8 @@ Perfil
                         @method('delete')
                       <input type="hidden" name="id_user" value="{{$usuario->id}}">
                       <input type="hidden" name="id_amigo" value="{{$amigo->id}}">
-                      <button type="submit" style="border:0;background-color:lightslategray" name="btn_eliminar" value="true">
-                          <i class="fa fa-times" aria-hidden="true" style="color:white"> Eliminar</i>
+                      <button type="submit" style="border:0;background-color:white;" name="btn_eliminar" value="true">
+                          <i class="fa fa-times" aria-hidden="true" style="color:lightslategray"> Eliminar</i>
                       </button>
                       </form>
                       <form action="{{route('datos.bloquearAmigo')}}" method="post">

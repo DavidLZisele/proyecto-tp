@@ -206,42 +206,6 @@ $usuario = Auth::user();
           }
           )
         }
-        document.getElementById('form-cambiarDatos').onsubmit = function(event)
-        {
-          let inputs = Array.from(this.elements);
-          inputs.pop();
-          inputs.shift();
-          let validarCiudad = /^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/;
-          let resp1 = false;
-          let resp2= false;
-            for(let input of inputs)
-              {
-                if(input.getAttribute('name')=="universidad" || input.getAttribute('name')=="escuela" || input.getAttribute('name')=="ciudad")
-                  {
-                      if(input.value == "")
-                    {
-                      resp1 = true;
-                      break;
-                    } if(input.getAttribute('name')=="ciudad")
-                       {
-                          if(!validarCiudad.test(input.value))
-                          {
-                            resp2 = true;
-                          }
-                       }
-                  }
-              }
-             if(resp1)
-                 {
-                   event.preventDefault();
-                   toastr.error('Campo vacio');
-                } else if(resp2)
-                {
-                    event.preventDefault();
-                    toastr.error('Ciudad no permite numeros');
-                    this.value = "";
-                }
-        }
         document.getElementById('form-cambiarPass').onsubmit = function(event)
         {
           let inputs = Array.from(this.elements);

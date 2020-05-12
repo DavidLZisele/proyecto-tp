@@ -11,19 +11,11 @@ class UsuarioController extends Controller
 {
     protected function updateDatos(User $usuario)
     {
-        
-        request()->validate([
-            "universidad"=> 'string|required',
-            "ciudades"=> 'string|required',
-            "relacion"=> 'string|required',
-            "escuela"=> 'string|required',
-            "fecha_cumpleanios"=> 'date|required',
-        ]);
-        $usuario->universidad = request()->universidad;
-        $usuario->escuela = request()->escuela;
-        $usuario->relacion = request()->relacion;
-        $usuario->ciudad = request()->ciudades;
-        $usuario->fecha_cumpleanios = request()->fecha_cumpleanios;
+        isset(request()->universidad) ? $usuario->universidad = request()->universidad : $usuario->universidad = null;
+        isset(request()->escuela) ? $usuario->escuela = request()->escuela: $usuario->escuela = null;
+        isset(request()->relacion) ? $usuario->relacion = request()->relacion : $usuario->relacion = null;
+        isset(request()->ciudad) ? $usuario->ciudad = request()->ciudades : $usuario->ciudad = null;
+        isset(request()->fecha_cumpleanios) ? $usuario->fecha_cumpleanios = request()->fecha_cumpleanios : $usuario->fecha_cumpleanios = null;
         $usuario->update();
             return redirect()->route('categoria.index');
     }
@@ -50,7 +42,7 @@ class UsuarioController extends Controller
         if(!request()->foto_vieja)
         {
             request()->validate([
-                'cambiar-foto'=> 'mimes:rpg,jpg,jpeg|required'
+                'cambiar-foto'=> 'mimes:png,jpg,jpeg|required'
         ]);
         $foto = basename(request()->file('cambiar-foto')->store('public'));
             
