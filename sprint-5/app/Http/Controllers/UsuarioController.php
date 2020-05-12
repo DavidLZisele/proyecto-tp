@@ -12,13 +12,6 @@ class UsuarioController extends Controller
     protected function updateDatos(User $usuario)
     {
         
-        request()->validate([
-            "universidad"=> 'string|required',
-            "ciudades"=> 'string|required',
-            "relacion"=> 'string|required',
-            "escuela"=> 'string|required',
-            "fecha_cumpleanios"=> 'date|required',
-        ]);
         $usuario->universidad = request()->universidad;
         $usuario->escuela = request()->escuela;
         $usuario->relacion = request()->relacion;
@@ -177,6 +170,6 @@ class UsuarioController extends Controller
            $amistad->first()->delete();
         }
         $usuario->delete();
-        return redirect()->route('home')->with('status',"Vuelva pronto, espero que haya si grata su experiencia con nosotros");
+        return redirect()->route('home')->with('status',"Vuelva pronto, espero que haya sido grata su experiencia con nosotros");
     }
 }

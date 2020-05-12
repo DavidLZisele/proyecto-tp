@@ -233,8 +233,7 @@ $usuario = Auth::user();
               }
              if(resp1)
                  {
-                   event.preventDefault();
-                   toastr.error('Campo vacio');
+
                 } else if(resp2)
                 {
                     event.preventDefault();
