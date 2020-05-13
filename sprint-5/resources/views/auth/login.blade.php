@@ -34,7 +34,7 @@
                                 </span>
                             @enderror
                     
-                            <input type="checkbox" name="recordar"  value="true" class="recordarme-login"> 
+                            <input type="checkbox" name="remember"  value="true" class="recordarme-login"> 
                             <span class="recordarme-login">
                              Recordarme?
                             </span>  
