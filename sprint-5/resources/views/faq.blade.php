@@ -65,11 +65,11 @@
                 @csrf
                 <label for="email">Email</label>
                 <input class="col-10" type="email" name="email" id="email" value="{{old('email')}}" 
-                class="form-control @error('email') is-invalid @enderror" @error('email') placeholder="{{ $message }}"@enderror></textarea>
+                class="form-control @error('email') is-invalid @enderror" @error('email') placeholder="{{ $message }}"@enderror required>
 
             <label for="mensaje">Mensaje</label>
             <textarea class="col-10" name="mensaje" id="mensaje" value="{{old('mensaje')}}" cols="30" rows="7" class="form-control @error('mensaje') is-invalid @enderror"
-            @error('mensaje') placeholder="{{ $message }}"@enderror></textarea>
+            @error('mensaje') placeholder="{{ $message }}"@enderror required></textarea>
                 <br>
                 <button class=" col-10" type="submit">Enviar</button>
  

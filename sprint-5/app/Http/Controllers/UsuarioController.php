@@ -32,7 +32,7 @@ class UsuarioController extends Controller
             return redirect()->route('categoria.index');
        } else 
        {
-           return redirect()->route('datos.index')->with('status',"Error al cambiar la password");
+           return redirect()->route('datos.index')->with('status',"Error al cambiar la contraseña");
        }       
     }
     protected function index()

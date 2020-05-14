@@ -163,21 +163,21 @@ $usuario = Auth::user();
         @method('PUT')
             <div>
                 <p>
-                <input type="password" name="password1" id="password1" value="" placeholder ="Contraseña actual">
+                <input type="password" name="password1" id="password1" value="" placeholder ="Contraseña actual" required>
                 </p>
                  <p>
-                 <input type="password" name="password2" id="password1" value="" placeholder ="Contraseña nueva">
+                 <input type="password" name="password2" id="password1" value="" placeholder ="Contraseña nueva" required>
                  </p>
                  <p>
-                 <input type="password" name="password3" id="password1" value="" placeholder ="Confirmar contraseña">
+                 <input type="password" name="password3" id="password1" value="" placeholder ="Confirmar contraseña" required>
                  </p>
                  <p>
                      <button style="background-color:#607d8b; border:solid 1px #607d8b;";type="submit" name="cambiarcontraseña" id="cambiarcontraseña">Aceptar</button>
                      <br>
                    
                      @if(session('status'))
-                     <p style="color:red">
-                      {{session('status')}}
+                     <p style="color:red" class="{{session('status')}}" id="error-password">
+                      
                      </p>
                     
                      @endif
@@ -390,7 +390,7 @@ $usuario = Auth::user();
            }
            document.querySelector('.form-eliminar-usuario').onsubmit = function(e)
            {
-             if(!confirm('Estas seguro de eliminar tu cuenta?'))
+             if(!confirm('¿Estas seguro de que deseas eliminar tu cuenta?'))
              {
                e.preventDefault();
              }
@@ -414,6 +414,12 @@ $usuario = Auth::user();
 
              }
            }
+
+        const errorPassword = document.getElementById('error-password');
+        if(errorPassword){
+          const txt = errorPassword.getAttribute('class');
+          toastr.error(txt);
+        }
       }
     </script>
 @endsection
