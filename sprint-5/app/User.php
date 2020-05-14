@@ -85,4 +85,54 @@ class User extends Authenticatable
         }
         return $usuariosBloqueados;
     }
+    public function amigos()
+    {
+        $amigos = [];
+        foreach($this->amigosMiSolicitud as $amigo)
+            {
+             $amigos[] = $amigo;
+            }
+        foreach($this->amigosSuSolicitud as $amigo)
+            {
+             $amigos[] = $amigo;
+            }
+            return $amigos;
+    }
+    public function posteosUsers()
+    {
+        $posteos = [];
+        foreach ($this->amigos() as $amigo) {
+        foreach($amigo->posteos as $posteo)
+            {
+                $posteos[] = $posteo;
+            }
+        }
+        foreach ($this->posteos as $posteo) {
+                 $posteos[] = $posteo;
+         }
+     $posteos = collect($posteos)->sortByDesc('created_at');
+     return $posteos;
+    }
+    public function buscarPosteoAmigo($posteo_id)
+  {
+      foreach($this->amigos() as $amigo)
+      {
+        if($amigo->id == $posteo_id)
+        {
+          return $amigo;
+        }
+      }
+      return null;     
+  }
+  public function buscarLike($posteo)
+  {
+    foreach($posteo->likes as $like)
+    {
+      if($like->id_user == $this->id)
+      {
+        return $like;
+      }
+    }
+    return null;
+  }
 }

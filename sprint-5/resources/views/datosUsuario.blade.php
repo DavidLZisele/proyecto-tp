@@ -1,6 +1,6 @@
 @extends('layouts.head')
 
-@section('funciones')
+@section('usuario')
 <?php
 $usuario = Auth::user();
 ?>

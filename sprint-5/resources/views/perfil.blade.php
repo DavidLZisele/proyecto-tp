@@ -1,50 +1,7 @@
 @extends('layouts.head')
-@section('funciones')
+@section('usuario')
 <?php
  $usuario = Auth::user();
-
- $amigos = [];
-  foreach($usuario->amigosMiSolicitud as $amigo)
-  {
-    $amigos[] = $amigo;
-  }
-  foreach($usuario->amigosSuSolicitud as $amigo)
-  {
-    $amigos[] = $amigo;
-  }
-  $posteos = [];
-  foreach ($amigos as $amigo) {
-    foreach($amigo->posteos as $posteo)
-    {
-      $posteos[] = $posteo;
-    }
-  }
-  foreach ($usuario->posteos as $posteo) {
-    $posteos[] = $posteo;
-  }
-  $posteos = collect($posteos)->sortByDesc('updated_at');
-  function buscarPosteoAmigo($posteo_id, $amigos)
-  {
-      foreach($amigos as $amigo)
-      {
-        if($amigo->id == $posteo_id)
-        {
-          return $amigo;
-        }
-      }
-      return null;     
-  }
-  function buscarLike($posteo,$usuario)
-  {
-    foreach($posteo->likes as $like)
-    {
-      if($like->id_user == $usuario->id)
-      {
-        return $like;
-      }
-    }
-    return null;
-  }
 ?>
 @endsection
 @section('title')
@@ -187,7 +144,7 @@ Perfil
               <button onclick="myFunction('Demo1')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-circle-o-notch fa-fw w3-margin-right"></i> Mis Grupos</button>
               <button onclick="myFunction('Demo4')" class="w3-button w3-block -l1 w3-left-align"><i class="fa fa-users fa-fw w3-margin-right"></i> Mis Amigos</button>
               <div id="Demo4" class="w3-hide w3-container">
-                @foreach($amigos as $amigo)
+                @foreach($usuario->amigos() as $amigo)
                 <div class="div-amigo" class="col-12">
                   <div>
                     <img src="/storage/{{$amigo->photo}}" alt="" class="rounded-circle">
@@ -366,7 +323,7 @@ Perfil
        <article class="publicaciones-perfil"> 
          
          @if($usuario->admin != 1)
-         @foreach($posteos as $posteo)
+         @foreach($usuario->posteosUsers() as $posteo)
            @if($posteo->id_user == $usuario->id)
 
             <div class="pp">
@@ -441,7 +398,7 @@ Perfil
            </div>
            @endif
            <div class="interaccion-publicacion">
-            @if(buscarLike($posteo,$usuario) == null)
+            @if($usuario->buscarLike($posteo) == null)
             <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
              @csrf
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
@@ -538,7 +495,7 @@ Perfil
                   </form>
               </div>
               @else 
-             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
+             <form action="{{route('like.destroy',$usuario->buscarLike($posteo))}}" method="POST" class="form-like-comentar">
                @csrf 
                @method('delete')
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
@@ -648,10 +605,10 @@ Perfil
             <div class="pp">
               <div class="foto-nombre">
                 <figure class="user-public">
-                  <img src="storage/{{buscarPosteoAmigo($posteo->id_user,$amigos)->photo}}" alt="">
+                  <img src="/storage/{{$usuario->buscarPosteoAmigo($posteo->id_user)->photo}}" alt="">
                 </figure>
                 <span class="nombre-usuario">
-                  {{buscarPosteoAmigo($posteo->id_user,$amigos)->name}} {{buscarPosteoAmigo($posteo->id_user,$amigos)->surname}}
+                  {{$usuario->buscarPosteoAmigo($posteo->id_user)->name}} {{$usuario->buscarPosteoAmigo($posteo->id_user)->surname}}
                 </span>
                 <span id="categoria-posteo">
                    {{$posteo->categoria->descripcion}}
@@ -670,7 +627,7 @@ Perfil
            </div>
            @endif
            <div class="interaccion-publicacion separar amigo">
-            @if(buscarLike($posteo,$usuario) == null)
+            @if($usuario->buscarLike($posteo) == null)
             <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
              @csrf
                     <input type="hidden" name="iduser" value="{{$usuario->id}}">
@@ -766,7 +723,7 @@ Perfil
                   </form>
               </div>
               @else 
-             <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
+             <form action="{{route('like.destroy',$usuario->buscarLike($posteo))}}" method="POST" class="form-like-comentar">
                @csrf 
                @method('delete')
                     <input type="hidden" name="idposteo" value="{{$posteo->id}}">
@@ -894,7 +851,7 @@ Perfil
        </div>
        @endif
        <div class="interaccion-publicacion">
-        @if(buscarLike($posteo,$usuario) == null)
+        @if($usuario->buscarLike($posteo) == null)
         <form action="{{route('like.store')}}" method="POST" class="form-like-comentar">
          @csrf
                 <input type="hidden" name="iduser" value="{{$usuario->id}}">
@@ -977,7 +934,7 @@ Perfil
             
           </div>
           @else 
-         <form action="{{route('like.destroy',buscarLike($posteo,$usuario))}}" method="POST" class="form-like-comentar">
+         <form action="{{route('like.destroy',$usuario->buscarLike($posteo))}}" method="POST" class="form-like-comentar">
            @csrf 
            @method('delete')
                 <input type="hidden" name="idposteo" value="{{$posteo->id}}">
