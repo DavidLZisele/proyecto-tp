@@ -168,11 +168,41 @@ class UsuarioController extends Controller
     }
     public function bloquearAmigo()
     {
+        $usuario = Auth::user();
         $amigos = Amigos::where('id_user',"=", request()->id_user)->where('id_amigo',"=",request()->id_amigo)->get();
         if($amigos->isEmpty())
         {
             $amigos= Amigos::where('id_amigo',"=", request()->id_user)->where('id_user',"=",request()->id_amigo)->get();
         }
+        foreach($usuario->posteos as $posteo) 
+            {
+                foreach($posteo->comentarios as $comentario)
+                {
+                    if($comentario->id_user == $amigos->first()->id_user || $comentario->id_user == $amigos->first()->id_amigo)
+                    {
+                        $comentario->delete();
+                    }
+                }
+               
+            }
+            if($amigos->first()->id_user == $usuario->id)
+            {
+                $amigo = User::find($amigos->first()->id_amigo);
+            } else 
+            {
+                $amigo = User::find($amigos->first()->id_user);
+            }
+            foreach($amigo->posteos as $posteo) 
+            {
+                foreach($posteo->comentarios as $comentario)
+                {
+                    if($comentario->id_user == $amigos->first()->id_user || $comentario->id_user == $amigos->first()->id_amigo)
+                    {      
+                        $comentario->delete();
+                    }
+                }
+               
+            }
         $amigos->first()->update([
             'bloqueado'=> request()->id_amigo
         ]);
