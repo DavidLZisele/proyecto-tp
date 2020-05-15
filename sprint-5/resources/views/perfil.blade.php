@@ -1283,6 +1283,8 @@ Perfil
    }
    for(let div of Array.from(document.querySelectorAll('.div-amigo'))) 
    {
+     if(div.querySelector('i')!=null)
+     {
       div.querySelector('i').onclick = function()
       {
         div.querySelector('li').classList.toggle('li-abrir');
@@ -1291,6 +1293,8 @@ Perfil
         this.classList.toggle('i-mover');
         div.querySelector('div').classList.toggle('div-mover');
       }
+     }
+      
    }
    document.querySelector('#a-not-user').onblur =function()
    {
@@ -1423,7 +1427,7 @@ Perfil
         }
       }
     }
-    for(let form of Array.from(document.querySelector('.div-act-comentario')))
+    for(let form of Array.from(document.querySelectorAll('.div-act-comentario')))
     {
       if( form.querySelector('.text-comentario')!=null)
       {
