@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function(){
     Route::put('amigo/bloquear', "UsuarioController@bloquearAmigo")->name('datos.bloquearAmigo');
     Route::post('comentario/store', "ComentarioController@store")->name('comentario.store');
 
+
     Route::delete('usuario/{usuario}/destroy', "UsuarioController@destroy")->name('usuario.destroy');
     Route::put('comentario/{comentario}/update', "ComentarioController@update")->name('comentario.update');
     Route::delete('comentario/{comentario}/destroy', "ComentarioController@destroy")->name('comentario.destroy');
