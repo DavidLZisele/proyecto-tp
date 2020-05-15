@@ -77,7 +77,7 @@ Perfil
               <form action="{{route('datos.cambiarFoto', $usuario)}}" method = "POST" enctype="multipart/form-data" class="form-btn-actualizar-foto form-cerrar">
                 @csrf 
                 @method('PUT')
-                <input type="file" name="cambiar-foto" id="">
+                <input type="file" name="cambiar-foto" id="" required>
                 <button class="btn-subir-foto-nueva"><i class="fa fa-camera" aria-hidden="true"></i>
                 </button>
               </form>
@@ -234,7 +234,7 @@ Perfil
                 <figure class="user-public ">
                   <img src="/storage/{{$usuario->photo}}" alt="">
                 </figure>
-                <input type="text" name="publicacion" id="form-control-public" class="publicacion  form-control @error('publicacion') is-invalid @enderror" placeholder="Hola {{$usuario->name}}, comparte algo con tus amigos!">
+                <input type="text" name="publicacion" id="form-control-public" class="publicacion  form-control @error('publicacion') is-invalid @enderror" placeholder="Hola {{$usuario->name}}, comparte algo con tus amigos!" required>
                 @error('publicacion')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -1041,7 +1041,7 @@ Perfil
             <div class="buscador">
             <form action="{{route('datos.insertSolicitud',$usuario)}}" method="POST" id="form-buscar-amigos">
               @csrf
-                <input type="email" name="amigo" id ="amigo" placeholder="Ingrese mail amigo" class="buscaramigo">
+                <input type="email" name="amigo" id ="amigo" placeholder=" Ingrese mail amigo" class="buscaramigo" required>
                 <button type="submit" name="buscaramigo" class="buscaramigo">Buscar</button>
                 @if(session('rechazado'))
                 <span id="mensaje-post-error" class="{{session('rechazado')}}">

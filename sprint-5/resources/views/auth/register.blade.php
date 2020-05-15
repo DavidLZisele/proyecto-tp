@@ -17,7 +17,7 @@
                 @csrf
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="email">Email</label>
-                    <input class="col-6 form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" value="{{old('email')}}">
+                    <input class="col-6 form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" value="{{old('email')}}" required>
                     
                         @error('email') 
                         <span class="invalid-feedback alerta" role="alert">
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="password">Contraseña</label>
-                <input class="col-6 form-control @error('password') is-invalid @enderror" type="password" name="password" id="password" value="{{old('password')}}">
+                <input class="col-6 form-control @error('password') is-invalid @enderror" type="password" name="password" id="password" value="{{old('password')}}" required>
                     
                         @error('password')
                         <span class="invalid-feedback alerta" role="alert">
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="name">Nombre</label>
-                <input class="col-6 form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{old('name')}}">
+                <input class="col-6 form-control @error('name') is-invalid @enderror" type="text" name="name" id="name" value="{{old('name')}}" required>
                     
                         @error('name')
                         <span class="invalid-feedback alerta" role="alert">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-12">
                     <label class="col-6" for="surname">Apellido</label>
-                <input class="col-6 form-control @error('surname') is-invalid @enderror" type="text" name="surname" id="surname" value="{{old('surname')}}">  
+                <input class="col-6 form-control @error('surname') is-invalid @enderror" type="text" name="surname" id="surname" value="{{old('surname')}}" required>  
                 
                         @error('surname')
                         <span class="invalid-feedback alerta" role="alert">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-8 col-md-6 col-xl-8 bloque-foto-perfil">   
                     <div class="bloque-foto col-6">
-                        <input class="col-12 foto_perfil form-control @error('photo') is-invalid @enderror" type="file" name="photo" id="foto-perfil-registro" > 
+                        <input class="col-12 foto_perfil form-control @error('photo') is-invalid @enderror" type="file" name="photo" id="foto-perfil-registro" required> 
                         <i class="fa fa-upload imagen-upload" aria-hidden="true"></i>
                          <p >
                             Foto
