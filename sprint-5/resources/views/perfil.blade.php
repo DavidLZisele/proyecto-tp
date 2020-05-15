@@ -58,7 +58,7 @@ Perfil
           <li class="nav-item dropdown">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button type="submit">
+                    <button type="submit" id="sign-out">
                       <i class="fa fa-sign-out" aria-hidden="true" style="font-size:25px" title="Deslogearse"></i>
                     </button>
                 </form>
