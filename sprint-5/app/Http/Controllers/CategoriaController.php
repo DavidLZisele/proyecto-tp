@@ -7,6 +7,7 @@ use App\Categoria;
 use App\Posteo;
 use Auth;
 use App\User;
+use App\Amigos;
 class CategoriaController extends Controller
 {
     protected function index()
@@ -15,7 +16,6 @@ class CategoriaController extends Controller
         $usuariosValidos = []; 
         if(Auth::user()->ciudad != "")
         {
-                
             $usuarios = User::where("ciudad","=", $usuario->ciudad)->where("id","!=",$usuario->id)->where("buscar","=", 1)->get();
             foreach($usuarios as $user)
             {  
@@ -25,6 +25,8 @@ class CategoriaController extends Controller
                     $resp4 = false;
                     $resp5 = false;
                     $resp6 = false;
+                    $resp7 = false;
+                    $resp8 = false;
                     foreach($usuario->amigosMiSolicitud as $amigo)
                     {
                         
@@ -61,14 +63,21 @@ class CategoriaController extends Controller
                         break;
                         }
                     }
-                    foreach($usuario->amigosSuSolicitudBloqueados as $amigo)
+                    foreach($usuario->meBloquearonConMiSolicitud as $amigo)
                     {
                     if($user->id == $amigo->id){
-                        $resp6 = true;
+                        $resp7 = true;
                         break;
                         }
                     }
-                    if(!$resp1 && !$resp2 && !$resp3 &&!$resp4 && !$resp5 && !$resp6)
+                    foreach($usuario->meBloquearonConSuSolicitud as $amigo)
+                    {
+                    if($user->id == $amigo->id){
+                        $resp8 = true;
+                        break;
+                        }
+                    }
+                    if(!$resp1 && !$resp2 && !$resp3 &&!$resp4 && !$resp5 && !$resp6  && !$resp7 && !$resp8)
                 {
                     $usuariosValidos[] = $user;
                 }

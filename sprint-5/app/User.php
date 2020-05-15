@@ -72,6 +72,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('bloqueado',"!=",0)->wherePivot('bloqueado','!=',$this->id);
     }
+    public function meBloquearonConMiSolicitud()
+    {
+        return $this->belongsToMany("App\User","amigos","id_user","id_amigo")->wherePivot('bloqueado','=',$this->id);
+    }
+    public function meBloquearonConSuSolicitud()
+    {
+        return $this->belongsToMany("App\User","amigos","id_amigo","id_user")->wherePivot('bloqueado','=',$this->id);
+    }
     public function bloqueados()
     {
         $usuariosBloqueados = [];
